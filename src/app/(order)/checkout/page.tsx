@@ -145,15 +145,24 @@ function Checkout() {
         })
         .catch((error) => {
           if (error instanceof AxiosError) {
-            toast.error(error.response?.data?.message);
-            setEmailError(
-              error.response?.data?.message?.errors[0]?.instance?.message
-            );
+            const errorMessage = error?.response?.data?.message;
+            const firstErrorMessage = errorMessage?.errors?.[0]?.message;
+        
+            if (firstErrorMessage) {
+              toast.error(firstErrorMessage);
+              setEmailError(firstErrorMessage);
+            } else {
+              // Fallback error message if the specific error is not found
+              toast.error(errorMessage || "An error occurred while processing your request.");
+            }
           } else if (error?.response?.status === 400) {
             toast.error("This Email or Phone already used in another account!");
+          } else {
+            // Handle other types of errors
+            toast.error("An unexpected error occurred.");
           }
           setIsLoading(false);
-          console.log("error : ", error);
+          console.log("error:", error);
         });
     }
   };
@@ -487,7 +496,7 @@ function Checkout() {
                         />
                         <label
                           className="font-gotham font-normal text-xs black-text ml-1"
-                          htmlFor="cash"
+                          htmlFor="cashOnDelivery"
                         >
                           Cash on Delivery
                         </label>
@@ -503,7 +512,7 @@ function Checkout() {
                         />
                         <label
                           className="font-gotham font-normal text-xs black-text ml-1"
-                          htmlFor="online"
+                          htmlFor="onlinePayment"
                         >
                           Online Payment
                         </label>
