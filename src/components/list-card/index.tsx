@@ -135,10 +135,10 @@ const ListCard: FC<IProps> = ({ product }) => {
         </Link>
         <div className="flex flex-wrap items-center mt-1 md:mt-3 review">
           <StarRating
-            rating={Math.round(product?.reviews[0]?.average_rating ?? 0)}
+            rating={Math.round(product?.reviews? product?.reviews[0]?.average_rating ?? 0 : 0)}
           />
           <span className="font-gotham font-normal w-full md:w-auto text-xs ml-0 md:ml-2">
-            Reviews ({Math.round(product?.reviews[0]?.average_rating ?? 0)})
+            Reviews ({Math.round(product?.reviews? product?.reviews[0]?.average_rating ?? 0 : 0)})
           </span>
         </div>
         {/*  <h4 className=" font-gotham font-medium text-xs black-text md:mt-9 mt-5">
