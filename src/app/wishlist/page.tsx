@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../utils/axiosInstance";
@@ -29,7 +29,7 @@ function WishlistPage() {
   const dispatch = useAppDispatch();
   const route = useRouter();
 
-  const getWishListItems = async () => {
+  const getWishListItems = useCallback(async () => {
     if (login?.accessToken) {
       try {
         const response = await axiosInstance.get(`/customers/wishlists`, {
@@ -37,7 +37,7 @@ function WishlistPage() {
             Authorization: `Bearer ${login?.accessToken}`,
           },
         });
-        if (response.status == 200) {
+        if (response.status === 200) {
           setWishListItems(response?.data);
           dispatch(setWishList(response?.data));
         }
@@ -50,7 +50,7 @@ function WishlistPage() {
         console.error("Error fetching data:", error);
       }
     }
-  };
+  }, [login?.accessToken, dispatch, route]);
 
   const handleRemoveItem = async (wishlistID: number, productID: number) => {
     if (login?.accessToken && login?.user?.id) {
@@ -63,8 +63,8 @@ function WishlistPage() {
             },
           }
         );
-        if (response.status == 200) {
-          toast.success("Item removed successfuly!");
+        if (response.status === 200) {
+          toast.success("Item removed successfully!");
           dispatch(
             removeFromWishList({
               product_id: productID,
@@ -87,6 +87,7 @@ function WishlistPage() {
       console.error("Error fetching product:", error);
     }
   };
+
   useEffect(() => {
     if (!login?.accessToken) {
       route.push("/login");

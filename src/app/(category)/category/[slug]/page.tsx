@@ -565,6 +565,8 @@ function Category() {
                                 camping_start_date={
                                   product.camping_start_date as string
                                 }
+                                camping_id={product.camping_id as number}
+                                camping_name={product.camping_name as string}
                               />
                             ))
                           ) : (
