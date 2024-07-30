@@ -69,7 +69,7 @@ const ViewTicket = () => {
           formData.append("image", image);
         }
         formData.append("parent_text_id", param?.slug?.toString());
-        formData.append("text_type", "reply");
+        formData.append("text_type", "query");
         formData.append("upload_preset", "w8omhp4w");
         const response = await axiosInstance.post(`/supports`, formData, {
           headers: {
@@ -108,14 +108,14 @@ const ViewTicket = () => {
                     messages?.map((message, index) =>
                       message.parent_text_id == 0 ||
                       message.user_id === login?.user?.id ? (
-                        <div className="py-2" key={index}>
-                          <p className=" font-gotham text-sm bg-hoverColor white-text inline-block px-2 py-1 rounded-md">
-                            {message?.details}
-                          </p>
-                        </div>
-                      ) : (
                         <div className="text-right py-2" key={index}>
-                          <p className=" font-gotham text-sm primary-bg white-text inline-block px-2 py-1 rounded-md">
+                        <p className=" font-gotham text-sm primary-bg white-text inline-block px-2 py-1 rounded-md">
+                          {message?.details}
+                        </p>
+                      </div>
+                      ) : (
+                         <div className="py-2" key={index}>
+                          <p className=" font-gotham text-sm bg-hoverColor white-text inline-block px-2 py-1 rounded-md">
                             {message?.details}
                           </p>
                         </div>

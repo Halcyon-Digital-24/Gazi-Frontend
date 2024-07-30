@@ -1,5 +1,5 @@
 "use client";
-import { API_ROOT } from "@/constant";
+import { API_ROOT, API_URL } from "@/constant";
 import { addToCart } from "@/redux/features/cart/cartSlice";
 import { addToCompare } from "@/redux/features/compare/compareSlice";
 import { addToWishList } from "@/redux/features/wish-list/wishListSlice";
@@ -16,6 +16,8 @@ import axiosInstance from "../../../utils/axiosInstance";
 import Button from "../button";
 import FormatPrice from "../price-formate";
 import "./index.scss";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface IProps {
   product_id: number;
@@ -31,7 +33,10 @@ interface IProps {
   productAttribute?: any[];
   camping_start_date?: string;
   camping_end_date?: string;
+  camping_name?: string;
+  camping_id?: number;
 }
+
 const ProductCard: React.FC<IProps> = ({
   image,
   title,
@@ -46,17 +51,48 @@ const ProductCard: React.FC<IProps> = ({
   quantity,
   camping_end_date,
   camping_start_date,
+  camping_name,
+  camping_id
 }) => {
   const { login } = useAppSelector((state) => state.login);
   const { data: compareItems } = useAppSelector((state) => state.compare);
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const [isCampaign, setIsCampaign] = useState(false);
 
-  /*  const isCampaign =
-    camping_start_date &&
-    camping_end_date &&
-    new Date(camping_start_date).getTime() <= Date.now() &&
-    new Date(camping_end_date).getTime() >= Date.now(); */
+  console.log('camping',camping_id);
+  
+  
+  useEffect(() => {
+    const checkCampaign = async () => {
+      if (camping_id) {
+        try {
+          const response = await axios.get<any>(`${API_URL}/campings/${camping_id}`);
+          const campaign = response.data.data;
+
+          const now = new Date();
+          const startDate = new Date(campaign.start_date);
+          const endDate = new Date(campaign.end_date);
+          
+          // const date = startDate <= now && endDate >= now;
+          // console.log(startDate, endDate);
+          if (startDate <= now && endDate >= now) {
+            setIsCampaign(true);
+          } else {
+            setIsCampaign(false);
+          }
+        } catch (error) {
+          console.error("Error fetching campaign details:", error);
+          setIsCampaign(false);
+        }
+      } else {
+        setIsCampaign(false);
+      }
+    };
+
+    checkCampaign();
+  }, [camping_id]);
+
 
   const handleBuyNow = (data: ICartItem) => {
     dispatch(addToCart(data));
@@ -107,9 +143,9 @@ const ProductCard: React.FC<IProps> = ({
   };
 
   return (
-    <div className="product-card group relative p-3  mt-2">
+    <div className="product-card group relative p-3 mt-2">
       <Link href={`/product/${url}`}>
-        <div className="flex justify-center items-center pt-2  image">
+        <div className="flex justify-center items-center pt-2 image">
           <Image
             className="mb-1"
             src={`${API_ROOT}/images/product/${image}`}
@@ -121,32 +157,32 @@ const ProductCard: React.FC<IProps> = ({
         </div>
       </Link>
 
-      <div className="text ">
-        <div className=" h-12 md:h-10 leading-3 text-center">
+      <div className="text">
+        <div className="h-12 md:h-10 leading-3 text-center">
           <Link
             href={`/product/${url}`}
-            className=" font-gotham product-title font-medium text-center text-xs md:text-sm "
+            className="font-gotham product-title font-medium text-center text-xs md:text-sm"
           >
             {title?.substring(0, 44)}
           </Link>
         </div>
-        <p className=" mb-6 text-center text-sm h-5 mt-1">
+        <p className="mb-6 text-center text-sm h-5 mt-1">
           {Number(regular_price) && (
             <span
               className={`mr-3 font-gotham ${
                 Number(discount_price) > 0 &&
                 Number(discount_price) != Number(regular_price)
-                  ? "line-through font-medium "
+                  ? "line-through font-medium"
                   : "font-bold"
               } text-sm`}
             >
-              ৳ {FormatPrice(regular_price)}  
+              ৳ {FormatPrice(regular_price)}
             </span>
           )}
 
           {Number(discount_price) > 0 &&
             Number(discount_price) != Number(regular_price) && (
-              <span className=" font-gotham font-bold text-sm">
+              <span className="font-gotham font-bold text-sm">
                 ৳ {FormatPrice(discount_price)}
               </span>
             )}
@@ -159,14 +195,13 @@ const ProductCard: React.FC<IProps> = ({
                   {productAttribute && productAttribute.length > 0 ? (
                     <>
                       <Link href={`/product/${url}`}>
-                        <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px] ">
+                        <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px]">
                           View
                         </Button>
                       </Link>
                     </>
                   ) : (
                     <>
-                      {" "}
                       <Button
                         onClick={() =>
                           dispatch(
@@ -203,7 +238,7 @@ const ProductCard: React.FC<IProps> = ({
                             regular_price: Number(regular_price),
                           })
                         }
-                        className="font-gotham font-medium py-2 px-2 text-xs  w-[102px]"
+                        className="font-gotham font-medium py-2 px-2 text-xs w-[102px]"
                       >
                         Buy Now
                       </Button>
@@ -218,7 +253,7 @@ const ProductCard: React.FC<IProps> = ({
             </>
           )}
           {availability === 2 ? (
-            <Button className="font-gotham font-medium py-2 px-2 text-xs  w-[102px] stock-out">
+            <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px] stock-out">
               Out of Stock
             </Button>
           ) : null}
@@ -229,12 +264,12 @@ const ProductCard: React.FC<IProps> = ({
           )}
         </div>
       </div>
-      <div className=" absolute top-2 left-2">
+      <div className="absolute top-2 left-2">
         {((Number(regular_price) - Number(discount_price)) /
           Number(regular_price)) *
           100 !==
           0 && discount_price !== 0 ? (
-          <span className=" sudo inline-block discount font-gotham text-xs font-bold  px-2 py-1  rounded primary-text">
+          <span className="sudo inline-block discount font-gotham text-xs font-bold px-2 py-1 rounded primary-text">
             {(
               ((Number(regular_price) - Number(discount_price)) /
                 Number(regular_price)) *
@@ -244,16 +279,19 @@ const ProductCard: React.FC<IProps> = ({
           </span>
         ) : null}
         {isNew ? (
-          <span className=" sudo inline-block new font-gotham text-xs font-bold  px-2 py-1  rounded primary-text">
+          <span className="sudo inline-block new font-gotham text-xs font-bold px-2 py-1 rounded primary-text">
             New
           </span>
-        ) : (
-          <></>
-        )}
+        ) : null}
+        {isCampaign ? (
+          <span className="sudo inline-block new font-gotham text-xs font-bold px-2 py-1 rounded primary-text">
+            Campaign Offer
+          </span>
+        ) : null}
       </div>
-      <div className=" absolute  feature top-2 right-2">
+      <div className="absolute feature top-2 right-2">
         <div className="mb-1 cursor-pointer action-item" onClick={addWishList}>
-          <AiOutlineHeart className=" action-item-hover" />
+          <AiOutlineHeart className="action-item-hover" />
         </div>
         <div
           className="mb-1 cursor-pointer action-item"
@@ -271,7 +309,7 @@ const ProductCard: React.FC<IProps> = ({
             })
           }
         >
-          <BsArrowRepeat className=" action-item-hover" />
+          <BsArrowRepeat className="action-item-hover" />
         </div>
       </div>
     </div>

@@ -54,6 +54,8 @@ const Featured: FC<IProps> = ({ homeData, adsbanner, bannerUrl }) => {
                           camping_start_date={
                             product.camping_start_date as string
                           }
+                          camping_id={product.camping_id as number}
+                          camping_name={product.camping_name as string}
                         />
                       ))}
                     </div>
@@ -78,6 +80,8 @@ const Featured: FC<IProps> = ({ homeData, adsbanner, bannerUrl }) => {
                           camping_start_date={
                             product.camping_start_date as string
                           }
+                          camping_id={product.camping_id as number}
+                          camping_name={product.camping_name as string}
                         />
                       ))}
                     </div>
@@ -102,6 +106,8 @@ const Featured: FC<IProps> = ({ homeData, adsbanner, bannerUrl }) => {
                           camping_start_date={
                             product.camping_start_date as string
                           }
+                          camping_id={product.camping_id as number}
+                          camping_name={product.camping_name as string}
                         />
                       ))}
                     </div>

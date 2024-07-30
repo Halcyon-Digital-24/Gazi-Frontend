@@ -19,6 +19,8 @@ export type IProduct = {
   is_homepage?: boolean;
   camping_start_date?: string;
   camping_end_date?: string;
+  camping_name?: string | null;
+  camping_id?: number | null;
   policy: string;
   upload_by?: number;
   meta_title?: string;
