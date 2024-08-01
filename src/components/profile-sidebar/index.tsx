@@ -41,11 +41,11 @@ const ProfileSidebar = () => {
         </div>
       </div>
       <div className="mt-16 text-center ">
-        <div className="px-10">
-          <h3 className=" font-gotham font-medium text-base black-text">
+        <div className="text-center">
+          <h3 className=" font-gotham font-medium text-base black-text text-center">
             {login?.user?.name}
           </h3>
-          <p className=" font-gotham font-normal text-sm black-text secondary-bg mt-1">
+          <p className=" font-gotham font-normal text-sm black-text secondary-bg mt-1 text-center">
             {login?.user?.email}
           </p>
         </div>
