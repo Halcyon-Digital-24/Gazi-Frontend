@@ -16,22 +16,25 @@ const ProfilePagination: FC<IProps> = ({
   totalPage,
 }) => {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between items-center">
       {currentPage <= 1 ? (
-        <p>
-          <FaLongArrowAltLeft className=" opacity-60" />
+        <p aria-disabled="true">
+          <FaLongArrowAltLeft className="opacity-60" />
         </p>
       ) : (
-        <p className=" cursor-pointer" onClick={decrementPage}>
+        <p className="cursor-pointer" onClick={decrementPage}>
           <FaLongArrowAltLeft />
         </p>
       )}
+      <span>
+        Page {currentPage} of {totalPage}
+      </span>
       {totalPage <= currentPage ? (
-        <p>
-          <FaArrowRightLong className=" opacity-60" />
+        <p aria-disabled="true">
+          <FaArrowRightLong className="opacity-60" />
         </p>
       ) : (
-        <p className=" cursor-pointer" onClick={incrementPage}>
+        <p className="cursor-pointer" onClick={incrementPage}>
           <FaArrowRightLong />
         </p>
       )}

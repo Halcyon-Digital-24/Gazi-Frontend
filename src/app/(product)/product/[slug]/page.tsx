@@ -783,7 +783,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                           }}
                         >
                           {" "}
-                          <OutlineButton className="flex items-center font-gotham font-medium mr-2  outline-hidden">
+                          <OutlineButton className="flex items-center font-gotham font-medium mr-2  outline-hidden text-sm md:text-base">
                             <span>
                               <AiOutlineHeart className="mr-1 text-2xl" />
                             </span>
@@ -825,7 +825,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                             );
                           }}
                         >
-                          <OutlineButton className="flex items-center font-gotham font-medium text-sm  mr-2 outline-hidden">
+                          <OutlineButton className="flex items-center font-gotham font-medium text-sm md:text-base mr-2 outline-hidden">
                             <span>
                               <BsArrowRepeat className="mr-1 text-2xl" />
                             </span>
@@ -834,7 +834,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                         </span>
 
                         <span className="mt-2 md:mt-0 share-item">
-                          <OutlineButton className="flex items-center font-gotham font-medium text-sm  mr-2 outline-hidden">
+                          <OutlineButton className="flex items-center font-gotham font-medium text-sm md:text-base mr-2 outline-hidden">
                             <span>
                               <AiOutlineShareAlt className="mr-1 text-2xl" />
                             </span>

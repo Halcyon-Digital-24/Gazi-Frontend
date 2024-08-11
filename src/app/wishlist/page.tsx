@@ -193,7 +193,7 @@ function WishlistPage() {
                           Add to Cart
                         </Button>
                       ) : item.availability === 2 ? (
-                        <Button className="px-4 py-1 font-gotham font-medium text-sm w-btn btn__disable">
+                        <Button className="px-4 py-1 font-gotham font-medium text-sm w-btn btn__disable stock-out">
                           Out of Stock
                         </Button>
                       ) : (

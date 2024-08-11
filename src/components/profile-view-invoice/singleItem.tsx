@@ -57,11 +57,19 @@ const singleItem = ({ product, serial }: { product: any; serial: number }) => {
       <td>
         {/* Attribute */}
         {product.product_attribute
-          ? JSON.parse(product.product_attribute).map((v: any, i: number) => (
-              <span className="variant" key={i}>
-                {`${i ? "," : ""}${v.attribute_name}`}
-              </span>
-            ))
+          ? <>
+            {
+              product.product_attribute.charAt(0) == '[' ?  //need to modify
+                JSON.parse(product.product_attribute).map(
+                  (v: any, i: number) => (
+                    <span className="variant" key={i}>
+                      {`${i ? "," : ""}${v.attribute_name}`}
+                    </span>
+                  )
+                )
+                : product.product_attribute
+            }
+          </>
           : "-"}
       </td>
       <td> {product.quantity}</td>

@@ -127,7 +127,7 @@ const OrderHistory = () => {
                       incrementPage={incrementPage}
                       decrementPage={decrementPage}
                       currentPage={page}
-                      totalPage={Math.floor(count / 10)}
+                      totalPage={Math.ceil(count / 10)}
                     />
                   </div>
                 )}
