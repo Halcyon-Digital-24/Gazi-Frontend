@@ -22,7 +22,7 @@ const Refund = () => {
       const getAllOrders = async () => {
         try {
           const response = await axiosInstance.get(
-            `/refunds?page=${page}&limit=10&customer_id=${login.user.id}`,
+            `customers/refunds?page=${page}&limit=10`,
             {
               headers: {
                 Authorization: `Bearer ${login?.accessToken}`,
@@ -30,8 +30,8 @@ const Refund = () => {
             }
           );
           if (response.status == 200) {
-            setTotal(response?.data?.data?.count);
-            setRefunds(response?.data?.data?.rows);
+            setTotal(response?.data?.data?.length);
+            setRefunds(response?.data?.data);
           }
         } catch (error) {
           console.log(error);

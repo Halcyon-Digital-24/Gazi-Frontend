@@ -26,14 +26,14 @@ const Conversations = () => {
     } else {
       route.push("/login");
     }
-  }, [login]);
+  }, [login, route]);
 
   useEffect(() => {
     if (login?.accessToken) {
       const getAllConversations = async () => {
         try {
           const response = await axiosInstance.get(
-            `/customers/querys?page${page}&limit=10`,
+            `/customers/querys?page=${page}&limit=10`,
             {
               headers: {
                 Authorization: `Bearer ${login?.accessToken}`,
@@ -50,7 +50,7 @@ const Conversations = () => {
       };
       getAllConversations();
     }
-  }, [login, page, route]);
+  }, [login, page]);
 
   return (
     <>
