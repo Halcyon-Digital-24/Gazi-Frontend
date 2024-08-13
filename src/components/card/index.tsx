@@ -60,9 +60,6 @@ const ProductCard: React.FC<IProps> = ({
   const dispatch = useAppDispatch();
   const [isCampaign, setIsCampaign] = useState(false);
 
-  console.log('camping',camping_id);
-  
-  
   useEffect(() => {
     const checkCampaign = async () => {
       if (camping_id) {
@@ -73,7 +70,7 @@ const ProductCard: React.FC<IProps> = ({
           const now = new Date();
           const startDate = new Date(campaign.start_date);
           const endDate = new Date(campaign.end_date);
-          
+
           // const date = startDate <= now && endDate >= now;
           // console.log(startDate, endDate);
           if (startDate <= now && endDate >= now) {
@@ -169,12 +166,11 @@ const ProductCard: React.FC<IProps> = ({
         <p className="mb-6 text-center text-sm h-5 mt-1">
           {Number(regular_price) && (
             <span
-              className={`mr-3 font-gotham ${
-                Number(discount_price) > 0 &&
+              className={`mr-3 font-gotham ${Number(discount_price) > 0 &&
                 Number(discount_price) != Number(regular_price)
-                  ? "line-through font-medium"
-                  : "font-bold"
-              } text-sm`}
+                ? "line-through font-medium"
+                : "font-bold"
+                } text-sm`}
             >
               ৳ {FormatPrice(regular_price)}
             </span>
@@ -193,14 +189,22 @@ const ProductCard: React.FC<IProps> = ({
               {quantity > 0 ? (
                 <>
                   {productAttribute && productAttribute.length > 0 ? (
-                    <>
+                    // Check if all attribute quantities are 0
+                    productAttribute && productAttribute.every(attr => attr.attribute_quantity === 0) ? (
+                      // All attributes are out of stock
+                      <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px] stock-out">
+                        Out of Stock
+                      </Button>
+                    ) : (
+                      // At least one attribute has quantity > 0
                       <Link href={`/product/${url}`}>
                         <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px]">
                           View
                         </Button>
                       </Link>
-                    </>
+                    )
                   ) : (
+                    // No attributes, just check the main quantity
                     <>
                       <Button
                         onClick={() =>
@@ -246,12 +250,14 @@ const ProductCard: React.FC<IProps> = ({
                   )}
                 </>
               ) : (
+                // Quantity is 0
                 <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px] stock-out">
                   Out of Stock
                 </Button>
               )}
             </>
           )}
+
           {availability === 2 ? (
             <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px] stock-out">
               Out of Stock
