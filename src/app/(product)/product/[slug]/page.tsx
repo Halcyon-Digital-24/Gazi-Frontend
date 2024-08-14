@@ -385,6 +385,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
           );
         } else {
           console.log("Status : ", response.status);
+          toast.warning(`${response.data.data}`);
         }
       } catch (error) {
         console.log(error);

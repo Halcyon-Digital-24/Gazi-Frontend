@@ -75,7 +75,8 @@ const ListCard: FC<IProps> = ({ product }) => {
             })
           );
         } else {
-          toast.warning('Item already added in your wish list!');
+          // toast.warning('Item already added in your wish list!');
+          toast.warning(`${response.data.data}`);
         }
       } catch (error) {
         console.log(error);

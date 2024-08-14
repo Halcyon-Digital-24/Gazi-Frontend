@@ -129,7 +129,8 @@ const ProductCard: React.FC<IProps> = ({
             })
           );
         } else {
-          console.log("Status : ", response.status);
+          console.log("Status : ", response.data);
+          toast.warning(`${response.data.data}`);
         }
       } catch (error) {
         console.log(error);

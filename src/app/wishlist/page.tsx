@@ -21,6 +21,7 @@ import axiosInstance from "../../../utils/axiosInstance";
 import "./page.scss";
 import { GoDotFill } from "react-icons/go";
 import { IService } from "@/types/service";
+import Link from "next/link";
 
 function WishlistPage() {
   const [keyPoints, setKeyPoints] = useState<IService[]>([]);
@@ -165,43 +166,71 @@ function WishlistPage() {
                     </p>
                   </div>
                   <div className="col-span-2 hidden md:block">
-                    <h3 className=" font-gotham font-medium text-sm">
-                      {item.availability === 1 ? "In Stock" : ""}
-                      {item.availability === 2 ? "Out of stock" : ""}
-                      {item.availability === 3 ? "Up Coming" : ""}
+                    <h3 className="font-gotham font-medium text-sm">
+                      {item.productAttribute && item.productAttribute.length > 0
+                        ? item.productAttribute.some((attr: { attribute_quantity: number; }) => attr.attribute_quantity > 0) && item.availability === 1
+                          ? "In Stock"
+                          : "Out of Stock"
+                        : item.availability === 1
+                          ? "In Stock"
+                          : item.availability === 2
+                            ? "Out of Stock"
+                            : item.availability === 3
+                              ? "Up Coming"
+                              : ""}
                     </h3>
+
                   </div>
                   <div className="md:col-span-1 col-span-2">
                     <div>
-                      {item.availability === 1 ? (
-                        <Button
-                        
-                          className="px-6 py-1 font-gotham font-medium text-sm w-btn"
-                          onClick={() =>
-                            dispatch(
-                              addToCart({
-                                product_id: Number(item.id),
-                                price: item.discount_price,
-                                title: item.title,
-                                image: item.image,
-                                quantity: 1,
-                                regular_price: item.regular_price,
-                              })
-                            )
-                          }
-                        >
-                          Add to Cart
-                        </Button>
-                      ) : item.availability === 2 ? (
-                        <Button className="px-4 py-1 font-gotham font-medium text-sm w-btn btn__disable stock-out">
-                          Out of Stock
-                        </Button>
+                      {item.productAttribute && item.productAttribute.length > 0 ? (
+                        // Check if all attributes are out of stock
+                        item?.productAttribute?.every((attr: { attribute_quantity: number; }) => attr?.attribute_quantity === 0) ? (
+                          <Button className="px-4 py-1 font-gotham font-medium text-sm w-btn btn__disable stock-out">
+                            Out of Stock
+                          </Button>
+                        ) : (
+                          // At least one attribute has stock, show "View"
+                          <Link href={`/product/${item.url}`}>
+                            <Button className="px-6 py-1 font-gotham font-medium text-sm w-btn">
+                              View
+                            </Button>
+                          </Link>
+                        )
                       ) : (
-                        <Button className="px-6 py-1 font-gotham font-medium text-sm w-btn">
-                          Up Coming
-                        </Button>
+                        // No attributes, fallback to standard availability logic
+                        <>
+                          {item.availability === 1 ? (
+                            <Button
+                              className="px-6 py-1 font-gotham font-medium text-sm w-btn"
+                              onClick={() =>
+                                dispatch(
+                                  addToCart({
+                                    product_id: Number(item.id),
+                                    price: item.discount_price,
+                                    title: item.title,
+                                    image: item.image,
+                                    quantity: 1,
+                                    regular_price: item.regular_price,
+                                  })
+                                )
+                              }
+                            >
+                              Add to Cart
+                            </Button>
+                          ) : item.availability === 2 ? (
+                            <Button className="px-4 py-1 font-gotham font-medium text-sm w-btn btn__disable stock-out">
+                              Out of Stock
+                            </Button>
+                          ) : (
+                            <Button className="px-6 py-1 font-gotham font-medium text-sm w-btn">
+                              Up Coming
+                            </Button>
+                          )}
+                        </>
                       )}
                     </div>
+
                   </div>
                 </div>
               ))}
