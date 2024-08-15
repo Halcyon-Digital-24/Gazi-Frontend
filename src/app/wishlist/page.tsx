@@ -167,8 +167,8 @@ function WishlistPage() {
                   </div>
                   <div className="col-span-2 hidden md:block">
                     <h3 className="font-gotham font-medium text-sm">
-                      {item.productAttribute && item.productAttribute.length > 0
-                        ? item.productAttribute.some((attr: { attribute_quantity: number; }) => attr.attribute_quantity > 0) && item.availability === 1
+                      {item.ProductAttribute && item.ProductAttribute.length > 0
+                        ? item.ProductAttribute.some((attr: { attribute_quantity: number; }) => attr.attribute_quantity > 0) && item.availability === 1
                           ? "In Stock"
                           : "Out of Stock"
                         : item.availability === 1
@@ -183,9 +183,9 @@ function WishlistPage() {
                   </div>
                   <div className="md:col-span-1 col-span-2">
                     <div>
-                      {item.productAttribute && item.productAttribute.length > 0 ? (
+                      {item.ProductAttribute && item.ProductAttribute.length > 0 ? (
                         // Check if all attributes are out of stock
-                        item?.productAttribute?.every((attr: { attribute_quantity: number; }) => attr?.attribute_quantity === 0) ? (
+                        item?.ProductAttribute?.every((attr: { attribute_quantity: number; }) => attr?.attribute_quantity === 0) ? (
                           <Button className="px-4 py-1 font-gotham font-medium text-sm w-btn btn__disable stock-out">
                             Out of Stock
                           </Button>

@@ -1183,7 +1183,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                       sort_description={product.sort_description}
                       availability={product.availability}
                       quantity={product.default_quantity}
-                      productAttribute={product["product-attributes"]}
+                      productAttribute={product.ProductAttribute}
                       camping_end_date={product.camping_end_date as string}
                       camping_start_date={product.camping_start_date as string}
                       camping_id={product.camping_id as number}

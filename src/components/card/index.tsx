@@ -169,9 +169,9 @@ const ProductCard: React.FC<IProps> = ({
             <span
               className={`mr-3 font-gotham ${Number(discount_price) > 0 &&
                 Number(discount_price) != Number(regular_price)
-                ? "line-through font-medium"
+                ? "line-through font-medium opacity-60 text-xs md:text-sm"
                 : "font-bold"
-                } text-sm`}
+                } text-sm md:text-base`}
             >
               ৳ {FormatPrice(regular_price)}
             </span>
@@ -179,7 +179,7 @@ const ProductCard: React.FC<IProps> = ({
 
           {Number(discount_price) > 0 &&
             Number(discount_price) != Number(regular_price) && (
-              <span className="font-gotham font-bold text-sm">
+              <span className="font-gotham font-bold text-sm md:text-base">
                 ৳ {FormatPrice(discount_price)}
               </span>
             )}

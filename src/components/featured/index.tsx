@@ -49,7 +49,7 @@ const Featured: FC<IProps> = ({ homeData, adsbanner, bannerUrl }) => {
                           sort_description={product.sort_description}
                           availability={product.availability}
                           quantity={product.default_quantity}
-                          productAttribute={product["product-attributes"]}
+                          productAttribute={product.ProductAttribute}
                           camping_end_date={product.camping_end_date as string}
                           camping_start_date={
                             product.camping_start_date as string
@@ -75,7 +75,7 @@ const Featured: FC<IProps> = ({ homeData, adsbanner, bannerUrl }) => {
                           sort_description={product.sort_description}
                           availability={product.availability}
                           quantity={product.default_quantity}
-                          productAttribute={product["product-attributes"]}
+                          productAttribute={product.ProductAttribute}
                           camping_end_date={product.camping_end_date as string}
                           camping_start_date={
                             product.camping_start_date as string
@@ -101,7 +101,7 @@ const Featured: FC<IProps> = ({ homeData, adsbanner, bannerUrl }) => {
                           sort_description={product.sort_description}
                           availability={product.availability}
                           quantity={product.default_quantity}
-                          productAttribute={product["product-attributes"]}
+                          productAttribute={product.ProductAttribute}
                           camping_end_date={product.camping_end_date as string}
                           camping_start_date={
                             product.camping_start_date as string
