@@ -51,7 +51,7 @@ const SearchArea = () => {
         {/* mobile search */}
         <input
           type="text"
-          className="block md:hidden px-1 w-full h-6 focus:outline-none border border-r-0 border-[#cccccc] font-gotham font-normal text-xs placeholder:font-gotham placeholder:text-xs"
+          className="block md:hidden px-1 w-full h-6 focus:outline-none border-[0.5px] border-r-0 border-[rgb(2,6,23)] font-gotham font-normal text-xs placeholder:font-gotham placeholder:text-xs"
           placeholder="Search for Products..."
           onChange={handleInputChange} // Handle input change
           value={searchValue} // Bind the input value to state
