@@ -75,7 +75,8 @@ const ListCard: FC<IProps> = ({ product }) => {
             })
           );
         } else {
-          toast.warning('Item already added in your wish list!');
+          // toast.warning('Item already added in your wish list!');
+          toast.warning(`${response.data.data}`);
         }
       } catch (error) {
         console.log(error);
@@ -254,8 +255,8 @@ const ListCard: FC<IProps> = ({ product }) => {
         </div>
         {product.availability === 1 ? (
           <>
-            {product["product-attributes"] &&
-            product["product-attributes"].length > 0 ? (
+            {product.ProductAttribute &&
+            product.ProductAttribute.length > 0 ? (
               <>
                 <Link href={`/product/${product.slug}`}>
                   <Button className="md:w-full px-3 md:px-0 font-gotham font-medium text-[14px] md:text-sm py-1 mt-4 product-btn">

@@ -385,6 +385,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
           );
         } else {
           console.log("Status : ", response.status);
+          toast.warning(`${response.data.data}`);
         }
       } catch (error) {
         console.log(error);
@@ -616,7 +617,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                                     key={i}
                                     className="flex items-center mb-1"
                                   >
-                                    <div className="font-gotham font-normal text-xs mr-2">
+                                    <div className="font-gotham font-bold text-xs mr-2">
                                       {key.replace("_", " ")} :{" "}
                                     </div>
                                     <div className="flex">
@@ -672,12 +673,14 @@ const PageDetails = ({ params: { slug } }: Props) => {
                         </div>
                       )}
                     {product?.product?.availability === 1 &&
-                      product?.product?.default_quantity > 0 && (
+                      product?.product?.default_quantity > 0 &&
+                      (!product?.productAttribute ||
+                        product?.productAttribute.some(attr => attr.attribute_quantity > 0)) && (
                         <div className="action">
-                          <div className="flex pt-5 font-gotham font-medium ">
-                            <div className="mr-2 flex items-center primary-text border ">
+                          <div className="flex pt-5 font-gotham font-medium">
+                            <div className="mr-2 flex items-center primary-text border">
                               <div
-                                className="quantity cursor-pointer white-hover-text primary-hover-bg "
+                                className="quantity cursor-pointer white-hover-text primary-hover-bg"
                                 onClick={decrement}
                               >
                                 <button>
@@ -688,7 +691,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                                 {quantity}
                               </div>
                               <div
-                                className="quantity cursor-pointer  white-hover-text primary-hover-bg"
+                                className="quantity cursor-pointer white-hover-text primary-hover-bg"
                                 onClick={increment}
                               >
                                 <button>
@@ -697,7 +700,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                               </div>
                             </div>
                             <Button
-                              className=" px-5 py-1 mr-2"
+                              className="px-5 py-1 mr-2"
                               onClick={() => {
                                 if (
                                   product?.productAttribute &&
@@ -724,7 +727,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                               Buy Now
                             </Button>
                             <Button
-                              className=" px-5 py-1"
+                              className="px-5 py-1"
                               onClick={() => {
                                 if (
                                   product?.productAttribute &&
@@ -744,8 +747,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                                     title: product.product.title,
                                     image: product.product.image,
                                     quantity: quantity,
-                                    regular_price:
-                                      product.product.regular_price,
+                                    regular_price: product.product.regular_price,
                                     attribute: selectedAttributes,
                                   })
                                 );
@@ -756,25 +758,29 @@ const PageDetails = ({ params: { slug } }: Props) => {
                           </div>
                         </div>
                       )}
-                    {(product?.product?.availability === 2 || (product?.product?.availability === 1 && product?.product?.default_quantity === 0)) &&  (
+
+                    {(product?.product?.availability === 2 ||
+                      (product?.product?.availability === 1 && product?.product?.default_quantity === 0) ||
+                      (product?.productAttribute && product.productAttribute.every(attr => attr.attribute_quantity === 0))) && (
                         <div className="pt-5">
                           <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px] stock-out">
                             Out of Stock
                           </Button>
                         </div>
                       )}
+
                     {product?.product?.availability === 3 && (
                       <div className="pt-5">
                         <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px]">
                           Up Coming
                         </Button>
                       </div>
-
                     )}
 
                     <div className="more-action pt-5">
                       <div className="flex flex-row items-center">
                         <span
+
                           onClick={() => {
                             return (
                               product?.product?.id &&
@@ -791,7 +797,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                           </OutlineButton>
                         </span>
                         <span
-                          className="mt-2 md:mt-0"
+
                           onClick={() => {
                             if (
                               product?.productAttribute &&
@@ -833,7 +839,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                           </OutlineButton>
                         </span>
 
-                        <span className="mt-2 md:mt-0 share-item">
+                        <span className="share-item">
                           <OutlineButton className="flex items-center font-gotham font-medium text-sm md:text-base mr-2 outline-hidden">
                             <span>
                               <AiOutlineShareAlt className="mr-1 text-2xl" />
@@ -874,13 +880,13 @@ const PageDetails = ({ params: { slug } }: Props) => {
                     </div>
 
                     <Link href='/Return-Refund'>
-                    <OutlineButton className="flex items-center font-gotham font-medium text-xs py-1 outline-hidden">
-                      <span className="mr-2">
-                        {/* <BsAwardFill /> */}
-                        <FaAward className="award" />
-                      </span>
-                      7 Days Replacement & 12 Month Free Service
-                    </OutlineButton>
+                      <OutlineButton className="flex items-center font-gotham font-medium text-xs py-1 outline-hidden">
+                        <span className="mr-2">
+                          {/* <BsAwardFill /> */}
+                          <FaAward className="award" />
+                        </span>
+                        7 Days Replacement & 12 Month Free Service
+                      </OutlineButton>
                     </Link>
                   </div>
                 </div>
@@ -1177,7 +1183,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                       sort_description={product.sort_description}
                       availability={product.availability}
                       quantity={product.default_quantity}
-                      productAttribute={product["product-attributes"]}
+                      productAttribute={product.ProductAttribute}
                       camping_end_date={product.camping_end_date as string}
                       camping_start_date={product.camping_start_date as string}
                       camping_id={product.camping_id as number}

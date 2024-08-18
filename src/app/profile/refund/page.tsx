@@ -30,8 +30,8 @@ const Refund = () => {
             }
           );
           if (response.status == 200) {
-            setTotal(response?.data?.data?.length);
-            setRefunds(response?.data?.data);
+            setTotal(response?.data?.data?.count);
+            setRefunds(response?.data?.data.rows);
           }
         } catch (error) {
           console.log(error);

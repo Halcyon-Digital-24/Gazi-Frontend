@@ -54,7 +54,7 @@ const MegaMenu = ({ menus }: IProps) => {
       <div className="py-2 shadow hidden md:block">
         <div className="container px-2 md:px-0">
           <div className="flex justify-between items-center">
-            <div className="flex">
+            <div className="flex items-center">
               {menus
                 ?.filter(
                   (parent) =>
@@ -69,7 +69,7 @@ const MegaMenu = ({ menus }: IProps) => {
                 .map((menu, index) => (
                   <div className="mr-2 text-left relative heading" key={index}>
                     <div
-                      className="py-2 md:cursor-pointer px-1 md:px-5 font-gotham font-medium text-[10px] md:text-sm flex justify-between items-center pr-5 group black-text hover-text-color transition-all"
+                      className="py-2 md:cursor-pointer  font-gotham font-medium text-[10px] md:text-sm flex justify-between items-center pr-5 group black-text hover-text-color transition-all"
                       onClick={() => {
                         if (menu.slug === "campaign") {
                           route.push(`/campaign`);
@@ -183,9 +183,9 @@ const MegaMenu = ({ menus }: IProps) => {
         <div className="container px-2">
           <div className="flex justify-between items-center">
             <div className="relative main-button">
-              <FaBars onClick={() => setMobileMenuOpen(!mobileMenuOpen)} />
+              <FaBars className="w-5 h-5" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} />
               {mobileMenuOpen && (
-                <div className="absolute white-bg mt-4 z-10 w-[180px] shadow">
+                <div className="absolute white-bg mt-[11px] z-10 w-[180px] shadow -ml-[6px] pl-[6px]">
                   {menus
                     ?.filter(
                       (parent) =>
