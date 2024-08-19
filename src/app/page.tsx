@@ -124,6 +124,7 @@ export default async function Home() {
               width={1800}
               height={500}
               quality={100}
+              loading="lazy"
               style={{ width: '100%', height: 'auto' }}
               className='h-auto'
             />

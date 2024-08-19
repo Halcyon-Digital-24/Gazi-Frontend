@@ -87,6 +87,7 @@ const CampaignPage = () => {
                       src={`${API_ROOT}/images/camping/${campaign.image}`}
                       width={1000}
                       height={300}
+                      loading="lazy"
                       style={{ width: '100%', height: 'auto' }}
                       alt={`campaign-banner-${index}`}
                     />

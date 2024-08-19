@@ -44,7 +44,8 @@ const Banner = ({ banners }: IProps) => {
                       width={2400}
                       height={500}
                       alt="banner"
-                      priority={true}
+                      loading="lazy"
+                      // priority={true}
                       style={{ width: '100%', height: 'auto' }}
                     />
                   </Link>

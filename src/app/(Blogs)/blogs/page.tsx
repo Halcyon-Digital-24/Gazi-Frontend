@@ -70,6 +70,7 @@ async function Blogs({
                 width={1200}
                 height={340}
                 quality={100}
+                loading="lazy"
                 style={{ width: '100%', height: 'auto' }}
                 alt="ads"
               />

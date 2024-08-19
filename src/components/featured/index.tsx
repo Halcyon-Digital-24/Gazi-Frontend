@@ -122,6 +122,7 @@ const Featured: FC<IProps> = ({ homeData, adsbanner, bannerUrl }) => {
                         width={100}
                         height={100}
                         quality={100}
+                        loading="lazy"
                         alt="ads"
                       />
                     </Link>

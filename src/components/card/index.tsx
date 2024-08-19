@@ -151,6 +151,7 @@ const ProductCard: React.FC<IProps> = ({
             width={220}
             height={210}
             quality={100}
+            loading="lazy"
             style={{ width: '100%', height: 'auto' }}
             alt="product"
           />
