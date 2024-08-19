@@ -208,3 +208,32 @@
     background: #92989d;
   }
 }
+.video-placeholder {
+  position: relative;
+  cursor: pointer;
+
+  .play-button-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .play-button {
+    font-size: 64px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    outline: none;
+  }
+}
+
+.no-thumbnail-placeholder {
+  background-color: #f0f0f0;
+}

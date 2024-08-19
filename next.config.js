@@ -19,7 +19,14 @@ const nextConfig = {
         port: "3001",
         pathname: "/**",
       },
+      // {
+      //   protocol: "http",
+      //   hostname: "img.youtube.com",
+      //   port: "",
+      //   pathname: "/**",
+      // },
     ],
+    domains: ["img.youtube.com"],
   },
 };
 
