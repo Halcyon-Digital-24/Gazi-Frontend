@@ -338,6 +338,23 @@ const PageDetails = ({ params: { slug } }: Props) => {
     ],
   };
 
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
+
+  // Extract video ID and generate thumbnail for YouTube videos
+  useEffect(() => {
+    if (product?.product?.video_url) {
+      const videoId = extractYouTubeId(product.product.video_url);
+      if (videoId) {
+        setThumbnailUrl(`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`);
+      }
+    }
+  }, [product?.product?.video_url]);
+
+  const handlePlay = () => {
+    setIsPlaying(true);
+  };
+
   const handleSubmitQuestion = async (data: any) => {
     const { question, number } = data;
     const reviewData = {
@@ -481,7 +498,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
 
   if (!product) {
     return <CircleLoader />;
-  }
+  };
   return (
     <>
       {product && (
@@ -617,7 +634,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                                     key={i}
                                     className="flex items-center mb-1"
                                   >
-                                    <div className="font-gotham font-bold text-xs mr-2">
+                                    <div className="font-gotham font-bold primary-text text-xs mr-2">
                                       {key.replace("_", " ")} :{" "}
                                     </div>
                                     <div className="flex">
@@ -780,16 +797,14 @@ const PageDetails = ({ params: { slug } }: Props) => {
                     <div className="more-action pt-5">
                       <div className="flex flex-row items-center">
                         <span
-
                           onClick={() => {
                             return (
                               product?.product?.id &&
                               addWishList(product?.product?.id)
                             );
                           }}
-                        >
-                          {" "}
-                          <OutlineButton className="flex items-center font-gotham font-medium mr-2  outline-hidden text-sm md:text-base">
+                        >                          
+                          <OutlineButton className="flex items-center font-gotham font-medium outline-hidden text-sm px-0 pr-2 md:text-base">
                             <span>
                               <AiOutlineHeart className="mr-1 text-2xl" />
                             </span>
@@ -880,7 +895,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                     </div>
 
                     <Link href='/Return-Refund'>
-                      <OutlineButton className="flex items-center font-gotham font-medium text-xs py-1 outline-hidden">
+                      <OutlineButton className="flex items-center font-gotham font-medium text-xs py-1 pl-0 outline-hidden">
                         <span className="mr-2">
                           {/* <BsAwardFill /> */}
                           <FaAward className="award" />
@@ -1080,16 +1095,46 @@ const PageDetails = ({ params: { slug } }: Props) => {
                         </div>
                       </TabPanel>
                       <TabPanel>
-                        {product.product.video_url && (
-                          <iframe
-                            className="w-full h-[350px] md:h-[500px] lg:h-[700px]"
-                            height="700px"
-                            src={product.product.video_url}
-                            title="YouTube video player"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowFullScreen
-                          ></iframe>
-                        )}
+                        <div className="video-wrapper">
+                          {product.product.video_url && (
+                            <>
+                              {!isPlaying ? (
+                                <div
+                                  className="video-placeholder w-full h-[350px] md:h-[500px] lg:h-[700px]"
+                                  onClick={handlePlay}
+                                >
+                                  {thumbnailUrl ? (
+                                    <Image
+                                      src={thumbnailUrl}
+                                      alt="YouTube video thumbnail"
+                                      height={500}
+                                      width={500}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  ) : (
+                                    <div className="no-thumbnail-placeholder w-full h-full flex items-center justify-center bg-gray-200">
+                                      {/* Show a simple placeholder if no thumbnail */}
+                                      <span>Click to play video</span>
+                                    </div>
+                                  )}
+                                  <div className="play-button-overlay absolute inset-0 flex justify-center items-center">
+                                    <button className="play-button text-white text-6xl">▶</button>
+                                  </div>
+                                </div>
+                              ) : (
+                                <iframe
+                                  className="w-full h-[350px] md:h-[500px] lg:h-[700px]"
+                                  height="700px"
+                                  src={`${product.product.video_url}?autoplay=1`}
+                                  title="YouTube video player"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                  allowFullScreen
+                                  loading="lazy"
+                                ></iframe>
+                              )}
+                            </>
+                          )}
+                        </div>
                       </TabPanel>
                       <TabPanel>
                         <form onSubmit={handleSubmit(handleSubmitQuestion)}>
@@ -1223,3 +1268,10 @@ const PageDetails = ({ params: { slug } }: Props) => {
 };
 
 export default PageDetails;
+
+// Helper function to extract YouTube video ID
+const extractYouTubeId = (url: string): string | null => {
+  const regExp = /^.*(youtu.be\/|v\/|\/u\/\w\/|embed\/|watch\?v=|\&v=|watch\?vi=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return match && match[2].length === 11 ? match[2] : null;
+};
