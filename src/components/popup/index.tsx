@@ -49,7 +49,7 @@ const Popup: React.FC<PopupProps> = ({ popup_url }) => {
             alt="popup"
             width={500}
             height={500}
-            style={{ width: '100%', height: 'auto' }}
+            // style={{ width: '500px', height: '500px' }}
           />
         </div>
       </div>

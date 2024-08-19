@@ -1247,6 +1247,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                     alt="ads"
                     width={1300}
                     height={500}
+                    loading="lazy"
                     style={{ width: '100%', height: 'auto' }}
                   />
                 </div>

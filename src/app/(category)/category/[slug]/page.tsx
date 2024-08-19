@@ -419,6 +419,7 @@ function Category() {
                             width={1000}
                             height={300}
                             style={{ width: '100%', height: 'auto' }}
+                            loading="lazy"
                             alt="gazi category-banner"
                           />
                         </Link>
