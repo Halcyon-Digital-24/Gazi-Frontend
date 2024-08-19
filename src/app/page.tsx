@@ -118,11 +118,13 @@ export default async function Home() {
         <section className="promotion">
           <Link href={homeData?.homePage?.special_product_link ?? "/"}>
             <Image
+    
               src={`${API_ROOT}/images/home-page/${homeData?.homePage?.special_product_photo}`}
               alt="promotion banner"
               width={1800}
               height={500}
               quality={100}
+              style={{ width: '100%', height: 'auto' }}
               className='h-auto'
             />
           </Link>
@@ -219,12 +221,14 @@ export default async function Home() {
           <div className="container ">
             <Link href={addBanner?.data[0]?.url ?? "/"}>
               <Image
+      
                 className=" transition-all duration-100 hover:scale-[1.01] h-auto"
                 src={`${API_ROOT}/images/banner/${addBanner?.data[0]?.image}`}
                 alt="ads"
                 width={1300}
                 height={500}
                 quality={100}
+                style={{ width: '100%', height: 'auto' }}
               />
             </Link>
           </div>

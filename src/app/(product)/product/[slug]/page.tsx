@@ -539,6 +539,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                                 width={80}
                                 height={80}
                                 quality={100}
+                                style={{ width: '100%', height: 'auto' }}
                               />
                             </div>
                           ))}
@@ -803,7 +804,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                               addWishList(product?.product?.id)
                             );
                           }}
-                        >                          
+                        >
                           <OutlineButton className="flex items-center font-gotham font-medium outline-hidden text-sm px-0 pr-2 md:text-base">
                             <span>
                               <AiOutlineHeart className="mr-1 text-2xl" />
@@ -878,6 +879,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                                 src={`${API_ROOT}/images/key-point/${service.image}`}
                                 width={40}
                                 height={40}
+                                style={{ width: '100%', height: 'auto' }}
                                 alt="service"
                               />
                             </div>
@@ -1095,46 +1097,45 @@ const PageDetails = ({ params: { slug } }: Props) => {
                         </div>
                       </TabPanel>
                       <TabPanel>
-                        <div className="video-wrapper">
-                          {product.product.video_url && (
-                            <>
-                              {!isPlaying ? (
-                                <div
-                                  className="video-placeholder w-full h-[350px] md:h-[500px] lg:h-[700px]"
-                                  onClick={handlePlay}
-                                >
-                                  {thumbnailUrl ? (
-                                    <Image
-                                      src={thumbnailUrl}
-                                      alt="YouTube video thumbnail"
-                                      height={500}
-                                      width={500}
-                                      className="w-full h-full object-cover"
-                                    />
-                                  ) : (
-                                    <div className="no-thumbnail-placeholder w-full h-full flex items-center justify-center bg-gray-200">
-                                      {/* Show a simple placeholder if no thumbnail */}
-                                      <span>Click to play video</span>
-                                    </div>
-                                  )}
-                                  <div className="play-button-overlay absolute inset-0 flex justify-center items-center">
-                                    <button className="play-button text-white text-6xl">▶</button>
+                        {product?.product?.video_url && (
+                          <div className="video-wrapper">
+                            {!isPlaying ? (
+                              <div
+                                className="video-placeholder w-full h-[350px] md:h-[500px] lg:h-[700px]"
+                                onClick={handlePlay}
+                              >
+                                {thumbnailUrl ? (
+                                  <Image
+                                    src={thumbnailUrl}
+                                    alt="YouTube video thumbnail"
+                                    height={500}
+                                    width={500}                
+                                    className="w-full h-full object-cover"
+                                  />
+                                ) : (
+                                  <div className="no-thumbnail-placeholder w-full h-full flex items-center justify-center bg-gray-200">
+                                    {/* Show a simple placeholder if no thumbnail */}
+                                    <span>Loading thumbnail...</span>
                                   </div>
+                                )}
+                                <div className="play-button-overlay absolute inset-0 flex justify-center items-center">
+                                  <button className="play-button text-white text-6xl">▶</button>
                                 </div>
-                              ) : (
-                                <iframe
-                                  className="w-full h-[350px] md:h-[500px] lg:h-[700px]"
-                                  height="700px"
-                                  src={`${product.product.video_url}?autoplay=1`}
-                                  title="YouTube video player"
-                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                  allowFullScreen
-                                  loading="lazy"
-                                ></iframe>
-                              )}
-                            </>
-                          )}
-                        </div>
+                              </div>
+                            ) : (
+                              <iframe
+                                className="w-full h-[350px] md:h-[500px] lg:h-[700px]"
+                                height="700px"
+                                src={`${product.product.video_url}?autoplay=1`}
+                                title="YouTube video player"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
+                                loading="lazy"
+                              ></iframe>
+                            )}
+                          </div>
+                        )}
+
                       </TabPanel>
                       <TabPanel>
                         <form onSubmit={handleSubmit(handleSubmitQuestion)}>
@@ -1246,6 +1247,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                     alt="ads"
                     width={1300}
                     height={500}
+                    style={{ width: '100%', height: 'auto' }}
                   />
                 </div>
               )}

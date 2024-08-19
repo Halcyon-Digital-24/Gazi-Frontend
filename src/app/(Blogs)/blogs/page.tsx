@@ -64,11 +64,13 @@ async function Blogs({
           {adsBanner && (
             <Link href={adsBanner.url}>
               <Image
+      
                 className="w-full"
                 src={`${API_ROOT}/images/banner/${adsBanner.image}`}
                 width={1200}
                 height={340}
                 quality={100}
+                style={{ width: '100%', height: 'auto' }}
                 alt="ads"
               />
             </Link>

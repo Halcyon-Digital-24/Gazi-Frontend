@@ -82,10 +82,12 @@ const CampaignPage = () => {
                 {campaign && (
                   <div className="category-banner mb-5">
                     <Image
+            
                       className="w-full transition-all duration-200 hover:scale-[1.02] delay-100 h-auto rounded-lg"
                       src={`${API_ROOT}/images/camping/${campaign.image}`}
                       width={1000}
                       height={300}
+                      style={{ width: '100%', height: 'auto' }}
                       alt={`campaign-banner-${index}`}
                     />
                   </div>

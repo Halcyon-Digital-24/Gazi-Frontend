@@ -184,10 +184,12 @@ const CampaignDetailsPage = ({ params: { slug } }: Props) => {
         <div className="campaign-details">
           <div className="category-banner mb-5">
             <Image
+    
               className="w-full transition-all duration-200 hover:scale-[1.02] delay-100 h-auto rounded-md"
               src={`${API_ROOT}/images/camping/${campaign.image}`}
               width={1000}
               height={300}
+              style={{ width: '100%', height: 'auto' }}
               alt={`campaign-banner-${campaign.id}`}
             />
           </div>
@@ -332,8 +334,8 @@ const CampaignDetailsPage = ({ params: { slug } }: Props) => {
                         camping_start_date={
                           product.camping_start_date as string
                         }
-                       camping_id={product.camping_id as number}
-                       camping_name={product.camping_name as string}
+                        camping_id={product.camping_id as number}
+                        camping_name={product.camping_name as string}
                       />
                     ))
                   ) : (

@@ -19,6 +19,7 @@ const BlogSideCard: FC<IProps> = ({ blog }) => {
           src={`${API_ROOT}/images/blog/${blog.image}`}
           width={100}
           height={100}
+          style={{ width: '100%', height: 'auto' }}
           alt="blog"
         />
       </div>

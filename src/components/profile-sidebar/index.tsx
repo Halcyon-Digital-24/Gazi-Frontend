@@ -26,6 +26,7 @@ const ProfileSidebar = () => {
                 src={`${API_ROOT}/images/user/${login.user.image}`}
                 width={80}
                 height={80}
+                style={{ width: '100%', height: 'auto' }}
                 alt="profile"
               />
             ) : (
@@ -34,6 +35,7 @@ const ProfileSidebar = () => {
                 src={"/assets/images/icon/profile.png"}
                 width={80}
                 height={80}
+                style={{ width: '100%', height: 'auto' }}
                 alt="profile"
               />
             )}

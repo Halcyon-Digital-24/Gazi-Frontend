@@ -70,6 +70,7 @@ async function Videos({
                 src={`${API_ROOT}/images/banner/${adsBanner.image}`}
                 width={1200}
                 height={340}
+                style={{ width: '100%', height: 'auto' }}
                 alt="ads"
               />
             </Link>

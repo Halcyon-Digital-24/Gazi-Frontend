@@ -147,7 +147,7 @@ function Checkout() {
           if (error instanceof AxiosError) {
             const errorMessage = error?.response?.data?.message;
             const firstErrorMessage = errorMessage?.errors?.[0]?.message;
-        
+
             if (firstErrorMessage) {
               toast.error(firstErrorMessage);
               setEmailError(firstErrorMessage);
@@ -522,10 +522,12 @@ function Checkout() {
                       We Accept
                     </p>
                     <Image
+            
                       src={"/assets/images/service/payment_2.png"}
                       className="w-9/12 mt-2"
                       width={300}
                       height={100}
+                      style={{ width: '100%', height: 'auto' }}
                       alt="logo"
                     />
                   </Box>
