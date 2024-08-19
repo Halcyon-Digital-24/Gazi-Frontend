@@ -118,12 +118,14 @@ function Checkout() {
                               <RxCross2 className="text-sm " />
                             </span>
                           </div>
-                          <div className="w-[80px] mx-2 md:mx-9">
+                          <div className=" mx-2 md:mx-9">
                             <Image
+                    
                               className=" w-full object-cover"
                               src={`${API_ROOT}/images/product/${item.image}`}
-                              width={200}
-                              height={200}
+                              width={100}
+                              height={100}
+                              style={{ width: '100%', height: 'auto' }}
                               alt="product"
                             />
                           </div>
@@ -231,11 +233,13 @@ function Checkout() {
       ) : (
         <div className="container py-28 font-gotham text-center">
           <Image
+  
             className=" mx-auto"
             src="/assets/images/service/empty-cart.png"
             alt="empty-cart"
             width={100}
             height={100}
+            style={{ width: '100%', height: 'auto' }}
           />
           <p>Your cart is Empty</p>
           <Link href={`/`}>

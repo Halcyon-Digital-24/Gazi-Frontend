@@ -45,10 +45,12 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
             <div className=" col-span-6 md:col-span-4">
               <div className="shadow">
                 <Image
+        
                   className="w-full"
                   src={`${API_ROOT}/images/blog/${blogData.data?.image}`}
                   width={600}
                   height={600}
+                  style={{ width: '100%', height: 'auto' }}
                   alt="blog"
                 />
                 <div className=" p-4">
@@ -159,10 +161,12 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
                 <div key={index} className="flex mb-3 p-2 shadow">
                   <div className="w-[25%] mr-2">
                     <Image
+            
                       className="w-full"
                       src={`${API_ROOT}/images/blog/${blog.image}`}
                       width={100}
                       height={100}
+                      style={{ width: '100%', height: '100%' }}
                       alt="blog"
                     />
                   </div>

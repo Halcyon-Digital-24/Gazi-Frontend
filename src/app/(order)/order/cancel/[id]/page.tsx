@@ -28,10 +28,12 @@ const CancelOrder = ({ params: { id } }: Props) => {
       <div className="wrapper">
         <div className="icon">
           <Image
+  
             src={"/assets/images/payment/Canceled.png"}
             alt="success"
             width={400}
             height={400}
+            style={{ width: '100%', height: 'auto' }}
           />
         </div>
         <h2 className=" font-gotham font-medium title">Canceled !</h2>

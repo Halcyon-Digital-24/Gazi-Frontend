@@ -9,10 +9,12 @@ export default function Custom404() {
         <div className="container flex items-center min-h-screen px-6 py-12 mx-auto">
           <div className="flex flex-col items-center max-w-sm mx-auto text-center">
             <Image
+    
               className="w-[400px] h-[200px]"
-              width={200}
+              width={400}
               height={200}
-              alt="404"
+              style={{ width: '400px', height: '200px' }}
+              alt="not found"
               src={"/assets/images/404/error.png"}
               property="true"
             />

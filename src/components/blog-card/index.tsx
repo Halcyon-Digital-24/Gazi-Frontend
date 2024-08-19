@@ -22,6 +22,7 @@ const BlogCard: FC<IProps> = ({ className, blog }) => {
             src={`${API_ROOT}/images/blog/${blog.image}`}
             width={300}
             height={200}
+            style={{ width: '100%', height: 'auto' }}
             alt="gazi blog"
           />
         </Link>

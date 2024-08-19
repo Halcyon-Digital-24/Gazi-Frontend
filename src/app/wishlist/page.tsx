@@ -150,6 +150,7 @@ function WishlistPage() {
                           src={`${API_ROOT}/images/product/${item.image}`}
                           width={200}
                           height={200}
+                          style={{ width: '100%', height: 'auto' }}
                           alt="product"
                         />
                       </div>

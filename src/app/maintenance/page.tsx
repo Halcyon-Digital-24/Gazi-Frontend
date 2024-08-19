@@ -10,6 +10,7 @@ const Maintenance = () => {
         src={"/assets/images/icon/gear-rotation.svg"}
         width={800}
         height={800}
+        style={{ width: '100%', height: 'auto' }}
         alt="loader"
       />
 

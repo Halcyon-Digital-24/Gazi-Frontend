@@ -22,10 +22,12 @@ const ConfirmOrder = () => {
       <div className="wrapper">
         <div className="icon">
           <Image
+  
             src={"/assets/images/payment/Success.png"}
             alt="success"
             width={400}
             height={400}
+            style={{ width: '100%', height: 'auto' }}
           />
         </div>
         {/* <h2 className=" font-gotham font-medium title">Success</h2> */}

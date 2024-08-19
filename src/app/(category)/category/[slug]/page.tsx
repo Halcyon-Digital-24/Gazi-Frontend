@@ -413,10 +413,12 @@ function Category() {
                       <div className="">
                         <Link href={adsBanner.url}>
                           <Image
+                  
                             className="w-full  transition-all duration-100 hover:scale-[1.01] h-auto "
                             src={`${API_ROOT}/images/banner/${adsBanner?.image}`}
                             width={1000}
                             height={300}
+                            style={{ width: '100%', height: 'auto' }}
                             alt="gazi category-banner"
                           />
                         </Link>

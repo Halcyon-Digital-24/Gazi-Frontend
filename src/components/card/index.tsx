@@ -145,11 +145,13 @@ const ProductCard: React.FC<IProps> = ({
       <Link href={`/product/${url}`}>
         <div className="flex justify-center items-center pt-2 image">
           <Image
+  
             className="mb-1"
             src={`${API_ROOT}/images/product/${image}`}
             width={220}
             height={210}
             quality={100}
+            style={{ width: '100%', height: 'auto' }}
             alt="product"
           />
         </div>

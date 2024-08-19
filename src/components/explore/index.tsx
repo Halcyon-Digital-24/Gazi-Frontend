@@ -35,6 +35,7 @@ const ExploreCard: React.FC<IProps> = ({
           height={150}
           alt="explore"
           quality={100}
+          style={{ width: '100%', height: 'auto' }}
         />
         <p className=" mt-5 text-sm font-gotham font-medium font-sm uppercase">
           {item.title}
