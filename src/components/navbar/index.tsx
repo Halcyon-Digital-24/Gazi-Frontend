@@ -58,12 +58,12 @@ const Navbar = ({ logo }: { logo: string }) => {
           </div>
           <div className="w-[33%]">
             <div className="flex flex-row-reverse">
-              <Link className="link-item" href={"/profile"}>
+              <Link className="link-item" href={"/profile"} aria-label="profile">
                 <div className="link relative md:ml-6 ml-3">
                   <BiUserCircle className="text-2xl primary-text" />
                 </div>
               </Link>
-              <Link className="link-item" href={"/wishlist"}>
+              <Link className="link-item" href={"/wishlist"} aria-label="wishlist">
                 <div className="link relative md:ml-6 ml-3">
                   <AiOutlineHeart className="text-2xl primary-text" />
                   <div className="absolute bottom-0 right-0 w-4 h-4 rounded-full font-poppins font-normal text-xs white-text absolute-item translate-x-2/4 flex justify-center items-center">
@@ -71,7 +71,7 @@ const Navbar = ({ logo }: { logo: string }) => {
                   </div>
                 </div>
               </Link>
-              <Link className="link-item" href={"/cart"}>
+              <Link className="link-item" href={"/cart"} aria-label="cart">
                 <div className="link relative md:ml-6 ml-3">
                   <HiOutlineShoppingBag className="text-2xl primary-text" />
                   <div className="absolute bottom-0 right-0 w-4 h-4 rounded-full font-poppins font-normal text-xs white-text absolute-item translate-x-2/4 flex justify-center items-center">
@@ -79,7 +79,7 @@ const Navbar = ({ logo }: { logo: string }) => {
                   </div>
                 </div>
               </Link>
-              <Link className="link-item" href={"/compare"}>
+              <Link className="link-item" href={"/compare"} aria-label="compare">
                 <div className="link relative md:ml-6 ml-3">
                   <BsArrowRepeat className="text-2xl primary-text" />
                   <div className="absolute bottom-0 right-0 w-4 h-4 rounded-full font-poppins font-normal text-xs white-text absolute-item translate-x-2/4 flex justify-center items-center">
