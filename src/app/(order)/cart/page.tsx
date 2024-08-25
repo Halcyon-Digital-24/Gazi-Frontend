@@ -48,12 +48,12 @@ function Checkout() {
   return (
     <main>
       {cart.length > 0 ? (
-        <section className="cart-page">
+        <section className="cart-page py-5 md:py-20">
           <div className="container px-2 md:px-0">
             <div className="grid grid-cols-12 gap-6">
               {/* main content */}
               <div className=" col-span-12 md:col-span-8">
-                <div className="direction-area">
+                <div className="direction-area px-3 md:px-[42px] py-3 md:py-5">
                   <div className="flex justify-between item-wrapper">
                     <div className="flex items-center item flex-col">
                       <FaShoppingCart className="icon text-xl" />
@@ -77,28 +77,28 @@ function Checkout() {
                 </div>
 
                 <div className="cart-elements">
-                  <div className="grid grid-cols-8 gap-1 md:gap-4 product-title">
-                    <div className=" col-span-4 flex items-center justify-center">
+                  <div className="grid grid-cols-5 md:grid-cols-8 gap-1 md:gap-4 product-title">
+                    <div className="col-span-3 md:col-span-4 flex items-center justify-center">
                       <GoDotFill className="dot-icon" />
-                      <h3 className=" font-gotham font-medium text-base black-text text-center">
+                      <h3 className="font-gotham font-medium text-sm md:text-base black-text text-center">
                         Product
                       </h3>
                     </div>
-                    <div className="col-span-2 md:col-span-1 flex items-center ">
+                    <div className="col-span-1 md:col-span-1 flex items-center">
                       <GoDotFill className="dot-icon" />
-                      <h3 className=" font-gotham font-medium text-base black-text text-center">
+                      <h3 className="font-gotham font-medium text-sm md:text-base black-text text-center">
                         Price
                       </h3>
                     </div>
-                    <div className="col-span-2  items-center hidden md:flex">
+                    <div className="hidden md:flex md:col-span-2 items-center">
                       <GoDotFill className="dot-icon" />
-                      <h3 className=" font-gotham font-medium text-base black-text text-center">
+                      <h3 className="font-gotham font-medium text-sm md:text-base black-text text-center">
                         Quantity
                       </h3>
                     </div>
                     <div className="col-span-1 flex items-center">
                       <GoDotFill className="dot-icon" />
-                      <h3 className=" font-gotham font-medium text-base black-text text-center">
+                      <h3 className="font-gotham font-medium text-sm md:text-base black-text text-center">
                         Total
                       </h3>
                     </div>
@@ -106,22 +106,21 @@ function Checkout() {
                   {cart.map((item, index) => (
                     <div
                       key={index}
-                      className="grid grid-cols-8 gap-1 md:gap-4 items-center product-item"
+                      className="grid grid-cols-5 md:grid-cols-8 gap-1 md:gap-4 items-center product-item"
                     >
-                      <div className="col-span-4">
+                      <div className="col-span-3 md:col-span-4">
                         <div className="flex items-center">
                           <div
-                            className=" cursor-pointer"
+                            className="cursor-pointer"
                             onClick={() => dispatch(removeFromCart(item))}
                           >
                             <span>
-                              <RxCross2 className="text-sm " />
+                              <RxCross2 className="text-sm" />
                             </span>
                           </div>
-                          <div className=" mx-2 md:mx-9">
+                          <div className="mx-2 md:mx-9">
                             <Image
-                    
-                              className=" w-full object-cover"
+                              className="w-full object-cover"
                               src={`${API_ROOT}/images/product/${item.image}`}
                               width={100}
                               height={100}
@@ -130,72 +129,73 @@ function Checkout() {
                             />
                           </div>
                           <div>
-                            <h3 className=" font-gotham font-medium text-[11px] md:text-sm black-text">
+                            <h3 className="font-gotham font-medium text-[11px] md:text-sm black-text">
                               {item.title}
                             </h3>
                           </div>
                         </div>
                       </div>
-                      <div className="col-span-2 md:col-span-1">
-                        <p className=" font-gotham font-medium primary-text text-sm">
-                          {/* formate price */}৳ {FormatPrice(item.price)}
+                      <div className="col-span-1 md:col-span-1">
+                        <p className="font-gotham font-medium primary-text text-xs md:text-sm">
+                          ৳ {FormatPrice(item.price)}
                         </p>
                       </div>
-                      <div className="col-span-2 hidden md:block">
+                      <div className="hidden md:block md:col-span-2">
                         <div className="flex items-center">
                           <div
                             className="qnt-1"
                             onClick={() => dispatch(incrementQuantity(item))}
                           >
-                            <AiOutlinePlus className="text-sm" />
+                            <AiOutlinePlus className="text-xs md:text-sm" />
                           </div>
-                          <div className="qnt-1 px-4 font-gotham font-light text-sm">
+                          <div className="qnt-1 px-4 font-gotham font-light text-xs md:text-sm">
                             {item.quantity}
                           </div>
                           <div
                             className="qnt-1"
                             onClick={() => dispatch(decrementQuantity(item))}
                           >
-                            <AiOutlineMinus className="text-sm" />
+                            <AiOutlineMinus className="text-xs md:text-sm" />
                           </div>
                         </div>
                       </div>
-                      <div className=" col-span-2 md:col-span-1">
+                      <div className=" col-span-1 md:col-span-1">
                         <p className=" font-gotham font-medium primary-text text-sm">
                           ৳ {FormatPrice(item.price * item.quantity)}
                         </p>
                       </div>
-                      <div className=" flex justify-center col-span-8 md:hidden">
+                      <div className="flex justify-center col-span-6 md:hidden">
                         <div className="flex items-center">
                           <div
                             className="qnt-1"
                             onClick={() => dispatch(incrementQuantity(item))}
                           >
-                            <AiOutlinePlus className="text-sm" />
+                            <AiOutlinePlus className="text-xs md:text-sm" />
                           </div>
-                          <div className="qnt-1 px-4 font-gotham font-light text-sm">
+                          <div className="qnt-1 px-4 font-gotham font-light text-xs md:text-sm">
                             {item.quantity}
                           </div>
                           <div
                             className="qnt-1"
                             onClick={() => dispatch(decrementQuantity(item))}
                           >
-                            <AiOutlineMinus className="text-sm" />
+                            <AiOutlineMinus className="text-xs md:text-sm" />
                           </div>
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
+
               </div>
               {/* summery */}
               <div className=" col-span-12 md:col-span-4">
-                <div className="p-9 cart-summery">
+                <div className="p-3 md:p-9 cart-summery">
                   <h3 className="summery-border font-gotham font-medium text-base black-text pb-2">
                     Cart Summary
                   </h3>
 
-                  <div className="flex justify-between items-center mt-14 summery-border pb-3">
+                  <div className="flex justify-between items-center mt-3 md:mt-14 summery-border pb-3">
                     <p className=" font-gotham font-medium text-sm black-text">
                       Sub Total
                     </p>
@@ -203,24 +203,7 @@ function Checkout() {
                       ৳ {FormatPrice(sumWithInitial)}
                     </p>
                   </div>
-
-                  {/*   <div className="flex justify-between items-center mt-3 summery-border pb-3">
-                    <p className=" font-gotham font-medium text-sm black-text">
-                      Shipping
-                    </p>
-                    <p className=" font-gotham font-medium text-sm black-text">
-                      Free Shipping
-                    </p>
-                  </div> */}
-                  {/*   <div className="flex justify-between items-center mt-3">
-                    <p className=" font-gotham font-medium text-base black-text">
-                      Total
-                    </p>
-                    <p className=" font-gotham font-medium text-base primary-text">
-                      ৳ {sumWithInitial}
-                    </p>
-                  </div> */}
-                  <Link className=" mt-14 block" href={"/checkout"}>
+                  <Link className="mt-5 md:mt-14 block" href={"/checkout"}>
                     <Button className="w-full font-gotham font-medium text-lg py-1">
                       Continue to Shipping
                     </Button>
@@ -233,7 +216,7 @@ function Checkout() {
       ) : (
         <div className="container py-28 font-gotham text-center">
           <Image
-  
+
             className=" mx-auto"
             src="/assets/images/service/empty-cart.png"
             alt="empty-cart"

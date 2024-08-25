@@ -189,25 +189,24 @@ const ProductCard: React.FC<IProps> = ({
         <div className="flex justify-center">
           {availability === 1 && (
             <>
-              {quantity > 0 ? (
+              {productAttribute && productAttribute.length > 0 ? (
+                // Check if all attribute quantities are 0
+                productAttribute.every(attr => attr.attribute_quantity === 0) ? (
+                  <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px] stock-out">
+                    Out of Stock
+                  </Button>
+                ) : (
+                  // At least one attribute has quantity > 0
+                  <Link href={`/product/${url}`}>
+                    <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px]">
+                      View
+                    </Button>
+                  </Link>
+                )
+              ) : (
+                // No attributes, check the main quantity
                 <>
-                  {productAttribute && productAttribute.length > 0 ? (
-                    // Check if all attribute quantities are 0
-                    productAttribute && productAttribute.every(attr => attr.attribute_quantity === 0) ? (
-                      // All attributes are out of stock
-                      <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px] stock-out">
-                        Out of Stock
-                      </Button>
-                    ) : (
-                      // At least one attribute has quantity > 0
-                      <Link href={`/product/${url}`}>
-                        <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px]">
-                          View
-                        </Button>
-                      </Link>
-                    )
-                  ) : (
-                    // No attributes, just check the main quantity
+                  {quantity > 0 ? (
                     <>
                       <Button
                         onClick={() =>
@@ -250,28 +249,29 @@ const ProductCard: React.FC<IProps> = ({
                         Buy Now
                       </Button>
                     </>
+                  ) : (
+                    <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px] stock-out">
+                      Out of Stock
+                    </Button>
                   )}
                 </>
-              ) : (
-                // Quantity is 0
-                <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px] stock-out">
-                  Out of Stock
-                </Button>
               )}
             </>
           )}
 
-          {availability === 2 ? (
+          {availability === 2 && (
             <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px] stock-out">
               Out of Stock
             </Button>
-          ) : null}
+          )}
+
           {availability === 3 && (
             <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px]">
               Up Coming
             </Button>
           )}
         </div>
+
       </div>
       <div className="absolute top-2 left-2">
         {((Number(regular_price) - Number(discount_price)) /
@@ -310,11 +310,13 @@ const ProductCard: React.FC<IProps> = ({
               description: sort_description ?? "",
               image,
               title,
+              slug: url,
               regular_price: Number(regular_price),
               price: Number(discount_price),
-              quantity: 1,
+              default_quantity: quantity,
               rating: 5,
               availability: availability,
+              productAttribute: productAttribute,
             })
           }
         >

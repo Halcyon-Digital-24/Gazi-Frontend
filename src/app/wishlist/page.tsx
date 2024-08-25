@@ -169,16 +169,25 @@ function WishlistPage() {
                   <div className="col-span-2 hidden md:block">
                     <h3 className="font-gotham font-medium text-sm">
                       {item.ProductAttribute && item.ProductAttribute.length > 0
-                        ? item.ProductAttribute.some((attr: { attribute_quantity: number; }) => attr.attribute_quantity > 0) && item.availability === 1
-                          ? "In Stock"
+                        ? item.ProductAttribute.some((attr: { attribute_quantity: number }) => attr.attribute_quantity > 0)
+                          ? item.availability === 1
+                            ? "In Stock"
+                            : item.availability === 2
+                              ? "Out of Stock"
+                              : item.availability === 3
+                                ? "Up Coming"
+                                : ""
                           : "Out of Stock"
                         : item.availability === 1
-                          ? "In Stock"
+                          ? item.quantity > 0
+                            ? "In Stock"
+                            : "Out of Stock"
                           : item.availability === 2
                             ? "Out of Stock"
                             : item.availability === 3
                               ? "Up Coming"
                               : ""}
+
                     </h3>
 
                   </div>
@@ -186,13 +195,13 @@ function WishlistPage() {
                     <div>
                       {item.ProductAttribute && item.ProductAttribute.length > 0 ? (
                         // Check if all attributes are out of stock
-                        item?.ProductAttribute?.every((attr: { attribute_quantity: number; }) => attr?.attribute_quantity === 0) ? (
+                        item.ProductAttribute.every((attr: { attribute_quantity: number }) => attr.attribute_quantity === 0) ? (
                           <Button className="px-4 py-1 font-gotham font-medium text-sm w-btn btn__disable stock-out">
                             Out of Stock
                           </Button>
                         ) : (
                           // At least one attribute has stock, show "View"
-                          <Link href={`/product/${item.url}`}>
+                          <Link href={`/product/${item.slug}`}>
                             <Button className="px-6 py-1 font-gotham font-medium text-sm w-btn">
                               View
                             </Button>
@@ -202,23 +211,29 @@ function WishlistPage() {
                         // No attributes, fallback to standard availability logic
                         <>
                           {item.availability === 1 ? (
-                            <Button
-                              className="px-6 py-1 font-gotham font-medium text-sm w-btn"
-                              onClick={() =>
-                                dispatch(
-                                  addToCart({
-                                    product_id: Number(item.id),
-                                    price: item.discount_price,
-                                    title: item.title,
-                                    image: item.image,
-                                    quantity: 1,
-                                    regular_price: item.regular_price,
-                                  })
-                                )
-                              }
-                            >
-                              Add to Cart
-                            </Button>
+                            item.quantity > 0 ? (
+                              <Button
+                                className="px-6 py-1 font-gotham font-medium text-sm w-btn"
+                                onClick={() =>
+                                  dispatch(
+                                    addToCart({
+                                      product_id: Number(item.id),
+                                      price: item.discount_price > 0 ? item.discount_price : item.regular_price,
+                                      title: item.title,
+                                      image: item.image,
+                                      quantity: 1,
+                                      regular_price: item.regular_price,
+                                    })
+                                  )
+                                }
+                              >
+                                Add to Cart
+                              </Button>
+                            ) : (
+                              <Button className="px-4 py-1 font-gotham font-medium text-sm w-btn btn__disable stock-out">
+                                Out of Stock
+                              </Button>
+                            )
                           ) : item.availability === 2 ? (
                             <Button className="px-4 py-1 font-gotham font-medium text-sm w-btn btn__disable stock-out">
                               Out of Stock
@@ -231,6 +246,7 @@ function WishlistPage() {
                         </>
                       )}
                     </div>
+
 
                   </div>
                 </div>

@@ -136,10 +136,10 @@ const ListCard: FC<IProps> = ({ product }) => {
         </Link>
         <div className="flex flex-wrap items-center mt-1 md:mt-3 review">
           <StarRating
-            rating={Math.round(product?.reviews? product?.reviews[0]?.average_rating ?? 0 : 0)}
+            rating={Math.round(product?.reviews ? product?.reviews[0]?.average_rating ?? 0 : 0)}
           />
           <span className="font-gotham font-normal w-full md:w-auto text-xs ml-0 md:ml-2">
-            Reviews ({Math.round(product?.reviews? product?.reviews[0]?.average_rating ?? 0 : 0)})
+            Reviews ({Math.round(product?.reviews ? product?.reviews[0]?.average_rating ?? 0 : 0)})
           </span>
         </div>
         {/*  <h4 className=" font-gotham font-medium text-xs black-text md:mt-9 mt-5">
@@ -161,14 +161,16 @@ const ListCard: FC<IProps> = ({ product }) => {
                 description: product.sort_description ?? "",
                 image: product.image,
                 title: product.title,
+                slug: product?.slug,
                 regular_price: Number(product.regular_price),
                 price:
                   Number(product.discount_price) > 0
                     ? Number(product.discount_price)
                     : Number(product.regular_price),
-                quantity: 1,
+                    default_quantity: product.default_quantity,
                 rating: Math.round(product?.reviews[0]?.average_rating),
                 availability: product.availability,
+                productAttribute: product.productAttribute,
               })
             }
           >
@@ -190,56 +192,70 @@ const ListCard: FC<IProps> = ({ product }) => {
               Wishlist
             </p>
           </div>
-          <div className="flex items-center mr-2 mt-2 md:mt-0 cursor-pointer interaction">
-            <div className="icon-area p-1">
-              <AiOutlinePlus className=" text-xs icon" />
-            </div>
-            <p
-              className="font-gotham font-normal text-xs icon-title"
-              onClick={() =>
-                dispatch(
-                  addToCart({
-                    product_id: product.id,
-                    price:
-                      Number(product.discount_price) > 0
+          {!(product.ProductAttribute && product.ProductAttribute.some((attr: any) => attr.attribute_quantity > 0)) && (
+            <div className="flex items-center mr-2 mt-2 md:mt-0 cursor-pointer interaction">
+              <div className="icon-area p-1">
+                <AiOutlinePlus className="text-xs icon" />
+              </div>
+              <p
+                className="font-gotham font-normal text-xs icon-title"
+                onClick={() =>
+                  dispatch(
+                    addToCart({
+                      product_id: product.id,
+                      price: Number(product.discount_price) > 0
                         ? Number(product.discount_price)
                         : Number(product.regular_price),
-                    title: product.title,
-                    image: product.image,
-                    quantity: 1,
-                    regular_price: Number(product.regular_price),
-                  })
-                )
-              }
-            >
-              Add To Cart
-            </p>
-          </div>
+                      title: product.title,
+                      image: product.image,
+                      quantity: 1,
+                      regular_price: Number(product.regular_price),
+                    })
+                  )
+                }
+              >
+                Add To Cart
+              </p>
+            </div>
+          )}
+
         </div>
       </div>
       <div className="image w-[25%] relative">
         <h3 className="font-gotham font-medium stock pb-1 mb-4 pl-1 md:pl-0">
-          {" "}
-          {product.availability === 1
-            ? "In Stock"
-            : product.availability === 2
-            ? "Out of Stock"
-            : product.availability === 3
-            ? "Upcoming"
-            : "Not Available"}
+          {product.ProductAttribute && product.ProductAttribute.length > 0
+            ? product.ProductAttribute.some((attr: { attribute_quantity: number }) => attr.attribute_quantity > 0)
+              ? product.availability === 1
+                ? "In Stock"
+                : product.availability === 2
+                  ? "Out of Stock"
+                  : product.availability === 3
+                    ? "Up Coming"
+                    : ""
+              : "Out of Stock"
+            : product.availability === 1
+              ? product.default_quantity > 0
+                ? "In Stock"
+                : "Out of Stock"
+              : product.availability === 2
+                ? "Out of Stock"
+                : product.availability === 3
+                  ? "Up Coming"
+                  : ""}
+
         </h3>
         {
           product.discount_price > 0
-          &&Number(product?.discount_price) != Number(product?.regular_price)?
+            && Number(product?.discount_price) != Number(product?.regular_price) ?
             <h4
-            className={` font-gotham text-xs line-through font-normal black-text`}
-          >
-            ৳ {FormatPrice(product.regular_price)} 
-          </h4>:null
+              className={` font-gotham text-xs line-through font-normal black-text`}
+            >
+              ৳ {FormatPrice(product.regular_price)}
+            </h4> : null
         }
-       
+
         <div className="flex justify-between flex-wrap items-center">
-          {Number(product.regular_price)&& (
+          {Number(product.regular_price) && (
             <h3 className=" font-gotham font-medium text-base black-text">
               ৳ {FormatPrice(product.regular_price)}
             </h3>
@@ -255,26 +271,28 @@ const ListCard: FC<IProps> = ({ product }) => {
         </div>
         {product.availability === 1 ? (
           <>
-            {product.ProductAttribute &&
-            product.ProductAttribute.length > 0 ? (
-              <>
+            {product.ProductAttribute && product.ProductAttribute.length > 0 ? (
+              product.ProductAttribute.some((attr: any) => attr.attribute_quantity > 0) ? (
                 <Link href={`/product/${product.slug}`}>
                   <Button className="md:w-full px-3 md:px-0 font-gotham font-medium text-[14px] md:text-sm py-1 mt-4 product-btn">
                     View
                   </Button>
                 </Link>
-              </>
+              ) : (
+                <Button className="md:w-full px-3 md:px-0 font-gotham font-medium text-[14px] md:text-sm py-1 mt-4 product-btn stock-out">
+                  Out of Stock
+                </Button>
+              )
             ) : (
-              <>
+              product.default_quantity > 0 ? (
                 <Button
                   className="md:w-full px-3 md:px-0 font-gotham font-medium text-[14px] md:text-sm py-1 mt-4 product-btn"
                   onClick={() => {
                     handleBuyNow({
                       product_id: product.id,
-                      price:
-                        Number(product.discount_price) > 0
-                          ? Number(product.discount_price)
-                          : Number(product.regular_price),
+                      price: Number(product.discount_price) > 0
+                        ? Number(product.discount_price)
+                        : Number(product.regular_price),
                       title: product.title,
                       image: product.image,
                       quantity: 1,
@@ -284,7 +302,11 @@ const ListCard: FC<IProps> = ({ product }) => {
                 >
                   Buy Now
                 </Button>
-              </>
+              ) : (
+                <Button className="md:w-full px-3 md:px-0 font-gotham font-medium text-[14px] md:text-sm py-1 mt-4 product-btn stock-out">
+                  Out of Stock
+                </Button>
+              )
             )}
           </>
         ) : product.availability === 2 ? (
@@ -295,9 +317,9 @@ const ListCard: FC<IProps> = ({ product }) => {
           <Button className="md:w-full px-3 md:px-0 font-gotham font-medium text-[14px] md:text-sm py-1 mt-4 product-btn">
             Up Coming
           </Button>
-        ) : (
-          "Not Available"
-        )}
+        ) : null}
+
+
       </div>
       {isEmi && (
         <EmiPopup
