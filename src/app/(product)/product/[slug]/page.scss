@@ -203,9 +203,9 @@
   border: none ;
 }
 .stock-out {
-  background: #92989d;
+  background: #92989d !important;
   &:hover {
-    background: #92989d;
+    background: #92989d !important;
   }
 }
 .video-placeholder {

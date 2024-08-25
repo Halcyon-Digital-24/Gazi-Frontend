@@ -690,96 +690,167 @@ const PageDetails = ({ params: { slug } }: Props) => {
                           </>
                         </div>
                       )}
-                    {product?.product?.availability === 1 &&
-                      product?.product?.default_quantity > 0 &&
-                      (!product?.productAttribute ||
-                        product?.productAttribute.some(attr => attr.attribute_quantity > 0)) && (
-                        <div className="action">
-                          <div className="flex pt-5 font-gotham font-medium">
-                            <div className="mr-2 flex items-center primary-text border">
-                              <div
-                                className="quantity cursor-pointer white-hover-text primary-hover-bg"
-                                onClick={decrement}
-                              >
-                                <button>
-                                  <AiOutlineMinus />
-                                </button>
+                    {product?.product?.availability === 1 && (
+                      <div className="action">
+                        {product?.productAttribute && product.productAttribute.length > 0 ? (
+                          // Product has attributes
+                          product.productAttribute.some(attr => attr.attribute_quantity > 0) ? (
+                            // At least one attribute has stock
+                            <div className="flex pt-5 font-gotham font-medium">
+                              <div className="mr-2 flex items-center primary-text border">
+                                <div
+                                  className="quantity cursor-pointer white-hover-text primary-hover-bg"
+                                  onClick={decrement}
+                                >
+                                  <button>
+                                    <AiOutlineMinus />
+                                  </button>
+                                </div>
+                                <div className="quantity border-x-[1px] border-x-primary">
+                                  {quantity}
+                                </div>
+                                <div
+                                  className="quantity cursor-pointer white-hover-text primary-hover-bg"
+                                  onClick={increment}
+                                >
+                                  <button>
+                                    <AiOutlinePlus />
+                                  </button>
+                                </div>
                               </div>
-                              <div className="quantity border-x-[1px] border-x-primary">
-                                {quantity}
-                              </div>
-                              <div
-                                className="quantity cursor-pointer white-hover-text primary-hover-bg"
-                                onClick={increment}
-                              >
-                                <button>
-                                  <AiOutlinePlus />
-                                </button>
-                              </div>
-                            </div>
-                            <Button
-                              className="px-5 py-1 mr-2"
-                              onClick={() => {
-                                if (
-                                  product?.productAttribute &&
-                                  product?.productAttribute.length > 0 &&
-                                  selectedAttributes.length < 1
-                                ) {
-                                  toast.error("Please Select Variant");
-                                  return;
-                                }
-                                handleBuyNow({
-                                  product_id: Number(product.product.id),
-                                  price:
-                                    product.product.discount_price > 0
-                                      ? product.product.discount_price
-                                      : product.product.regular_price,
-                                  title: product.product.title,
-                                  image: product.product.image,
-                                  quantity: quantity,
-                                  regular_price: product.product.regular_price,
-                                  attribute: selectedAttributes,
-                                });
-                              }}
-                            >
-                              Buy Now
-                            </Button>
-                            <Button
-                              className="px-5 py-1"
-                              onClick={() => {
-                                if (
-                                  product?.productAttribute &&
-                                  product?.productAttribute.length > 0 &&
-                                  selectedAttributes.length < 1
-                                ) {
-                                  toast.error("Please Select Variant");
-                                  return;
-                                }
-                                dispatch(
-                                  addToCart({
+                              <Button
+                                className="px-5 py-1 mr-2"
+                                onClick={() => {
+                                  if (selectedAttributes.length < 1) {
+                                    toast.error("Please Select Variant");
+                                    return;
+                                  }
+                                  handleBuyNow({
                                     product_id: Number(product.product.id),
                                     price:
                                       product.product.discount_price > 0
                                         ? product.product.discount_price
-                                        : product?.product?.regular_price,
+                                        : product.product.regular_price,
                                     title: product.product.title,
                                     image: product.product.image,
                                     quantity: quantity,
                                     regular_price: product.product.regular_price,
                                     attribute: selectedAttributes,
-                                  })
-                                );
-                              }}
-                            >
-                              Add to Cart
+                                  });
+                                }}
+                              >
+                                Buy Now
+                              </Button>
+                              <Button
+                                className="px-5 py-1"
+                                onClick={() => {
+                                  if (selectedAttributes.length < 1) {
+                                    toast.error("Please Select Variant");
+                                    return;
+                                  }
+                                  dispatch(
+                                    addToCart({
+                                      product_id: Number(product.product.id),
+                                      price:
+                                        product.product.discount_price > 0
+                                          ? product.product.discount_price
+                                          : product.product.regular_price,
+                                      title: product.product.title,
+                                      image: product.product.image,
+                                      quantity: quantity,
+                                      regular_price: product.product.regular_price,
+                                      attribute: selectedAttributes,
+                                    })
+                                  );
+                                }}
+                              >
+                                Add to Cart
+                              </Button>
+                            </div>
+                          ) : (
+                            // All attributes are out of stock
+                            <Button className="px-5 py-1 font-gotham font-medium text-sm stock-out">
+                              Out of Stock
                             </Button>
-                          </div>
-                        </div>
-                      )}
+                          )
+                        ) : (
+                          // No product attributes, check default quantity
+                          <>
+                            {product?.product?.default_quantity > 0 ? (
+                              <div className="flex pt-5 font-gotham font-medium">
+                                <div className="mr-2 flex items-center primary-text border">
+                                  <div
+                                    className="quantity cursor-pointer white-hover-text primary-hover-bg"
+                                    onClick={decrement}
+                                  >
+                                    <button>
+                                      <AiOutlineMinus />
+                                    </button>
+                                  </div>
+                                  <div className="quantity border-x-[1px] border-x-primary">
+                                    {quantity}
+                                  </div>
+                                  <div
+                                    className="quantity cursor-pointer white-hover-text primary-hover-bg"
+                                    onClick={increment}
+                                  >
+                                    <button>
+                                      <AiOutlinePlus />
+                                    </button>
+                                  </div>
+                                </div>
+                                <Button
+                                  className="px-5 py-1 mr-2"
+                                  onClick={() => {
+                                    handleBuyNow({
+                                      product_id: Number(product.product.id),
+                                      price:
+                                        product.product.discount_price > 0
+                                          ? product.product.discount_price
+                                          : product.product.regular_price,
+                                      title: product.product.title,
+                                      image: product.product.image,
+                                      quantity: quantity,
+                                      regular_price: product.product.regular_price,
+                                    });
+                                  }}
+                                >
+                                  Buy Now
+                                </Button>
+                                <Button
+                                  className="px-5 py-1"
+                                  onClick={() => {
+                                    dispatch(
+                                      addToCart({
+                                        product_id: Number(product.product.id),
+                                        price:
+                                          product.product.discount_price > 0
+                                            ? product.product.discount_price
+                                            : product.product.regular_price,
+                                        title: product.product.title,
+                                        image: product.product.image,
+                                        quantity: quantity,
+                                        regular_price: product.product.regular_price,
+                                      })
+                                    );
+                                  }}
+                                >
+                                  Add to Cart
+                                </Button>
+                              </div>
+                            ) : (
+                              // Default product is out of stock
+                              <Button className="px-5 py-1 font-gotham font-medium text-sm stock-out">
+                                Out of Stock
+                              </Button>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    )}
 
-                    {(product?.product?.availability === 2 ||
-                      (product?.product?.availability === 1 && product?.product?.default_quantity === 0) ||
-                      (product?.productAttribute && product.productAttribute.every(attr => attr.attribute_quantity === 0))) && (
+                    {product?.product?.availability === 2 &&(
+                      
                         <div className="pt-5">
                           <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px] stock-out">
                             Out of Stock
@@ -794,6 +865,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                         </Button>
                       </div>
                     )}
+
 
                     <div className="more-action pt-5">
                       <div className="flex flex-row items-center">
@@ -831,6 +903,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                                   product?.product?.sort_description ?? "",
                                 image: product?.product?.image,
                                 title: product?.product?.title,
+                                slug: product?.product?.slug,
                                 regular_price: Number(
                                   product?.product?.regular_price
                                 ),
@@ -838,11 +911,11 @@ const PageDetails = ({ params: { slug } }: Props) => {
                                   product.product.discount_price > 0
                                     ? Number(product?.product?.discount_price)
                                     : Number(product?.product?.regular_price),
-                                quantity: 1,
+                                default_quantity: Number(product?.product?.default_quantity),
                                 rating: product.averageReview,
                                 availability: product.product
                                   .availability as number,
-                                attribute: selectedAttributes,
+                                productAttribute: selectedAttributes,
                               })
                             );
                           }}
@@ -1109,7 +1182,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                                     src={thumbnailUrl}
                                     alt="YouTube video thumbnail"
                                     height={500}
-                                    width={500}                
+                                    width={500}
                                     className="w-full h-full object-cover"
                                   />
                                 ) : (
