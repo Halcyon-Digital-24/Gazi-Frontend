@@ -92,7 +92,7 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="explore">
+        <section className="explore py-16 md:py-20">
           <div className="container">
             <h2 className="mb-6 uppercase text-center font-gotham text-[18px] md:text-xl font-bold ">
               EXPLORE HOME APPLIANCES
@@ -236,7 +236,7 @@ export default async function Home() {
           {
             homeData?.video?.length ?
               <><div className="container px-2 md:px-0">
-                <h2 className=" py-12 uppercase text-center font-gotham text-xl font-medium">
+                <h2 className="py-8 md:py-12 uppercase text-center font-gotham text-[18px] font-medium">
                   PRODUCT REVIEWS & UNBOXING VIDEOS
                 </h2>
                 <div className="grid md:grid-cols-3 grid-cols-1 gap-4">

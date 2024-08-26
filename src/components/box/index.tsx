@@ -12,7 +12,7 @@ interface IProps {
 const Box: FC<IProps> = ({ children, title, step, className }) => {
   return (
     <div className={`shadow box ${className}`}>
-      <div className="flex py-2 header">
+      <div className="flex items-center py-2 header">
         <div className="step">{step}</div>
         <p className=" font-gotham font-medium md:text-sm text-xs ">{title}</p>
       </div>
