@@ -484,7 +484,7 @@ function Checkout() {
                     <p className=" font-gotham font-normal text-xs black-text">
                       Select a payment methoddd
                     </p>
-                    <div className="py-2">
+                    <div className="py-2 flex flex-col gap-1">
                       <div className="flex  items-center">
                         <input
                           type="checkbox"
@@ -501,7 +501,7 @@ function Checkout() {
                           Cash on Delivery
                         </label>
                       </div>
-                      <div>
+                      <div className="flex items-center">
                         <input
                           type="checkbox"
                           className="accent-[#E30513]"
@@ -731,7 +731,7 @@ function Checkout() {
                 </Box>
                 <div className="accepted">
                   <div className="py-6">
-                    <div className="flex">
+                    <div className="flex items-start">
                       <input
                         className="mr-2 accent-[#E30513]"
                         type="checkbox"

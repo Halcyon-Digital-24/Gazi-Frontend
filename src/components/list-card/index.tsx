@@ -221,8 +221,8 @@ const ListCard: FC<IProps> = ({ product }) => {
 
         </div>
       </div>
-      <div className="image w-[25%] relative">
-        <h3 className="font-gotham font-medium stock pb-1 mb-4 pl-1 md:pl-0">
+      <div className="image w-[25%] ml-2 md:ml-0 relative">
+        <h3 className="font-gotham font-medium stock pb-1 mb-4">
           {product.ProductAttribute && product.ProductAttribute.length > 0
             ? product.ProductAttribute.some((attr: { attribute_quantity: number }) => attr.attribute_quantity > 0)
               ? product.availability === 1

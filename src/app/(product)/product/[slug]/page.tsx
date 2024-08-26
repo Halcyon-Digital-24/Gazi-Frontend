@@ -877,7 +877,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                             );
                           }}
                         >
-                          <OutlineButton className="flex items-center font-gotham font-medium outline-hidden text-sm px-0 pr-2 md:text-base">
+                          <OutlineButton className="flex items-center font-gotham font-medium outline-hidden text-sm px-0 pl-0 md:text-base">
                             <span>
                               <AiOutlineHeart className="mr-1 text-2xl" />
                             </span>
@@ -1286,7 +1286,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                 </div>
               </div>
 
-              <div className="related-products mt-12 pb-7">
+              <div className="related-products mt-5 md:mt-12 pb-3 md:pb-7 ml-2 md:ml-0">
                 <Title title="Related Products" />
                 <div className="grid md:grid-cols-5 grid-cols-2">
                   {product.relatedProduct.map((product, i) => (
@@ -1313,7 +1313,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
               </div>
 
               {adsBanner?.image && (
-                <div className=" pb-24">
+                <div className="md:pb-24 pb-8">
                   <Image
                     className="transition-all duration-100 hover:scale-[1.01]"
                     src={`${API_ROOT}/images/banner/${adsBanner?.image}`}

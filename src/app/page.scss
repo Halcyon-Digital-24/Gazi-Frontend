@@ -5,8 +5,6 @@
   margin-top: -7px;
 }
 .explore {
-  padding-top: 80px;
-  padding-bottom: 80px;
   border-bottom: 1px solid $primary-border-color;
 
   @media screen and (max-width: 768) {
@@ -100,7 +98,8 @@
     box-shadow: $primary-shadow;
 
     &:hover {
-      color: $primary-text-color;
+      color: white;
+      background-color: $hover-color;
     }
   }
   @media screen and (max-width: 768px) {

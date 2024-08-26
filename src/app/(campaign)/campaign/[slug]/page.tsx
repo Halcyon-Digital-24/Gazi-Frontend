@@ -310,7 +310,7 @@ const CampaignDetailsPage = ({ params: { slug } }: Props) => {
 
           {/* products */}
           {!isLoading ? (
-            <div className="filter-products px-2 md:px-0 mx-1 md:mx-0">
+            <div className="filter-products mx-1 md:mx-0">
               {isRow ? (
                 <div className="grid md:grid-cols-4 grid-cols-2 gap-1 mb-5">
                   {products?.length > 0 ? (
