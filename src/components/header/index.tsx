@@ -84,7 +84,7 @@ const TopHeader = ({ homeData, menus }: IProps) => {
               className="w-10 h-10 mr-2"
             />
             <div>
-              <p className="text-base font-bold">GCart</p>
+              <p className="text-base font-bold font-gotham"><span className="secondary-text"><strong>G</strong></span>Cart</p>
               <p className="text-xs text-gray-500">FREE - In Google Play</p>
             </div>
           </div>
