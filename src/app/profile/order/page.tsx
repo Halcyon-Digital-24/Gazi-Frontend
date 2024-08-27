@@ -9,6 +9,7 @@ import SingleOrder from "@/components/single-order";
 import { FaBars } from "react-icons/fa6";
 import axiosInstance from "../../../../utils/axiosInstance";
 import ProfilePagination from "@/components/profile-pagination";
+import { CiMenuFries } from 'react-icons/ci';
 
 const OrderHistory = () => {
   const route = useRouter();
@@ -61,9 +62,9 @@ const OrderHistory = () => {
             <div className="grid grid-cols-12 gap-6">
               <div className="sidebar  md:col-span-3  px-1">
                 <span className="md:hidden">
-                  <FaBars />
+                  <CiMenuFries  />
                 </span>
-                <div className="items">
+                <div className=" items">
                   <ProfileSidebar />
                 </div>
               </div>
@@ -74,37 +75,37 @@ const OrderHistory = () => {
                       <tr className="table-heading">
                         <th
                           scope="col"
-                          className="px-6 py-3 font-gotham font-medium"
+                          className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium"
                         >
                           Invoice No
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 font-gotham font-medium"
+                          className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium"
                         >
                           Date
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 font-gotham font-medium"
+                          className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium"
                         >
                           Amount
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 font-gotham font-medium"
+                          className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium"
                         >
                           Delivery Status
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 font-gotham font-medium"
+                          className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium"
                         >
                           Payment Status
                         </th>
                         <th
                           scope="col"
-                          className="px-6 py-3 font-gotham font-medium"
+                          className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium"
                         >
                           Options
                         </th>

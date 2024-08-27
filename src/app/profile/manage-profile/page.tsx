@@ -12,6 +12,7 @@ import "../page.scss";
 import "./page.scss";
 import { AxiosError } from "axios";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { CiMenuFries } from 'react-icons/ci';
 
 const UpdateProfile = () => {
   const route = useRouter();
@@ -101,9 +102,9 @@ const UpdateProfile = () => {
             <div className="grid grid-cols-12 gap-6">
               <div className="sidebar  md:col-span-3  px-1">
                 <span className="md:hidden">
-                  <FaBars />
+                  <CiMenuFries  />
                 </span>
-                <div className="items">
+                <div className=" items">
                   <ProfileSidebar />
                 </div>
               </div>

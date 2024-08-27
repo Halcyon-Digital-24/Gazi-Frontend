@@ -4,7 +4,7 @@ import "./page.scss";
 import ProfileSidebar from "@/components/profile-sidebar";
 import { useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
-import { FaBars } from "react-icons/fa";
+import { CiMenuFries } from 'react-icons/ci';
 import axiosInstance from "../../../utils/axiosInstance";
 
 const Profile = () => {
@@ -39,16 +39,16 @@ const Profile = () => {
       {isLoggedIn ? (
         <section className="profile">
           <div className="container">
-            <div className="grid grid-cols-12 gap-6">
+            <div className="flex md:flex-none md:grid md:grid-cols-12 md:gap-6">
               <div className="sidebar  md:col-span-3  px-1">
                 <span className="md:hidden">
-                  <FaBars />
+                  <CiMenuFries  />
                 </span>
                 <div className=" items">
                   <ProfileSidebar />
                 </div>
               </div>
-              <div className=" md:col-span-9 col-span-12 px-1 ">
+              <div className="flex-1 md:col-span-9 col-span-12 px-1 ">
                 <div className="grid grid-cols-3 md:gap-4 gap-1">
                   <div className=" primary-bg py-5 pl-5">
                     <h2 className=" font-medium font-gotham text-base white-text">

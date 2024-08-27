@@ -8,6 +8,7 @@ import axiosInstance from '../../../../utils/axiosInstance';
 import '../page.scss';
 import '../order/page.scss';
 import ProfilePagination from '@/components/profile-pagination';
+import { CiMenuFries } from 'react-icons/ci';
 
 const Refund = () => {
   const { login } = useAppSelector((state) => state.login);
@@ -42,45 +43,45 @@ const Refund = () => {
   }, [login, page]);
   return (
     <section className="profile">
-      <div className="container">
+      <div className="container p-1">
         <div className="grid grid-cols-12 gap-6">
           <div className="sidebar  md:col-span-3  px-1">
             <span className="md:hidden">
-              <FaBars />
+              <CiMenuFries />
             </span>
-            <div className="items">
+            <div className=" items">
               <ProfileSidebar />
             </div>
           </div>
           <div className=" md:col-span-9 col-span-12 overflow-x-scroll md:overflow-x-visible  ">
             <div className="order-table">
-              <table className="w-full text-sm text-left ">
+              <table className="w-full text-sm text-left">
                 <thead>
                   <tr className="table-heading">
                     <th
                       scope="col"
-                      className="px-6 py-3 font-gotham font-medium"
+                      className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium whitespace-nowrap overflow-hidden text-ellipsis"
                     >
                       Date
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 font-gotham font-medium"
+                      className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium whitespace-nowrap overflow-hidden text-ellipsis"
                     >
                       Order ID
                     </th>
-                    <th className="px-6 py-3 font-gotham font-medium">
+                    <th className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium">
                       Product
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 font-gotham font-medium"
+                      className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium whitespace-nowrap overflow-hidden text-ellipsis"
                     >
                       Amount
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 font-gotham font-medium"
+                      className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium whitespace-nowrap overflow-hidden text-ellipsis"
                     >
                       Status
                     </th>
@@ -90,19 +91,28 @@ const Refund = () => {
                   {refunds?.map((item, index) => (
                     <tr
                       key={index}
-                      className=" font-normal font-gotham text-sm table-border p-2"
+                      className="font-normal font-gotham text-sm table-border p-2"
                     >
-                      <td className="px-6 py-4">
+                      <td className="px-2 md:px-6 py-1 md:py-4 whitespace-nowrap overflow-hidden text-ellipsis">
                         {formatDate(item.created_at)}
                       </td>
-                      <td className="px-6 py-4">{item.order_id}</td>
-                      <td className="px-6 py-4">{item.product_name}</td>
-                      <td className="px-6 py-4">৳ {item.product_price}</td>
-                      <td className="px-6 py-4">{item.refund_status}</td>
+                      <td className="px-2 md:px-6 py-1 md:py-4 whitespace-nowrap overflow-hidden text-ellipsis">
+                        {item.order_id}
+                      </td>
+                      <td className="px-2 md:px-6 py-1 md:py-4 whitespace-nowrap overflow-hidden text-ellipsis">
+                        {item.product_name}
+                      </td>
+                      <td className="px-2 md:px-6 py-1 md:py-4 whitespace-nowrap overflow-hidden text-ellipsis">
+                        ৳ {item.product_price}
+                      </td>
+                      <td className="px-2 md:px-6 py-1 md:py-4 whitespace-nowrap overflow-hidden text-ellipsis">
+                        {item.refund_status}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+
             </div>
             {total > 10 && (
               <div className="mt-5">

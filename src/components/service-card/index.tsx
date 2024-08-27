@@ -9,11 +9,11 @@ interface IProps {
 }
 const ServiceCard: React.FC<IProps> = ({ service }) => {
   return (
-    <div className="text-center">
+    <div className="text-center py-2">
       <Link href={service.url}>
         <div>
           <div
-            className={`service-card flex justify-center flex-wrap items-center md:my-[30px] my-2`}
+            className={`md:p-2 service-card flex justify-center flex-wrap items-center md:my-[30px]`}
           >
             <div className="image">
               <Image

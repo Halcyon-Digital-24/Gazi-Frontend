@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../../../utils/axiosInstance";
+import { CiMenuFries } from 'react-icons/ci';
 
 const CreateTicket = () => {
   const route = useRouter();
@@ -66,15 +67,15 @@ const CreateTicket = () => {
             <div className="grid grid-cols-12 gap-6">
               <div className="sidebar  md:col-span-3  px-1">
                 <span className="md:hidden">
-                  <FaBars />
+                  <CiMenuFries  />
                 </span>
-                <div className="items">
+                <div className=" items">
                   <ProfileSidebar />
                 </div>
               </div>
-              <div className=" col-span-9">
+              <div className="col-span-10 md:col-span-9">
                 <form
-                  className="w-[480px] mx-auto shadow px-8 py-10"
+                  className="w-auto md:w-[480px] mx-auto shadow px-4 md:px-8 py-3 md:py-10"
                   onSubmit={handleSubmit}
                 >
                   <FormGroup

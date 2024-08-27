@@ -8,6 +8,7 @@ import axiosInstance from "../../../../utils/axiosInstance";
 import "../page.scss";
 import "./page.scss";
 import ProfilePagination from "@/components/profile-pagination";
+import { CiMenuFries } from "react-icons/ci";
 
 const Conversations = () => {
   const route = useRouter();
@@ -56,42 +57,30 @@ const Conversations = () => {
     <>
       {isLoggedIn ? (
         <section className="profile">
-          <div className="container">
+          <div className="container p-1">
             <div className="grid grid-cols-12 gap-6">
               <div className="sidebar  md:col-span-3  px-1">
                 <span className="md:hidden">
-                  <FaBars />
+                  <CiMenuFries />
                 </span>
-                <div className="items">
+                <div className=" items">
                   <ProfileSidebar />
                 </div>
               </div>
-              <div className=" col-span-9">
-                <table className="w-full text-sm text-left conversation-table ">
+              <div className="md:col-span-9 col-span-12 overflow-x-scroll md:overflow-x-visible  ">
+                <table className="w-full text-sm text-left conversation-table">
                   <thead>
                     <tr className="table-heading">
-                      <th
-                        scope="col"
-                        className="px-6 py-3 font-gotham font-medium "
-                      >
+                      <th scope="col" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium whitespace-nowrap">
                         SI NO.
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 font-gotham font-medium "
-                      >
+                      <th scope="col" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium whitespace-nowrap">
                         Mobile Number
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 font-gotham font-medium "
-                      >
+                      <th scope="col" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium">
                         Question
                       </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 font-gotham font-medium "
-                      >
+                      <th scope="col" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium whitespace-nowrap">
                         Status
                       </th>
                     </tr>
@@ -100,28 +89,16 @@ const Conversations = () => {
                     {conversations?.length > 0 ? (
                       conversations?.map((conversation, i) => (
                         <tr className="table-border" key={i}>
-                          <td
-                            scope="row "
-                            className="px-6 py-3 font-gotham font-light"
-                          >
+                          <td scope="row" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-light whitespace-nowrap">
                             {i + 1}
                           </td>
-                          <td
-                            scope="row "
-                            className="px-6 py-3 font-gotham font-light"
-                          >
+                          <td scope="row" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-light whitespace-nowrap">
                             {conversation?.mobile}
                           </td>
-                          <td
-                            scope="row"
-                            className="px-6 py-3 font-gotham font-light"
-                          >
+                          <td scope="row" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-light whitespace-nowrap">
                             {conversation?.question}
                           </td>
-                          <td
-                            scope="row"
-                            className="px-6 py-3 font-gotham font-light capitalize"
-                          >
+                          <td scope="row" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-light capitalize whitespace-nowrap">
                             {conversation.status ?? "Pending"}
                           </td>
                         </tr>
@@ -131,6 +108,7 @@ const Conversations = () => {
                     )}
                   </tbody>
                 </table>
+
                 {total > 10 && (
                   <div className="mt-5">
                     <ProfilePagination

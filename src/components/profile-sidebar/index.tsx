@@ -16,7 +16,7 @@ import { API_ROOT } from "@/constant";
 const ProfileSidebar = () => {
   const { login } = useAppSelector((state) => state.login);
   return (
-    <div className=" md:col-span-3 shadow pb-6 absolute md:static  white-bg">
+    <div className=" md:col-span-3 shadow pb-6 absolute md:static  white-bg z-10">
       <div className="relative profile-top">
         <div className="primary-bg h-28">
           <div className="shadow absolute bottom-0 left-[50%] rounded-full p-4 w-24 h-24 white-bg flex justify-center items-center translate-y-[50%] translate-x-[-50%] overflow-hidden">
@@ -90,7 +90,7 @@ const ProfileSidebar = () => {
               <LiaHandHoldingUsdSolid />
             </span>
             <Link
-              className="font-gotham font-normal text-sm black-text py-2"
+              className="font-gotham font-normal text-sm black-text py-2 pr-2"
               href={"/profile/refund"}
             >
               Refund Requested

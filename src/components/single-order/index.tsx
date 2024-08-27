@@ -100,7 +100,7 @@ const SingleOrder: FC<IProps> = ({ order }) => {
                 discount_price:
                   item.regular_price -
                   item.regular_price *
-                    (orderDetails?.coupon.discount_amount / 100),
+                  (orderDetails?.coupon.discount_amount / 100),
               };
             }
             return item;
@@ -112,7 +112,7 @@ const SingleOrder: FC<IProps> = ({ order }) => {
               discount_price:
                 item.regular_price -
                 item.regular_price *
-                  (orderDetails?.coupon.discount_amount / 100),
+                (orderDetails?.coupon.discount_amount / 100),
             };
           });
         }
@@ -155,13 +155,21 @@ const SingleOrder: FC<IProps> = ({ order }) => {
   }, [orderDetails?.coupon, orderDetails?.orderItems]);
   return (
     <tr className=" font-normal font-gotham text-sm table-border">
-      <td scope="row" className="px-6 py-4  ">
+      <td scope="row" className="px-2 md:px-6 py-1 md:py-4 whitespace-nowrap overflow-hidden text-ellipsis">
         {order?.order_prefix}-{order.id}
       </td>
-      <td className="px-6 py-4">{formatDate(order?.created_at)}</td>
-      <td className="px-6 py-4">৳{(finalPrice + Number(order.delivery_fee) )- (Number(order.advance_payment)+ Number(order.custom_discount))}</td>
-      <td className="px-6 py-4 capitalize">{order?.order_status}</td>
-      <td className="px-6 py-4 capitalize	">{order?.payment_status}</td>
+      <td className="px-2 md:px-6 py-1 md:py-4 whitespace-nowrap overflow-hidden text-ellipsis">
+        {formatDate(order?.created_at)}
+      </td>
+      <td className="px-2 md:px-6 py-1 md:py-4 whitespace-nowrap overflow-hidden text-ellipsis">
+        ৳{(finalPrice + Number(order.delivery_fee)) - (Number(order.advance_payment) + Number(order.custom_discount))}
+      </td>
+      <td className="px-2 md:px-6 py-1 md:py-4 capitalize whitespace-nowrap overflow-hidden text-ellipsis">
+        {order?.order_status}
+      </td>
+      <td className="px-2 md:px-6 py-1 md:py-4 capitalize whitespace-nowrap overflow-hidden text-ellipsis">
+        {order?.payment_status}
+      </td>
       <td className="px-6 py-2">
         <div className="flex justify-center info-icons">
           <div onClick={() => setIsOpen(true)}>
@@ -200,195 +208,11 @@ const SingleOrder: FC<IProps> = ({ order }) => {
                 shipingCost={order.delivery_fee}
                 finalPrice={finalPrice}
               />
-              {/*  <div className="flex justify-between flex-wrap mb-4">
-                <div className="w-full md:w-auto">
-                  <div className="flex py-1">
-                    <p className=" font-gotham text-sm font-semibold">
-                      Invoice No:{"  "}
-                    </p>
-                    <p className=" font-gotham text-sm ml-1">
-                      {order.order_prefix}-{order.id}
-                    </p>
-                  </div>
-                  <div className="flex py-1">
-                    <p className=" font-gotham text-sm font-semibold">
-                      Customer Name:{" "}
-                    </p>
-                    <p className=" font-gotham text-sm ml-1">
-                      {orderDetails?.name}
-                    </p>
-                  </div>
-                  <div className="flex py-1">
-                    <p className=" font-gotham text-sm font-semibold">
-                      Email:{" "}
-                    </p>
-                    <p className=" font-gotham text-sm ml-1">
-                      {orderDetails?.email}
-                    </p>
-                  </div>
-                  <div className="flex py-1">
-                    <p className=" font-gotham text-sm font-semibold ">
-                      Shipping Address:{" "}
-                    </p>
-                    <p className="max-w-[250px] font-gotham text-sm ml-1">
-                      {orderDetails?.address}
-                    </p>
-                  </div>
-                  <div className="flex py-1">
-                    <p className=" font-gotham text-sm font-semibold ">
-                      Mobile:{" "}
-                    </p>
-                    <p className="max-w-[250px] font-gotham text-sm ml-1">
-                      {orderDetails?.mobile}
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <div className="flex py-1">
-                    <p className=" font-gotham text-sm font-semibold">
-                      Order Date :{" "}
-                    </p>
-                    <p className=" font-gotham text-sm ml-2">
-                      {formatDate(orderDetails?.created_at)}
-                    </p>
-                  </div>
-                  <div className="flex py-1">
-                    <p className=" font-gotham text-sm font-semibold">
-                      Order Status :{" "}
-                    </p>
-                    <p className=" font-gotham text-sm ml-2 capitalize">
-                      {orderDetails?.order_status}
-                    </p>
-                  </div>
-                  <div className="flex py-1">
-                    <p className=" font-gotham text-sm font-semibold">
-                      Total Order Amount :{" "}
-                    </p>
-                    <p className=" font-gotham text-sm ml-2">
-                      ৳ {finalPrice + order.delivery_fee}
-                    </p>
-                  </div>
-                  <div className="flex py-1">
-                    <p className=" font-gotham text-sm font-semibold">
-                      Shipping method :{" "}
-                    </p>
-                    <p className=" font-gotham text-sm ml-2">
-                      {orderDetails?.delivery_method === "homeDelivery"
-                        ? "Home Delivery"
-                        : "Express Delivery"}
-                    </p>
-                  </div>
-                  <div className="flex py-1">
-                    <p className=" font-gotham text-sm font-semibold">
-                      Payment method :{" "}
-                    </p>
-                    <p className=" font-gotham text-sm ml-2">
-                      {orderDetails === "cashOnDelivery"
-                        ? "Cash on Delivery"
-                        : "Online Payment"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="overflow-x-scroll md:overflow-x-visible">
-                <table className="w-full text-sm text-left  ">
-                  <thead>
-                    <tr className="table-heading">
-                      <th
-                        scope="col"
-                        className="px-6 py-3 font-gotham font-medium"
-                      >
-                        Product
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 font-gotham font-medium"
-                      >
-                        Quantity
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 font-gotham font-medium"
-                      >
-                        Variant
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 font-gotham font-medium"
-                      >
-                        Price
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 font-gotham font-medium"
-                      >
-                        Warrenty/Refund
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {orderDetails?.orderItems?.length > 0 ? (
-                      orderDetails?.orderItems?.map((item: any, i: any) => {
-                        return <SingleOrderDetails item={item} key={i} />;
-                      })
-                    ) : (
-                      <></>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-              <div className="mt-12">
-                <div className="flex md:justify-end justify-start py-1">
-                  <div>
-                    <h3 className=" font-gotham text-sm font-semibold mb-3">
-                      Sub-Total:
-                    </h3>
-                    <h3 className=" font-gotham text-sm font-semibold mb-3">
-                      Delivery:
-                    </h3>
-                    <h3 className=" font-gotham text-sm font-semibold mb-3">
-                      Discount:
-                    </h3>
-                    <h3 className=" font-gotham text-sm font-semibold mb-3">
-                      Advanced:
-                    </h3>
-                    <h3 className=" font-gotham text-sm font-semibold mb-3">
-                      Due Amount:
-                    </h3>
-                  </div>
-                  <div className="ml-6">
-                    <p className=" font-gotham text-sm mb-3">
-                      ৳ {FormatPrice(amountBeforeCoupon)}
-                    </p>
-                    <p className=" font-gotham text-sm mb-3">
-                      ৳ {FormatPrice(orderDetails.delivery_fee)}
-                    </p>
-                    <p className=" font-gotham text-sm mb-3">
-                      ৳{" "}
-                      {FormatPrice(
-                        amountBeforeCoupon -
-                          finalPrice +
-                          orderDetails.custom_discount
-                      )}
-                    </p>
-                    <p className=" font-gotham text-sm mb-3">
-                      ৳ {orderDetails.advance_payment ?? 0}
-                    </p>
-                    <p className=" font-gotham text-sm mb-3">
-                      ৳{" "}
-                      {amountBeforeCoupon -
-                        orderDetails.delivery_fee -
-                        orderDetails.custom_discount -
-                        advancePayment}
-                    </p>
-                  </div>
-                </div>
-              </div> */}
             </div>
           )}
         </div>
       </td>
+
     </tr>
   );
 };

@@ -57,7 +57,7 @@ const TopHeader = ({ homeData, menus }: IProps) => {
     <>
       {/* Ad Banner */}
       {showBanner && (
-        <div className="fixed top-0 left-0 right-0 bg-gray-100 flex items-center justify-between py-2 pr-4 pl-3 z-50 shadow-lg md:hidden">
+        <div className=" bg-gray-100 flex items-center justify-between py-2 pr-4 pl-3 z-50 shadow-lg md:hidden">
           <div className="flex items-center">
           <button
               className="text-gray-500 hover:text-gray-800 mr-2"
@@ -88,7 +88,7 @@ const TopHeader = ({ homeData, menus }: IProps) => {
               <p className="text-xs text-gray-500">FREE - In Google Play</p>
             </div>
           </div>
-          <div className="flex items-center space-x-2 ">
+          <div className="flex items-center space-x-2 shadow">
             <Link
               href="/hello"
             >
@@ -99,7 +99,7 @@ const TopHeader = ({ homeData, menus }: IProps) => {
       )}
 
       {/* Top Header */}
-      <div className={`container  px-1 md:px-0 ${showBanner ? 'mt-12 md:mt-0' : ''}`}>
+      <div className={`container z-0  px-1 md:px-0 ${showBanner ? '' : ''}`}>
         <div className="flex justify-between items-center flex-wrap py-2">
           <div className="flex justify-between md:justify-start w-[100%] md:w-[auto] items-center">
             <div className="flex items-center">

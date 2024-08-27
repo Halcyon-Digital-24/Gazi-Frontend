@@ -633,7 +633,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                                 (key, i) => (
                                   <div
                                     key={i}
-                                    className="flex items-center mb-1"
+                                    className="flex items-center"
                                   >
                                     <div className="font-gotham font-bold primary-text text-xs mr-2">
                                       {key.replace("_", " ")} :{" "}
