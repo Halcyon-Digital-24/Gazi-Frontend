@@ -222,7 +222,6 @@ function Checkout() {
             alt="empty-cart"
             width={100}
             height={100}
-            style={{ width: '100%', height: 'auto' }}
           />
           <p>Your cart is Empty</p>
           <Link href={`/`}>
@@ -233,7 +232,7 @@ function Checkout() {
       {keyPoints.length > 0 && (
         <section className="cart-service">
           <div className="container">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-4">
               {keyPoints.map((service, i) => (
                 <ServiceCard key={i} service={service} />
               ))}

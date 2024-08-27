@@ -9,6 +9,7 @@ import { FaBars } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import axiosInstance from "../../../../../utils/axiosInstance";
 import "../../page.scss";
+import { CiMenuFries } from 'react-icons/ci';
 
 const ViewTicket = () => {
   const route = useRouter();
@@ -91,18 +92,18 @@ const ViewTicket = () => {
   return (
     <>
       {isLoggedIn ? (
-        <section className="py-10">
+        <section className="py-5">
           <div className="container">
             <div className="grid grid-cols-12 gap-6">
               <div className="sidebar  md:col-span-3  px-1">
                 <span className="md:hidden">
-                  <FaBars />
+                  <CiMenuFries  className="font-bold w-5 h-5"/>
                 </span>
-                <div className="items">
+                <div className=" items">
                   <ProfileSidebar />
                 </div>
               </div>
-              <div className=" col-span-9">
+              <div className="col-span-10 md:col-span-9">
                 <div className="mb-12 h-[350px] overflow-y-scroll scrollbar">
                   {messages?.length > 0 ? (
                     messages?.map((message, index) =>
@@ -143,7 +144,7 @@ const ViewTicket = () => {
                     </p>
                   )}
                   <FormGroup
-                    className="mt-2 "
+                    className="mt-2"
                     type="file"
                     title="photo"
                     placeholder="Photo"

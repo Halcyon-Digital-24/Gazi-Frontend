@@ -10,6 +10,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { FaBars } from "react-icons/fa6";
 import { formatDate } from "@/components/dateformate";
 import axiosInstance from "../../../../utils/axiosInstance";
+import { CiMenuFries } from "react-icons/ci";
 
 const Ticket = () => {
   const route = useRouter();
@@ -49,13 +50,13 @@ const Ticket = () => {
     <>
       {isLoggedIn ? (
         <section className="profile">
-          <div className="container">
+          <div className="container p-1">
             <div className="grid grid-cols-12 gap-6">
               <div className="sidebar  md:col-span-3  px-1">
                 <span className="md:hidden">
-                  <FaBars />
+                  <CiMenuFries />
                 </span>
-                <div className="items">
+                <div className=" items">
                   <ProfileSidebar />
                 </div>
               </div>
@@ -63,77 +64,51 @@ const Ticket = () => {
                 <Link href={"/profile/ticket/create"}>
                   <Button className="px-2 py-1 font-gotham">New Ticket</Button>
                 </Link>
-                <table className="w-full text-sm text-left ticket-table mt-3 ">
-                  <thead>
-                    <tr className="table-heading">
-                      <th
-                        scope="col"
-                        className="px-6 py-3 font-gotham font-medium"
-                      >
-                        Ticket ID
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 font-gotham font-medium"
-                      >
-                        Sending Date
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 font-gotham font-medium"
-                      >
-                        Subject
-                      </th>
+                <div>
+                  <table className="w-full text-sm text-left ticket-table mt-3">
+                    <thead>
+                      <tr className="table-heading">
+                        <th scope="col" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium whitespace-nowrap">
+                          Ticket ID
+                        </th>
+                        <th scope="col" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium whitespace-nowrap">
+                          Sending Date
+                        </th>
+                        <th scope="col" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium">
+                          Subject
+                        </th>
+                        <th scope="col" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-medium whitespace-nowrap">
+                          Options
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {tickets?.length > 0 ? (
+                        tickets?.map((ticket, index) => (
+                          <tr className="table-border" key={index}>
+                            <td scope="row" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-normal whitespace-nowrap">
+                              #{ticket?.id}
+                            </td>
+                            <td scope="row" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-normal whitespace-nowrap">
+                              {formatDate(ticket?.created_at)}
+                            </td>
+                            <td scope="row" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-normal whitespace-nowrap">
+                              {ticket?.subject}
+                            </td>
+                            <td scope="row" className="px-2 md:px-6 py-1 md:py-3 font-gotham font-normal whitespace-nowrap">
+                              <Link href={`/profile/ticket/${ticket?.id}`} className="cursor-pointer">
+                                View All →
+                              </Link>
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <></>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
 
-                      <th
-                        scope="col"
-                        className="px-6 py-3 font-gotham font-medium"
-                      >
-                        Options
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {tickets?.length > 0 ? (
-                      tickets?.map((ticket, index) => (
-                        <tr className="table-border" key={index}>
-                          <td
-                            scope="row "
-                            className="px-6 py-3 font-gotham font-normal"
-                          >
-                            #{ticket?.id}
-                          </td>
-                          <td
-                            scope="row"
-                            className="px-6 py-3 font-gotham font-normal"
-                          >
-                            {formatDate(ticket?.created_at)}
-                          </td>
-                          <td
-                            scope="row"
-                            className="px-6 py-3 font-gotham font-normal"
-                          >
-                            {ticket?.subject}
-                          </td>
-
-                          <td
-                            scope="row"
-                            className="px-6 py-3 font-gotham font-normal"
-                          >
-                            <Link
-                              href={`/profile/ticket/${ticket?.id}`}
-                              className="cursor-pointer"
-                            >
-                              View All →
-                            </Link>
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <></>
-                    )}
-                  </tbody>
-                </table>
               </div>
             </div>
           </div>
