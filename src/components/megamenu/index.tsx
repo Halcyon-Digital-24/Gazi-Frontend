@@ -69,7 +69,7 @@ const MegaMenu = ({ menus }: IProps) => {
                 .map((menu, index) => (
                   <div className="mr-2 text-left relative heading" key={index}>
                     <div
-                      className="py-2 md:cursor-pointer  font-gotham font-medium text-[10px] md:text-sm flex justify-between items-center pr-5 group black-text hover-text-color transition-all"
+                      className="py-2 md:cursor-pointer  font-gotham font-medium text-[10px] md:text-sm flex justify-between items-center pr-5 group primary-text hover-text-color transition-all"
                       onClick={() => {
                         if (menu.slug === "campaign") {
                           route.push(`/campaign`);
@@ -98,7 +98,7 @@ const MegaMenu = ({ menus }: IProps) => {
                           <div key={index}>
                             <div className="relative flex justify-between items-center sub-item">
                               <Link
-                                className="font-gotham font-medium my-2 text-sm black-text sub-element w-[90%]"
+                                className="font-gotham font-medium my-2 text-sm primary-text sub-element w-[90%]"
                                 href={`/category/filter?category=${subCategory.slug}`}
                                 onClick={() =>
                                   dispatch(
@@ -144,7 +144,7 @@ const MegaMenu = ({ menus }: IProps) => {
                                         }
                                       >
                                         <Link
-                                          className="font-gotham font-medium text-sm w-[90%] black-text"
+                                          className="font-gotham font-medium text-sm w-[90%] primary-text"
                                           href={`/category/filter?category=${childrenCategory.slug}`}
                                         >
                                           {childrenCategory.title}
@@ -162,13 +162,13 @@ const MegaMenu = ({ menus }: IProps) => {
             </div>
             <div>
               <Link
-                className="font-gotham font-medium text-sm black-text hover-text-color"
+                className="font-gotham font-medium text-sm primary-text hover-text-color"
                 href={"/videos"}
               >
                 Videos
               </Link>
               <Link
-                className="font-gotham font-medium text-sm black-text hover-text-color ml-4 md:ml-14"
+                className="font-gotham font-medium text-sm primary-text hover-text-color ml-4 md:ml-14"
                 href={"/blogs"}
               >
                 Blogs
@@ -200,7 +200,7 @@ const MegaMenu = ({ menus }: IProps) => {
                     .map((menu, index) => (
                       <div key={index} className="menus">
                         <div
-                          className="py-2 cursor-pointer px-1 font-gotham font-medium text-sm flex justify-between items-center group black-text hover-text-color transition-all parent-category"
+                          className="py-2 cursor-pointer px-1 font-gotham font-medium text-sm flex justify-between items-center group primary-text hover-text-color transition-all parent-category"
                         >
                           <p onClick={() => {
                             if (menu.slug === "campaign") {
@@ -226,10 +226,10 @@ const MegaMenu = ({ menus }: IProps) => {
                               .map((subCategory, index) => (
                                 <div key={index} className="sub-category">
                                   <div
-                                    className="relative sub-item cursor-pointer px-1 font-gotham font-medium text-sm flex justify-between items-center group black-text hover-text-color transition-all"
+                                    className="relative sub-item cursor-pointer px-1 font-gotham font-medium text-sm flex justify-between items-center group primary-text hover-text-color transition-all"
                                   >
                                     <Link
-                                      className="font-gotham font-sm my-2 text-sm black-text hover-text-color sub-element"
+                                      className="font-gotham font-sm my-2 text-sm primary-text hover-text-color sub-element"
                                       href={`/category/filter?category=${subCategory.slug}`}
                                       onClick={() => dispatch(addCategory({ title: subCategory.title, slug: subCategory.slug }))}
                                     >
@@ -249,11 +249,11 @@ const MegaMenu = ({ menus }: IProps) => {
                                         .map((childrenCategory, index) => (
                                           <div
                                             key={index}
-                                            className="sub-item cursor-pointer px-1 font-gotham font-medium text-sm flex justify-between items-center group black-text hover-text-color transition-all"
+                                            className="sub-item cursor-pointer px-1 font-gotham font-medium text-sm flex justify-between items-center group primary-text hover-text-color transition-all"
                                             onClick={() => dispatch(addCategory({ title: childrenCategory.title, slug: childrenCategory.slug }))}
                                           >
                                             <Link
-                                              className="font-gotham font-sm my-2 text-sm black-text hover-text-color sub-element"
+                                              className="font-gotham font-sm my-2 text-sm primary-text hover-text-color sub-element"
                                               href={`/category/filter?category=${childrenCategory.slug}`}
                                             >
                                               {childrenCategory.title}
@@ -277,13 +277,13 @@ const MegaMenu = ({ menus }: IProps) => {
 
             <div>
               <Link
-                className="font-gotham font-medium text-sm black-text hover-text-color"
+                className="font-gotham font-medium text-sm primary-text hover-text-color"
                 href={"/videos"}
               >
                 Videos
               </Link>
               <Link
-                className="font-gotham font-medium text-sm black-text hover-text-color ml-4 mr-2 md:mr-0 md:ml-14"
+                className="font-gotham font-medium text-sm primary-text hover-text-color ml-4 mr-2 md:mr-0 md:ml-14"
                 href={"/blogs"}
               >
                 Blogs

@@ -64,13 +64,13 @@ async function categoryAdBanner(slug: string) {
 export default async function Home() {
   const homeData: HomeApiResponse = await getData();
   const services: IService[] = await serviceItems();
-  const gasStoveProducts: IProductResponse = await categoryProduct(
+  const categoryOne: IProductResponse = await categoryProduct(
     homeData?.homePage?.category_one
   );
-  const kitchenHoodProducts: IProductResponse = await categoryProduct(
+  const categoryTwo: IProductResponse = await categoryProduct(
     homeData?.homePage?.category_two
   );
-  const digitalScaleProducts: IProductResponse = await categoryProduct(
+  const categoryThree: IProductResponse = await categoryProduct(
     homeData?.homePage?.category_three
   );
   const addBanner = await categoryAdBanner("home");
@@ -94,7 +94,7 @@ export default async function Home() {
 
         <section className="explore py-16 md:py-20">
           <div className="container">
-            <h2 className="mb-6 uppercase text-center font-gotham text-[18px] md:text-xl font-bold ">
+            <h2 className="mb-6 uppercase text-center primary-text font-gotham text-[18px] md:text-xl font-bold ">
               EXPLORE HOME APPLIANCES
             </h2>
             <div className="flex flex-wrap justify-center  ">
@@ -138,7 +138,7 @@ export default async function Home() {
                 href={`/category/filter?category=${homeData?.homePage?.category_one}`}
               />
               <div className="grid md:grid-cols-5 grid-cols-2 gap-1">
-                {gasStoveProducts?.data?.rows.map(
+                {categoryOne?.data?.rows.map(
                   (product: IProduct, i: number) => (
                     <ProductCard
                       key={i}
@@ -167,7 +167,7 @@ export default async function Home() {
                 href={`/category/filter?category=${homeData?.homePage?.category_two}`}
               />
               <div className="grid md:grid-cols-5 grid-cols-2 gap-1">
-                {kitchenHoodProducts?.data?.rows.map((product, i) => (
+                {categoryTwo?.data?.rows.map((product, i) => (
                   <ProductCard
                     key={i}
                     url={product.slug}
@@ -194,7 +194,7 @@ export default async function Home() {
                 href={`/category/filter?category=${homeData?.homePage?.category_three}`}
               />
               <div className="grid md:grid-cols-5 grid-cols-2 gap-1">
-                {digitalScaleProducts?.data?.rows.map((product, i) => (
+                {categoryThree?.data?.rows.map((product, i) => (
                   <ProductCard
                     key={i}
                     url={product.slug}
@@ -236,7 +236,7 @@ export default async function Home() {
           {
             homeData?.video?.length ?
               <><div className="container px-2 md:px-0">
-                <h2 className="py-8 md:py-12 uppercase text-center font-gotham text-[18px] font-medium">
+                <h2 className="py-8 md:py-12 uppercase primary-text text-center font-gotham text-[18px] font-medium">
                   PRODUCT REVIEWS & UNBOXING VIDEOS
                 </h2>
                 <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
@@ -247,7 +247,7 @@ export default async function Home() {
               </div>
                 <div className="text-center mt-7">
                   <Link
-                    className=" font-gotham font-normal text-sm  more-btn"
+                    className=" font-gotham font-normal text-sm primary-text more-btn"
                     href={"/videos"}
                   >
                     More Videos

@@ -28,7 +28,7 @@ const BlogCard: FC<IProps> = ({ className, blog }) => {
         </Link>
       </div>
       <div className="text p-3">
-        <h3 className="font-bold font-gotham text-[15px] black-text">
+        <h3 className="font-bold font-gotham text-[15px] primary-text">
           {blog.title}
         </h3>
         <div className="flex justify-between mt-8">

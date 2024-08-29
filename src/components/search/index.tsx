@@ -7,36 +7,37 @@ import {
   useSearchParams,
 } from "next/navigation";
 import { GoSearch } from "react-icons/go";
+import { Router } from "next/router";
 
 const SearchArea = () => {
   const searchParams: ReadonlyURLSearchParams = useSearchParams();
-  const { replace } = useRouter();
+  const  router  = useRouter();
 
   const [searchValue, setSearchValue] = useState<string>("");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value); // Update the search value in the state
+    setSearchValue(e.target.value); 
   };
 
   const handleClick = (event: React.MouseEvent) => {
     event.preventDefault();
-    const params = new URLSearchParams(Object.fromEntries(searchParams));
-
+  
+    const params = new URLSearchParams(); 
+  
     if (searchValue.trim()) {
-      params.set("search", searchValue);
-      replace(`/category/filter?${params}`);
-    } else {
-      params.delete("search");
-      replace(`/category/filter?${params}`);
+      params.set("search", searchValue); 
     }
-  };
+  
+    router.push(`/category/filter?${params.toString()}`);
+  };  
+
 
   return (
     <div className="relative">
       <form className="flex items-center justify-center mx-3">
         <input
           type="text"
-          className="hidden md:block px-1 md:px-3 h-6 md:h-9 focus:outline-none border-l border-y md:border-0 lg:w-[450px] md:w-[300px] font-gotham font-normal text-sm placeholder:font-gotham md:placeholder:text-sm placeholder:text-xs"
+          className="hidden md:block px-1 md:px-3 h-6 md:h-9 focus:outline-none border-l border-y  lg:w-[450px] md:w-[300px] font-gotham font-normal text-sm placeholder:font-gotham md:placeholder:text-sm placeholder:text-xs border-[0.5px] border-r-0"
           placeholder="Search for Products..."
           onChange={handleInputChange} // Handle input change
           value={searchValue} // Bind the input value to state
