@@ -21,13 +21,13 @@ const Featured: FC<IProps> = ({ homeData, adsbanner, bannerUrl }) => {
         <div className="container px-3 md:px-0">
           <Tabs>
             <TabList>
-              <Tab className="font-gotham mr-3 ma:mr-9 md:text-base text-sm md:pr-5 pb-4 font-medium react-tabs__tab cursor-pointer">
+              <Tab className="font-gotham mr-3 ma:mr-9 md:text-base text-sm md:pr-5 pb-4 font-medium react-tabs__tab cursor-pointer primary-text">
                 Top Sales
               </Tab>
-              <Tab className="font-gotham mr-3 ma:mr-9 md:text-base text-sm md:pr-5 pb-4 font-medium react-tabs__tab cursor-pointer">
+              <Tab className="font-gotham mr-3 ma:mr-9 md:text-base text-sm md:pr-5 pb-4 font-medium react-tabs__tab cursor-pointer primary-text">
                 New Arrivals
               </Tab>
-              <Tab className="font-gotham mr-3 ma:mr-9 md:text-base text-sm md:pr-5 pb-4 font-medium react-tabs__tab cursor-pointer">
+              <Tab className="font-gotham mr-3 ma:mr-9 md:text-base text-sm md:pr-5 pb-4 font-medium react-tabs__tab cursor-pointer primary-text">
                 Featured Products
               </Tab>
             </TabList>
@@ -117,7 +117,7 @@ const Featured: FC<IProps> = ({ homeData, adsbanner, bannerUrl }) => {
                   <div className=" hidden md:block">
                     <Link href={bannerUrl ?? "/"}>
                       <Image
-                        className=" w-full max-h-[852px] transition-all duration-100 hover:scale-[1.01]"
+                        className=" w-full max-h-[752px] transition-all duration-100 hover:scale-[1.01] delay-75"
                         src={`${API_ROOT}/images/banner/${adsbanner}`}
                         width={100}
                         height={100}

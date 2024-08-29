@@ -55,7 +55,7 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
                 />
                 <div className=" p-4">
                   <div className="border-area">
-                    <h2 className="font-gotham font-bold text-base black-text">
+                    <h2 className="font-gotham font-bold text-base primary-text">
                       {blogData.data.title}
                     </h2>
                     <div className="flex justify-between py-2 social">
@@ -94,7 +94,7 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
                           </Link>
                         </div>
                       </div>
-                      <div className="font-gotham font-normal text-xs black-text">
+                      <div className="font-gotham font-normal text-xs primary-text">
                         {formatDate(blogData.data.created_at)}
                       </div>
                     </div>
@@ -110,7 +110,7 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
                 </div>
               </div>
               {/*  <div className="shadow mt-5 p-4">
-                <h3 className=" font-gotham font-normal text-base black-text mb-3">
+                <h3 className=" font-gotham font-normal text-base primary-text mb-3">
                   Comments
                 </h3>
                 <div className="flex mt-2  items-center">
@@ -129,7 +129,7 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
                 </div>
               </div> */}
               <div className="shadow mt-5 p-4">
-                <h3 className=" font-gotham font-normal text-base black-text mb-3">
+                <h3 className=" font-gotham font-normal text-base primary-text mb-3">
                   Write a comment
                 </h3>
                 <div>
@@ -153,7 +153,7 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
             </div>
           }
           <div className=" col-span-6 md:col-span-2">
-            <h2 className="font-gotham font-normal text-xl  black-text">
+            <h2 className="font-gotham font-normal text-xl  primary-text">
               Popular Blogs
             </h2>
             <div className="mt-3 more-blog">
@@ -172,16 +172,16 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
                   </div>
                   <div className="text w-3/4">
                     <Link href={`/blogs/${blog.slug}`}>
-                      <h4 className=" font-gotham  font-normal text-base black-text">
+                      <h4 className=" font-gotham  font-normal text-base primary-text">
                         {blog.title}
                       </h4>
                     </Link>
 
                     <div className="flex justify-between items-center">
-                      <p className="font-gotham font-normal text-xs black-text">
+                      <p className="font-gotham font-normal text-xs primary-text">
                         Publish in
                       </p>
-                      <p className="font-gotham font-normal text-xs mt-2 black-text">
+                      <p className="font-gotham font-normal text-xs mt-2 primary-text">
                         {formatDate(blog.created_at)}
                       </p>
                     </div>

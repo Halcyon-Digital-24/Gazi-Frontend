@@ -91,7 +91,7 @@ const ListCard: FC<IProps> = ({ product }) => {
       <div className="image md:w-[30%] w-[40%] relative flex items-center justify-center  box-border">
         <Link
           href={`/product/${product.slug}`}
-          className="font-gotham font-medium text-sm inline-block black-text primary-hover w-full"
+          className="font-gotham font-medium text-sm inline-block primary-text primary-hover w-full"
         >
           <div className="pr-1">
             <Image
@@ -130,7 +130,7 @@ const ListCard: FC<IProps> = ({ product }) => {
       <div className="details md:w-[50%] w-[35%] relative">
         <Link
           href={`/product/${product.slug}`}
-          className="font-gotham font-medium text-sm  black-text primary-hover"
+          className="font-gotham font-medium text-sm  primary-text primary-hover"
         >
           {product.title}
         </Link>
@@ -222,7 +222,7 @@ const ListCard: FC<IProps> = ({ product }) => {
         </div>
       </div>
       <div className="image w-[25%] ml-2 md:ml-0 relative">
-        <h3 className="font-gotham font-medium stock pb-1 mb-4">
+        <h3 className="font-gotham font-medium primary-text stock pb-1 mb-4">
           {product.ProductAttribute && product.ProductAttribute.length > 0
             ? product.ProductAttribute.some((attr: { attribute_quantity: number }) => attr.attribute_quantity > 0)
               ? product.availability === 1
@@ -248,7 +248,7 @@ const ListCard: FC<IProps> = ({ product }) => {
           product.discount_price > 0
             && Number(product?.discount_price) != Number(product?.regular_price) ?
             <h4
-              className={` font-gotham text-xs line-through font-normal black-text`}
+              className={` font-gotham text-xs line-through font-normal primary-text`}
             >
               ৳ {FormatPrice(product.regular_price)}
             </h4> : null
@@ -256,7 +256,7 @@ const ListCard: FC<IProps> = ({ product }) => {
 
         <div className="flex justify-between flex-wrap items-center">
           {Number(product.regular_price) && (
-            <h3 className=" font-gotham font-medium text-base black-text">
+            <h3 className=" font-gotham font-medium text-base primary-text">
               ৳ {FormatPrice(product.regular_price)}
             </h3>
           )}

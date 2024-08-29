@@ -38,7 +38,7 @@ async function Emi({
   return (
     <section className="emi">
       <div className="container">
-        <h2 className=" font-gotham text-base mb-2 font-medium">
+        <h2 className=" font-gotham text-base mb-2 font-medium primary-text ml-1 md:ml-0">
           Emi Bank List
         </h2>
       </div>
@@ -51,55 +51,55 @@ async function Emi({
             <tr className="table-heading">
               <th
                 scope="col"
-                className="px-6 py-3 font-gotham font-medium border-color"
+                className="md:px-6 md:py-3 px-2 py-1 font-gotham font-medium border-color primary-text"
               >
                 Bank Name
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 font-gotham font-medium border-color"
+                className="md:px-6 md:py-3 px-2 py-1 font-gotham font-medium border-color primary-text"
               >
                 3 Month
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 font-gotham font-medium border-color"
+                className="md:px-6 md:py-3 px-2 py-1 font-gotham font-medium border-color primary-text"
               >
                 6 Month
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 font-gotham font-medium border-color"
+                className="md:px-6 md:py-3 px-2 py-1 font-gotham font-medium border-color primary-text"
               >
                 9 Month
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 font-gotham font-medium border-color"
+                className="md:px-6 md:py-3 px-2 py-1 font-gotham font-medium border-color primary-text"
               >
                 12 Month
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 font-gotham font-medium border-color"
+                className="md:px-6 md:py-3 px-2 py-1 font-gotham font-medium border-color primary-text"
               >
                 18 Month
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 font-gotham font-medium border-color"
+                className="md:px-6 md:py-3 px-2 py-1 font-gotham font-medium border-color primary-text"
               >
                 24 Month
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 font-gotham font-medium border-color"
+                className="md:px-6 md:py-3 px-2 py-1 font-gotham font-medium border-color primary-text"
               >
                 30 Month
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 font-gotham font-medium border-color"
+                className="md:px-6 md:py-3 px-2 py-1 font-gotham font-medium border-color primary-text"
               >
                 36 Month
               </th>
@@ -112,55 +112,55 @@ async function Emi({
                   <tr className="table-border" key={index}>
                     <td
                       scope="row "
-                      className="px-6 py-3 font-gotham font-light border-color"
+                      className="md:px-6 md:py-3 px-2 py-1 font-gotham font-light border-color"
                     >
                       {emi.bank_name}
                     </td>
                     <td
                       scope="row"
-                      className="px-6 py-3 font-gotham font-light border-color"
+                      className="md:px-6 md:py-3 px-2 py-1 font-gotham font-light border-color"
                     >
                       {emi.three_months ? "Yes" : "No"}
                     </td>
                     <td
                       scope="row"
-                      className="px-6 py-3 font-gotham font-light border-color"
+                      className="md:px-6 md:py-3 px-2 py-1 font-gotham font-light border-color"
                     >
                       {emi.six_months ? "Yes" : "No"}
                     </td>
                     <td
                       scope="row"
-                      className="px-6 py-3 font-gotham font-light border-color"
+                      className="md:px-6 md:py-3 px-2 py-1 font-gotham font-light border-color"
                     >
                       {emi.nine_months ? "Yes" : "No"}
                     </td>
                     <td
                       scope="row"
-                      className="px-6 py-3 font-gotham font-light border-color"
+                      className="md:px-6 md:py-3 px-2 py-1 font-gotham font-light border-color"
                     >
                       {emi.twelve_months ? "Yes" : "No"}
                     </td>
                     <td
                       scope="row"
-                      className="px-6 py-3 font-gotham font-light border-color"
+                      className="md:px-6 md:py-3 px-2 py-1 font-gotham font-light border-color"
                     >
                       {emi.eighteen_months ? "Yes" : "No"}
                     </td>
                     <td
                       scope="row"
-                      className="px-6 py-3 font-gotham font-light border-color"
+                      className="md:px-6 md:py-3 px-2 py-1 font-gotham font-light border-color"
                     >
                       {emi.twenty_four_months ? "Yes" : "No"}
                     </td>
                     <td
                       scope="row"
-                      className="px-6 py-3 font-gotham font-light border-color"
+                      className="md:px-6 md:py-3 px-2 py-1 font-gotham font-light border-color"
                     >
                       {emi.thirty_months ? "Yes" : "No"}
                     </td>
                     <td
                       scope="row"
-                      className="px-6 py-3 font-gotham font-light border-color"
+                      className="md:px-6 md:py-3 px-2 py-1 font-gotham font-light border-color"
                     >
                       {emi.thirty_six_months ? "Yes" : "No"}
                     </td>

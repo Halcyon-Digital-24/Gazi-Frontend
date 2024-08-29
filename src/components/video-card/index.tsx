@@ -58,7 +58,7 @@ const VideoCard: React.FC<IProps> = ({ url, title }) => {
       )}
       <div className="p-4">
         <h3
-          className="video-title font-bold font-gotham text-[15px] black-text mt-4"
+          className="video-title font-bold font-gotham text-[15px] primary-text mt-4"
           onClick={handlePlay}
         >
           {title}
