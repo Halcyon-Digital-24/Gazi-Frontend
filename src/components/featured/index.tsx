@@ -36,7 +36,7 @@ const Featured: FC<IProps> = ({ homeData, adsbanner, bannerUrl }) => {
                 <div className="col-span-6  md:col-span-5">
                   <TabPanel>
                     <div className="grid md:grid-cols-4 grid-cols-2 gap-1">
-                      {homeData?.topSale?.map((product, i) => (
+                      {homeData?.topSale?.slice(0, 4).map((product, i) => (
                         <ProductCard
                           key={i}
                           url={product.slug}
@@ -51,18 +51,40 @@ const Featured: FC<IProps> = ({ homeData, adsbanner, bannerUrl }) => {
                           quantity={product.default_quantity}
                           productAttribute={product.ProductAttribute}
                           camping_end_date={product.camping_end_date as string}
-                          camping_start_date={
-                            product.camping_start_date as string
-                          }
+                          camping_start_date={product.camping_start_date as string}
                           camping_id={product.camping_id as number}
                           camping_name={product.camping_name as string}
                         />
                       ))}
+
+                      {/* Conditionally render the 3rd and 4th products only on medium screens and up */}
+                      {homeData?.topSale?.slice(4, 8).map((product, i) => (
+                        <div key={i + 2} className="hidden md:block">
+                          <ProductCard
+                            url={product.slug}
+                            image={product.image}
+                            title={product.title}
+                            regular_price={product.regular_price}
+                            discount_price={product.discount_price}
+                            isNew={product.is_new}
+                            product_id={Number(product.id)}
+                            sort_description={product.sort_description}
+                            availability={product.availability}
+                            quantity={product.default_quantity}
+                            productAttribute={product.ProductAttribute}
+                            camping_end_date={product.camping_end_date as string}
+                            camping_start_date={product.camping_start_date as string}
+                            camping_id={product.camping_id as number}
+                            camping_name={product.camping_name as string}
+                          />
+                        </div>
+                      ))}
                     </div>
+
                   </TabPanel>
                   <TabPanel>
-                    <div className="grid md:grid-cols-4 grid-cols-2 gap-1">
-                      {homeData?.newArrival?.map((product, i) => (
+                  <div className="grid md:grid-cols-4 grid-cols-2 gap-1">
+                      {homeData?.newArrival?.slice(0, 4).map((product, i) => (
                         <ProductCard
                           key={i}
                           url={product.slug}
@@ -77,18 +99,39 @@ const Featured: FC<IProps> = ({ homeData, adsbanner, bannerUrl }) => {
                           quantity={product.default_quantity}
                           productAttribute={product.ProductAttribute}
                           camping_end_date={product.camping_end_date as string}
-                          camping_start_date={
-                            product.camping_start_date as string
-                          }
+                          camping_start_date={product.camping_start_date as string}
                           camping_id={product.camping_id as number}
                           camping_name={product.camping_name as string}
                         />
                       ))}
+
+                      {/* Conditionally render the 3rd and 4th products only on medium screens and up */}
+                      {homeData?.newArrival?.slice(4, 8).map((product, i) => (
+                        <div key={i + 2} className="hidden md:block">
+                          <ProductCard
+                            url={product.slug}
+                            image={product.image}
+                            title={product.title}
+                            regular_price={product.regular_price}
+                            discount_price={product.discount_price}
+                            isNew={product.is_new}
+                            product_id={Number(product.id)}
+                            sort_description={product.sort_description}
+                            availability={product.availability}
+                            quantity={product.default_quantity}
+                            productAttribute={product.ProductAttribute}
+                            camping_end_date={product.camping_end_date as string}
+                            camping_start_date={product.camping_start_date as string}
+                            camping_id={product.camping_id as number}
+                            camping_name={product.camping_name as string}
+                          />
+                        </div>
+                      ))}
                     </div>
                   </TabPanel>
                   <TabPanel>
-                    <div className="grid md:grid-cols-4 grid-cols-2 gap-1">
-                      {homeData?.featureProduct?.map((product, i) => (
+                  <div className="grid md:grid-cols-4 grid-cols-2 gap-1">
+                      {homeData?.featureProduct?.slice(0, 4).map((product, i) => (
                         <ProductCard
                           key={i}
                           url={product.slug}
@@ -103,12 +146,33 @@ const Featured: FC<IProps> = ({ homeData, adsbanner, bannerUrl }) => {
                           quantity={product.default_quantity}
                           productAttribute={product.ProductAttribute}
                           camping_end_date={product.camping_end_date as string}
-                          camping_start_date={
-                            product.camping_start_date as string
-                          }
+                          camping_start_date={product.camping_start_date as string}
                           camping_id={product.camping_id as number}
                           camping_name={product.camping_name as string}
                         />
+                      ))}
+
+                      {/* Conditionally render the 3rd and 4th products only on medium screens and up */}
+                      {homeData?.featureProduct?.slice(4, 8).map((product, i) => (
+                        <div key={i + 2} className="hidden md:block">
+                          <ProductCard
+                            url={product.slug}
+                            image={product.image}
+                            title={product.title}
+                            regular_price={product.regular_price}
+                            discount_price={product.discount_price}
+                            isNew={product.is_new}
+                            product_id={Number(product.id)}
+                            sort_description={product.sort_description}
+                            availability={product.availability}
+                            quantity={product.default_quantity}
+                            productAttribute={product.ProductAttribute}
+                            camping_end_date={product.camping_end_date as string}
+                            camping_start_date={product.camping_start_date as string}
+                            camping_id={product.camping_id as number}
+                            camping_name={product.camping_name as string}
+                          />
+                        </div>
                       ))}
                     </div>
                   </TabPanel>

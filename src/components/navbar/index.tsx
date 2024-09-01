@@ -36,9 +36,9 @@ const Navbar = ({ logo }: { logo: string }) => {
   }, []);
 
   return (
-    <nav className={`${stickyClass} navbar h-[64px] md:h-[100px]`}>
+    <nav className={`${stickyClass} navbar h-[50px] md:h-[100px]`}>
       <div className="container px-2 md:px-0">
-        <div className="flex justify-between items-center md:py-5 py-3">
+        <div className="flex justify-between items-center md:py-5 pt-1">
           <div className="w-[33%]">
             <Link href={"/"} className="inline-block">
               <Image

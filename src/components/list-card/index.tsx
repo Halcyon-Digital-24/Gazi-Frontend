@@ -222,7 +222,7 @@ const ListCard: FC<IProps> = ({ product }) => {
         </div>
       </div>
       <div className="image w-[25%] ml-2 md:ml-0 relative">
-        <h3 className="font-gotham font-medium primary-text stock pb-1 mb-4">
+        <h3 className="font-gotham font-medium primary-text stock pb-1 mb-4 text-sm md:text-base">
           {product.ProductAttribute && product.ProductAttribute.length > 0
             ? product.ProductAttribute.some((attr: { attribute_quantity: number }) => attr.attribute_quantity > 0)
               ? product.availability === 1
@@ -279,7 +279,7 @@ const ListCard: FC<IProps> = ({ product }) => {
                   </Button>
                 </Link>
               ) : (
-                <Button className="md:w-full px-3 md:px-0 font-gotham font-medium text-[14px] md:text-sm py-1 mt-4 product-btn stock-out">
+                <Button className="md:w-full px-2 md:px-0 font-gotham font-medium text-[12px] md:text-sm py-1 mt-4 product-btn stock-out">
                   Out of Stock
                 </Button>
               )
@@ -303,14 +303,14 @@ const ListCard: FC<IProps> = ({ product }) => {
                   Buy Now
                 </Button>
               ) : (
-                <Button className="md:w-full px-3 md:px-0 font-gotham font-medium text-[14px] md:text-sm py-1 mt-4 product-btn stock-out">
+                <Button className="md:w-full px-2 md:px-0 font-gotham font-medium text-[12px] md:text-sm py-1 mt-4 product-btn stock-out">
                   Out of Stock
                 </Button>
               )
             )}
           </>
         ) : product.availability === 2 ? (
-          <Button className="md:w-full px-3 md:px-0 font-gotham font-medium text-[14px] md:text-sm py-1 mt-4 product-btn stock-out">
+          <Button className="md:w-full px-2 md:px-0 font-gotham font-medium text-[12px] md:text-sm py-1 mt-4 product-btn stock-out">
             Out of Stock
           </Button>
         ) : product.availability === 3 ? (
