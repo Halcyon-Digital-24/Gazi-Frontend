@@ -396,13 +396,13 @@ const PageDetails = ({ params: { slug } }: Props) => {
         if (response.status == 201) {
           dispatch(
             addToWishList({
-              product_id: response.data.data.product_id,
-              user_id: response.data.data.user_id,
+              product_id: response.data.wishlist.product_id,
+              user_id: response.data.wishlist.user_id,
             })
           );
         } else {
           console.log("Status : ", response.status);
-          toast.warning(`${response.data.data}`);
+          toast.warning(`${response.data.message}`);
         }
       } catch (error) {
         console.log(error);

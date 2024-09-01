@@ -39,8 +39,8 @@ function WishlistPage() {
           },
         });
         if (response.status === 200) {
-          setWishListItems(response?.data);
-          dispatch(setWishList(response?.data));
+          setWishListItems(response?.data?.wishlist);
+          dispatch(setWishList(response?.data?.wishlist));
         }
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 401) {
@@ -179,7 +179,7 @@ function WishlistPage() {
                                 : ""
                           : "Out of Stock"
                         : item.availability === 1
-                          ? item.quantity > 0
+                          ? item.default_quantity > 0
                             ? "In Stock"
                             : "Out of Stock"
                           : item.availability === 2
@@ -211,7 +211,7 @@ function WishlistPage() {
                         // No attributes, fallback to standard availability logic
                         <>
                           {item.availability === 1 ? (
-                            item.quantity > 0 ? (
+                            item.default_quantity > 0 ? (
                               <Button
                                 className="px-6 py-1 font-gotham font-medium text-sm w-btn"
                                 onClick={() =>

@@ -25,7 +25,7 @@ async function getData() {
 
 async function categoryProduct(category_slug: string) {
   const res = await fetch(
-    `${API_URL}/frontend/products?page=1&limit=5&category=${category_slug}`,
+    `${API_URL}/frontend/products?page=1&limit=5&category=${category_slug}&is_homepage=1`,
     {
       cache: "no-store",
 
