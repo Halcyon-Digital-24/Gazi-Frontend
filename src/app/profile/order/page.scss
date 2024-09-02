@@ -8,7 +8,14 @@
   }
 
   .table-heading {
-    background: $secondary-background-color;
+    background: $primary-background-color;
+    color: white;
+  }
+  th{
+    border-right: 1px solid $quaternary-background-color;
+        &:last-child {
+          border: 0;
+        }
   }
   tbody {
     tr {

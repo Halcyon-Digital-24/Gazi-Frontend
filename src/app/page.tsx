@@ -118,7 +118,7 @@ export default async function Home() {
         <section className="promotion">
           <Link href={homeData?.homePage?.special_product_link ?? "/"}>
             <Image
-    
+
               src={`${API_ROOT}/images/home-page/${homeData?.homePage?.special_product_photo}`}
               alt="promotion banner"
               width={1800}
@@ -159,6 +159,28 @@ export default async function Home() {
                     />
                   )
                 )}
+                {/* Conditionally render the 5th product only on medium screens and up */}
+                {categoryOne?.data?.rows[4] && (
+                  <div className="hidden md:block">
+                    <ProductCard
+                      key={4}
+                      url={categoryOne?.data?.rows[4].slug}
+                      image={categoryOne?.data?.rows[4].image}
+                      title={categoryOne?.data?.rows[4].title}
+                      regular_price={categoryOne?.data?.rows[4].regular_price}
+                      discount_price={categoryOne?.data?.rows[4].discount_price}
+                      product_id={Number(categoryOne?.data?.rows[4].id)}
+                      sort_description={categoryOne?.data?.rows[4].sort_description}
+                      availability={categoryOne?.data?.rows[4].availability}
+                      quantity={categoryOne?.data?.rows[4].default_quantity}
+                      productAttribute={categoryOne?.data?.rows[4].ProductAttribute}
+                      camping_end_date={categoryOne?.data?.rows[4].camping_end_date as string}
+                      camping_start_date={categoryOne?.data?.rows[4].camping_start_date as string}
+                      camping_id={categoryOne?.data?.rows[4].camping_id as number}
+                      camping_name={categoryOne?.data?.rows[4].camping_name as string}
+                    />
+                  </div>
+                )}
               </div>
             </div>
             <div className="mb-12">
@@ -186,6 +208,28 @@ export default async function Home() {
                     camping_name={product.camping_name as string}
                   />
                 ))}
+                {/* Conditionally render the 5th product only on medium screens and up */}
+                {categoryTwo?.data?.rows[4] && (
+                  <div className="hidden md:block">
+                    <ProductCard
+                      key={4}
+                      url={categoryOne?.data?.rows[4].slug}
+                      image={categoryOne?.data?.rows[4].image}
+                      title={categoryOne?.data?.rows[4].title}
+                      regular_price={categoryOne?.data?.rows[4].regular_price}
+                      discount_price={categoryOne?.data?.rows[4].discount_price}
+                      product_id={Number(categoryOne?.data?.rows[4].id)}
+                      sort_description={categoryOne?.data?.rows[4].sort_description}
+                      availability={categoryOne?.data?.rows[4].availability}
+                      quantity={categoryOne?.data?.rows[4].default_quantity}
+                      productAttribute={categoryOne?.data?.rows[4].ProductAttribute}
+                      camping_end_date={categoryOne?.data?.rows[4].camping_end_date as string}
+                      camping_start_date={categoryOne?.data?.rows[4].camping_start_date as string}
+                      camping_id={categoryOne?.data?.rows[4].camping_id as number}
+                      camping_name={categoryOne?.data?.rows[4].camping_name as string}
+                    />
+                  </div>
+                )}
               </div>
             </div>
             <div>
@@ -214,6 +258,28 @@ export default async function Home() {
                     camping_name={product.camping_name as string}
                   />
                 ))}
+                {/* Conditionally render the 5th product only on medium screens and up */}
+                {categoryThree?.data?.rows[4] && (
+                  <div className="hidden md:block">
+                    <ProductCard
+                      key={4}
+                      url={categoryOne?.data?.rows[4].slug}
+                      image={categoryOne?.data?.rows[4].image}
+                      title={categoryOne?.data?.rows[4].title}
+                      regular_price={categoryOne?.data?.rows[4].regular_price}
+                      discount_price={categoryOne?.data?.rows[4].discount_price}
+                      product_id={Number(categoryOne?.data?.rows[4].id)}
+                      sort_description={categoryOne?.data?.rows[4].sort_description}
+                      availability={categoryOne?.data?.rows[4].availability}
+                      quantity={categoryOne?.data?.rows[4].default_quantity}
+                      productAttribute={categoryOne?.data?.rows[4].ProductAttribute}
+                      camping_end_date={categoryOne?.data?.rows[4].camping_end_date as string}
+                      camping_start_date={categoryOne?.data?.rows[4].camping_start_date as string}
+                      camping_id={categoryOne?.data?.rows[4].camping_id as number}
+                      camping_name={categoryOne?.data?.rows[4].camping_name as string}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -222,7 +288,7 @@ export default async function Home() {
           <div className="container ">
             <Link href={addBanner?.data[0]?.url ?? "/"}>
               <Image
-      
+
                 className=" transition-all duration-100 hover:scale-[1.01] h-auto"
                 src={`${API_ROOT}/images/banner/${addBanner?.data[0]?.image}`}
                 alt="ads"

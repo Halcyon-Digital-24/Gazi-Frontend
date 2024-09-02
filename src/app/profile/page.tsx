@@ -40,7 +40,7 @@ const Profile = () => {
         <section className="profile">
           <div className="container">
             <div className="flex md:flex-none md:grid md:grid-cols-12 md:gap-6">
-              <div className="sidebar  md:col-span-3  px-1">
+              <div className="sidebar  md:col-span-3  px-2">
                 <span className="md:hidden">
                   <CiMenuFries  />
                 </span>
@@ -48,26 +48,26 @@ const Profile = () => {
                   <ProfileSidebar />
                 </div>
               </div>
-              <div className="flex-1 md:col-span-9 col-span-12 px-1 ">
+              <div className="flex-1 md:col-span-9 col-span-12 pr-1 ">
                 <div className="grid grid-cols-3 md:gap-4 gap-1">
-                  <div className=" primary-bg py-5 pl-5">
-                    <h2 className=" font-medium font-gotham text-base white-text">
+                  <div className=" primary-bg md:py-5 p-2 md:pl-5">
+                    <h2 className=" font-medium font-gotham text-sm md:text-base white-text">
                       {cart?.length} Products
                     </h2>
                     <p className=" font-gotham font-light text-xs white-text">
                       In Your Cart
                     </p>
                   </div>
-                  <div className=" primary-bg py-5 pl-5">
-                    <h2 className=" font-medium font-gotham text-base white-text">
+                  <div className=" primary-bg md:py-5 p-2 md:pl-5">
+                    <h2 className=" font-medium font-gotham text-sm md:text-base white-text">
                       {dashboard?.wishlistCount} Products
                     </h2>
                     <p className=" font-gotham font-light text-xs white-text">
                       In Your Wishlist
                     </p>
                   </div>
-                  <div className=" primary-bg py-5 pl-5">
-                    <h2 className=" font-medium font-gotham text-base white-text">
+                  <div className=" primary-bg md:py-5 p-2 md:pl-5">
+                    <h2 className=" font-medium font-gotham text-sm md:text-base white-text">
                       {dashboard?.orderCount} Products
                     </h2>
                     <p className=" font-gotham font-light text-xs white-text">

@@ -25,6 +25,7 @@ const SingleOrder: FC<IProps> = ({ order }) => {
   const [finalPrice, setFinalPrice] = useState<number>(0);
   const [amountBeforeCoupon, setAmountBeforeCoupon] = useState<number>(0);
   const advancePayment = orderDetails.advance_payment ?? 0;
+  
   useEffect(() => {
     if (order?.id) {
       const getOrderDetails = async () => {

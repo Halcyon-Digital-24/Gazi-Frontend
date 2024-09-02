@@ -4,7 +4,14 @@
   box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.05);
 
   .table-heading {
-    background: $secondary-background-color;
+    background: $primary-background-color;
+    color: white;
+  }
+  th{
+    border-right: 1px solid $quaternary-background-color;
+        &:last-child {
+          border: 0;
+        }
   }
   tbody {
     tr {

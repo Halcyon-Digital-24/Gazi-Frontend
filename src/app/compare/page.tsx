@@ -69,12 +69,7 @@ function Compare() {
                     scope="col"
                     className="px-2 py-3 min-w-[200px] md:min-w-[auto]"
                   >
-                    <div className="header">
-                      <h4 className=" font-gotham font-medium text-xs black-text">
-                        {item.title}
-                      </h4>
-                      {/* <LuSearch /> */}
-                    </div>
+                  
                   </th>
                 ))}
               </tr>

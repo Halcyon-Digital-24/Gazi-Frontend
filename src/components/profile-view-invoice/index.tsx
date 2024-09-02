@@ -23,47 +23,75 @@ const ProfileViewInvoice = ({
   useEffect(() => {
     if (orderItems?.length > 0) {
       let totalRegularPrice = 0;
+      let totalDiscountPrice = 0;
 
-      orderItems?.forEach((item: any) => {
+      // Calculate total regular price and total discount price
+      orderItems.forEach((item: any) => {
         totalRegularPrice += item?.regular_price * item?.quantity;
+        totalDiscountPrice += (item?.discount_price
+          ? item?.discount_price
+          : item?.regular_price) * item?.quantity;
       });
 
-      // setAmountBeforeCoupon(totalRegularPrice);
+      // Calculate total price after applying coupon
+      let calculatedTotalPrice = 0;
 
       if (order?.coupon) {
-        let finalPrice = 0;
-        orderItems?.map((item: any) => {
-          finalPrice += item?.discount_price * item?.quantity;
-        });
-        setTotalPrice(finalPrice);
+        if (order?.coupon.discount_type === "flat") {
+          // Flat discount calculation
+          const totalFlatDiscount = orderItems.reduce((sum: number, item: any) => {
+            if (order?.coupon?.product_id) {
+              const applicableProductIds = order?.coupon?.product_id.split(",");
+              if (applicableProductIds.includes(item.product_id.toString())) {
+                return sum + (item.regular_price - order?.coupon?.discount_amount) * item.quantity;
+              }
+            } else {
+              return sum + (item.regular_price - order?.coupon?.discount_amount) * item.quantity;
+            }
+            return sum;
+          }, 0);
+          calculatedTotalPrice = totalFlatDiscount;
+        } else {
+          // Percentage discount calculation
+          const totalPercentageDiscount = orderItems.reduce((sum: number, item: any) => {
+            if (order?.coupon?.product_id) {
+              const applicableProductIds = order?.coupon?.product_id.split(",");
+              if (applicableProductIds.includes(item.product_id.toString())) {
+                return sum + (item.regular_price - (item.regular_price * (order?.coupon.discount_amount / 100))) * item.quantity;
+              }
+            } else {
+              return sum + (item.regular_price - (item.regular_price * (order?.coupon.discount_amount / 100))) * item.quantity;
+            }
+            return sum;
+          }, 0);
+          calculatedTotalPrice = totalPercentageDiscount;
+        }
       } else {
-        let finalPrice = 0;
-        orderItems?.map((item: any) => {
-          finalPrice += (item?.discount_price
-            ? item?.discount_price
-            : item?.regular_price) * item?.quantity;
-        });
-        setTotalPrice(finalPrice);
+        // No coupon applied
+        calculatedTotalPrice = totalDiscountPrice;
       }
+
+      setTotalPrice(calculatedTotalPrice);
     }
   }, [order, orderItems]);
+
 
   return (
     <div className="profile-invoice white-bg md:p-[40px] md:pt-0 p-1">
       <div className="invoice-header font-gotham text-xs">
         <div className="title">
-        {
-          order?.order_form == "web" || order.order_prefix === "GC" ?
-            <>
-              <img src="/assets/invoice/web-header.png" alt="invoice" />
-            </> : <>
-              {order.order_prefix === "GHA" ? (
-                <img src="/assets/invoice/homeappliance.png" alt="invoice" />
-              ) : (
-                <img src="/assets/invoice/pump.png" alt="invoice" />
-              )}
-            </>
-        }
+          {
+            order?.order_form == "web" || order.order_prefix === "GC" ?
+              <>
+                <img src="/assets/invoice/web-header.png" alt="invoice" />
+              </> : <>
+                {order.order_prefix === "GHA" ? (
+                  <img src="/assets/invoice/homeappliance.png" alt="invoice" />
+                ) : (
+                  <img src="/assets/invoice/pump.png" alt="invoice" />
+                )}
+              </>
+          }
         </div>
         <h4 className="customer-details font-gotham font-medium">
           Customer Details
@@ -123,57 +151,47 @@ const ProfileViewInvoice = ({
         </div>
       </div>
       <div className="overflow-x-scroll md:overflow-x-visible md:col-span-9 col-span-12">
-      <table className="invoice-details-table">
-        <tr className="table-heading">
-          <th>SL.</th>
-          <th>Description</th>
-          <th>Attribute</th>
-          <th>Qty</th>
-          <th>Unit price (BDT)</th>
-          <th>Total</th>
-          <th>Refund Request</th>
-        </tr>
-        {orderItems?.length > 0 &&
-          orderItems?.map((product, index) => (
-            <SingleItem product={product} key={index} serial={index + 1} />
-          ))}
-        <tr>
-          <td className="span-item" colSpan={4}></td>
-          <td className="heading-title">Sub Total</td>
-          <td>{` ${FormatPrice(amountBeforeCoupon)}`}</td>
-        </tr>
-        <tr>
-          <td className="span-item" colSpan={4}></td>
-          <td className="heading-title">Delivery</td>
-          <td>{FormatPrice(order.delivery_fee)}</td>
-        </tr>
-        <tr>
-          <td className="span-item" colSpan={4}></td>
-          <td className="heading-title">Discount</td>
-          <td>
-            {FormatPrice(
-              amountBeforeCoupon - totalPrice + order.custom_discount
-            )}
-          </td>
-        </tr>
-        <tr>
-          <td className="span-item" colSpan={4}></td>
-          <td className="heading-title">Advance</td>
-          <td>{FormatPrice(order.advance_payment ?? 0)}</td>
-        </tr>
-        <tr>
-          <td className="span-item" colSpan={4}></td>
-          <td className="heading-title">Due Amount</td>
-          <td>
-            {FormatPrice(
-              totalPrice +
-                order.delivery_fee -
-                order.custom_discount -
-                advancePayment
-            )}
-          </td>
-        </tr>
-      </table>
+        <table className="invoice-details-table">
+          <tr className="table-heading">
+            <th>SL.</th>
+            <th>Description</th>
+            <th>Attribute</th>
+            <th>Qty</th>
+            <th>Unit price (BDT)</th>
+            <th>Total</th>
+            <th>Refund Request</th>
+          </tr>
+          {orderItems?.length > 0 &&
+            orderItems?.map((product, index) => (
+              <SingleItem product={product} key={index} serial={index + 1} />
+            ))}
+          <tr>
+            <td className="span-item" colSpan={4}></td>
+            <td className="heading-title">Sub Total</td>
+            <td>{FormatPrice(amountBeforeCoupon)}</td>
+          </tr>
+          <tr>
+            <td className="span-item" colSpan={4}></td>
+            <td className="heading-title">Delivery</td>
+            <td>{FormatPrice(order.delivery_fee)}</td>
+          </tr>
+          <tr>
+            <td className="span-item" colSpan={4}></td>
+            <td className="heading-title">Discount</td>
+            <td>{FormatPrice(amountBeforeCoupon - totalPrice + order.custom_discount)}</td>
+          </tr>
+          <tr>
+            <td className="span-item" colSpan={4}></td>
+            <td className="heading-title">Advance</td>
+            <td>{FormatPrice(order.advance_payment ?? 0)}</td>
+          </tr>
+          <tr>
+            <td className="span-item" colSpan={4}></td>
+            <td className="heading-title">Due Amount</td>
+            <td>{FormatPrice(totalPrice + order.delivery_fee - order.custom_discount - advancePayment)}</td>
+          </tr>
+
+        </table>
       </div>
       <div className="notes mt-3">
         <h3 className=" font-gotham font-medium text-sm">Notes:</h3>
@@ -181,158 +199,61 @@ const ProfileViewInvoice = ({
         {
           order?.order_form == "web" || order.order_prefix === "GC" ?
             <>
-             <p className=" font-gotham text-xs font-light">
-          1. Please ensure to check for any physical damage to the product upon
-          receiving it. After receiving the product, no claims for physical
-          damage will be accepted.
-        </p>
+              <p className=" font-gotham text-xs font-light">
+                1. Please ensure to check for any physical damage to the product upon
+                receiving it. After receiving the product, no claims for physical
+                damage will be accepted.
+              </p>
             </> : <>
               {order.order_prefix === "GHA" ? (
                 <> <p className=" font-gotham text-xs font-light">
-                1. All our products come with a{" "}
-                {order.order_prefix === "GHA" ? "one-year" : "two-years"} service
-                warranty. To claim the warranty, please present this invoice.
-              </p>
-              <p className=" font-gotham text-xs font-light">
-                2. Please ensure to check for any physical damage to the product upon
-                receiving it. After receiving the product, no claims for physical
-                damage will be accepted.
-              </p>
-              <p className=" font-gotham text-xs font-light">
-                3. For official installation, please inform us upon receiving the
-                product if the customer wishes for us to install it. We will require
-                24 hours to complete the installation.
-              </p> </>
+                  1. All our products come with a{" "}
+                  {order.order_prefix === "GHA" ? "one-year" : "two-years"} service
+                  warranty. To claim the warranty, please present this invoice.
+                </p>
+                  <p className=" font-gotham text-xs font-light">
+                    2. Please ensure to check for any physical damage to the product upon
+                    receiving it. After receiving the product, no claims for physical
+                    damage will be accepted.
+                  </p>
+                  <p className=" font-gotham text-xs font-light">
+                    3. For official installation, please inform us upon receiving the
+                    product if the customer wishes for us to install it. We will require
+                    24 hours to complete the installation.
+                  </p> </>
               ) : (
                 <><p className=" font-gotham text-xs font-light">
-                1. All our products come with a{" "}
-                {order.order_prefix === "GHA" ? "one-year" : "two-years"} service
-                warranty. To claim the warranty, please present this invoice.
-              </p>
-              <p className=" font-gotham text-xs font-light">
-                2. Please ensure to check for any physical damage to the product upon
-                receiving it. After receiving the product, no claims for physical
-                damage will be accepted.
-              </p></>
+                  1. All our products come with a{" "}
+                  {order.order_prefix === "GHA" ? "one-year" : "two-years"} service
+                  warranty. To claim the warranty, please present this invoice.
+                </p>
+                  <p className=" font-gotham text-xs font-light">
+                    2. Please ensure to check for any physical damage to the product upon
+                    receiving it. After receiving the product, no claims for physical
+                    damage will be accepted.
+                  </p></>
               )}
             </>
         }
-{/* 
-        <p className=" font-gotham text-xs font-light">
-          1. All our products come with a{" "}
-          {order.order_prefix === "GHA" ? "one-year" : "two-years"} service
-          warranty. To claim the warranty, please present this invoice.
-        </p>
-        <p className=" font-gotham text-xs font-light">
-          2. Please ensure to check for any physical damage to the product upon
-          receiving it. After receiving the product, no claims for physical
-          damage will be accepted.
-        </p>
-        <p className=" font-gotham text-xs font-light">
-          3. For official installation, please inform us upon receiving the
-          product if the customer wishes for us to install it. We will require
-          24 hours to complete the installation.
-        </p> */}
+
       </div>
       <div className="invoice-footer">
         <div className="title">
-        {
-          order?.order_form == "web" || order.order_prefix === "GC" ?
-            <>
-              <img src="/assets/invoice/web-footer.jpg" alt="invoice" />
-            </> : <>
-              {order.order_prefix === "GHA" ? (
-                <img src="/assets/invoice/home-footer.png" alt="invoice" />
-              ) : (
-                <img src="/assets/invoice/pump-footer.png" alt="invoice" />
-              )}
-            </>
-        }
+          {
+            order?.order_form == "web" || order.order_prefix === "GC" ?
+              <>
+                <img src="/assets/invoice/web-footer.jpg" alt="invoice" />
+              </> : <>
+                {order.order_prefix === "GHA" ? (
+                  <img src="/assets/invoice/home-footer.png" alt="invoice" />
+                ) : (
+                  <img src="/assets/invoice/pump-footer.png" alt="invoice" />
+                )}
+              </>
+          }
         </div>
       </div>
-      {/* <table className="w-full">
-        <thead>
-          <tr className="secondary-bg text-left table-border">
-            <th className="table-border">SL.</th>
-            <th className="table-border">Description</th>
-            <th className="table-border">Attribute</th>
-            <th className="table-border">Qty</th>
-            <th className="table-border">Unit Price (BDT)</th>
-            <th className="table-border">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {order?.orderItems?.map((product: any, index: any) => (
-            <tr key={index} className="product-a">
-              <td className="table-border">{index + 1}</td>
-              <td className="table-border">{product.product_name}</td>
-              <td className="table-border">
-                {product.product_attribute
-                  ? JSON.parse(product.product_attribute).map(
-                      (v: any, i: number) => (
-                        <span className="variant" key={i}>
-                          {`${i ? "," : ""}${v.attribute_name}`}
-                        </span>
-                      )
-                    )
-                  : "-"}
-              </td>
-              <td className="table-border"> {product.quantity}</td>
-              <td className="table-border"> ৳ {product.discount_price}</td>
-              <td className="table-border">
-                {" "}
-                ৳ {product.discount_price * product.quantity}
-              </td>
-            </tr>
-          ))}
 
-          <tr>
-            <td colSpan={4}>
-              <h3>Notes:</h3>
-              <p>
-                1. All our products come with a one-year service warranty. To
-                claim the warranty, please present this invoice.
-              </p>
-              <p>
-                2. Please ensure to check for any physical damage to the product
-                upon receiving it. After receiving the product, no claims for
-                physical damage will be accepted.
-              </p>
-              <p>
-                3. For official installation, please inform us upon receiving
-                the product if the customer wishes for us to install it. We will
-                require 24 hours to complete the installation.
-              </p>
-            </td>
-            <td>Regular Price</td>
-            <td> ৳ {amountBeforeCoupon} </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>Delivery</td>
-            <td> ৳ {shipingCost}</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>Discount</td>
-            <td>৳ {amountBeforeCoupon - finalPrice}</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>Total</td>
-            <td> ৳ {finalPrice + shipingCost} </td>
-          </tr>
-        </tbody>
-      </table> */}
     </div>
   );
 };
