@@ -168,15 +168,41 @@ function Checkout() {
   };
 
   const handleApplyPromo = async () => {
-    if (approvePromoCode?.trim() || approvePromoCode?.trim() !== "") {
+    if (approvePromoCode?.trim() && approvePromoCode?.trim() !== "") {
       try {
         const response = await axios.post(`${API_URL}/coupons/validation`, {
           coupon_code: approvePromoCode,
         });
-        if (response.status == 200) {
-          setApprovePromoData(response?.data?.coupon);
-          setCouponId(response?.data?.coupon?.id);
-          setApprovePromStatus(response.data.message);
+  
+        if (response.status === 200) {
+          const couponData = response?.data?.coupon;
+  
+          // Check if coupon applies to the entire order or specific products
+          if (couponData.product_id === null) {
+            // Coupon applies to the entire order
+            setApprovePromoData(couponData);
+            setCouponId(couponData?.id);
+            setApprovePromStatus("The promo code is applied to this order.");
+          } else {
+            const applicableProductIds = couponData.product_id.split(",").map((id:any) => id.trim());
+  
+            // Check if there are applicable products in the cart
+            const cartContainsApplicableProduct = orderItem.some((item: any) =>
+              applicableProductIds.includes(item.product_id.toString())
+            );
+  
+            if (cartContainsApplicableProduct) {
+              setApprovePromoData(couponData);
+              setCouponId(couponData?.id);
+              setApprovePromStatus("The promo code is applied to one or more products in this order.");
+            } else {
+              // Promo code is not applicable to any product in the cart
+              setApprovePromoData(null);
+              setApprovePromStatus("The promo code is not applicable to any product in in this order.");
+              setCouponId(null);
+              setDiscountCart(cart); // Reset the discount cart
+            }
+          }
         } else {
           setApprovePromoData(null);
           setApprovePromStatus(response.data.message);
@@ -195,6 +221,7 @@ function Checkout() {
       }
     }
   };
+  
 
   useEffect(() => {
     if (approvePromoData) {
@@ -595,7 +622,7 @@ function Checkout() {
                         </Button>
                       </div>
                       {approvePromoStatus ? (
-                        <div className="text font-gotham font-normal bold text-xs">
+                        <div className="text font-gotham font-bold text-xs mt-1">
                           {approvePromoStatus}
                         </div>
                       ) : (
