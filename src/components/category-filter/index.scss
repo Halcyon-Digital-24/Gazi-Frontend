@@ -19,13 +19,13 @@
     border-bottom: 0;
 
     &:hover {
-      color: $primary-text-color;
+      color: $hover-color;
     }
   }
   .sub-link {
     transition: all linear 0.3s;
     &:hover {
-      color: $primary-text-color;
+      color: $hover-color;
     }
   }
 }

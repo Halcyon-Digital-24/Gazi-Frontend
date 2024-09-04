@@ -7,12 +7,14 @@ interface Location {
 
 interface CustomDropdownProps {
   locations: Location[];
-  handleChangeLocation: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleChangeLocation: (value: string) => void;
+  required?: boolean;
 }
 
-const CustomDropdown: React.FC<CustomDropdownProps> = ({ locations, handleChangeLocation }) => {
+const CustomDropdown: React.FC<CustomDropdownProps> = ({ locations, handleChangeLocation, required }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState<string>('');
+  const [isTouched, setIsTouched] = useState(false);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -21,13 +23,16 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ locations, handleChange
   const handleOptionClick = (location: string) => {
     setSelectedLocation(location);
     setIsOpen(false);
-    handleChangeLocation({ target: { value: location } } as React.ChangeEvent<HTMLSelectElement>);
+    setIsTouched(true);
+    handleChangeLocation(location);
   };
+
+  const showError = required && isTouched && !selectedLocation;
 
   return (
     <div className="custom-dropdown">
       <div
-        className={`dropdown-header ${isOpen ? 'open' : ''}`}
+        className={`dropdown-header ${isOpen ? 'open' : ''} ${showError ? 'error' : ''}`}
         onClick={handleToggle}
       >
         {selectedLocation || 'Select Location'}
@@ -50,6 +55,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ locations, handleChange
           )}
         </div>
       )}
+      {showError && <div className="select-error">This field is required</div>}
     </div>
   );
 };

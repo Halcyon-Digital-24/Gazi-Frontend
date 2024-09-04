@@ -274,26 +274,28 @@ const ProductCard: React.FC<IProps> = ({
 
       </div>
       <div className="absolute top-2 left-2">
-        {
-          ((Number(regular_price) - Number(discount_price)) / Number(regular_price)) *
-            100 !==
-            0 && discount_price !== 0 ? (
-            <span className="sudo inline-block discount font-gotham text-xs font-bold px-2 py-1 rounded primary-text">
-              {((Number(regular_price) - Number(discount_price)) /
+        {Number(regular_price) > 0 && Number(discount_price) > 0 && (
+          (() => {
+            const discountPercent =
+              ((Number(regular_price) - Number(discount_price)) /
                 Number(regular_price)) *
-                100
-                // Check if the number is fractional
-                % 1 !== 0
-                ? ((Number(regular_price) - Number(discount_price)) /
-                  Number(regular_price)) *
-                100
-                : ((Number(regular_price) - Number(discount_price)) /
-                  Number(regular_price)) *
-                100}
-              %
-            </span>
-          ) : null
-        }
+              100;
+
+            // Only show the discount percentage if it is greater than 0
+            if (discountPercent > 0) {
+              return (
+                <span className="sudo inline-block discount font-gotham text-xs font-bold px-2 py-1 rounded primary-text">
+                  - {discountPercent % 1 !== 0
+                    ? discountPercent.toFixed(2) // Show 2 decimal points if fractional
+                    : discountPercent.toString()}%
+                </span>
+              );
+            }
+            return null; // Do not render anything if the discount is 0%
+          })()
+        )}
+
+
 
         {isNew ? (
           <span className="sudo inline-block new font-gotham text-xs font-bold px-2 py-1 rounded primary-text">
