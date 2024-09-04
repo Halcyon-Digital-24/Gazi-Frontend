@@ -132,13 +132,16 @@ export default async function Home() {
         </section>
         <section className="category-products">
           <div className="container px-2 md:px-0">
+
+            {/* Category One */}
             <div className="mb-12">
               <Title
                 title={homeData?.homePage?.category_one_title}
                 href={`/category/filter?category=${homeData?.homePage?.category_one}`}
               />
-              <div className="grid md:grid-cols-5 grid-cols-2 gap-1">
-                {categoryOne?.data?.rows.map(
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-1">
+                {/* First 4 products for mobile and desktop */}
+                {categoryOne?.data?.rows.slice(0, 4).map(
                   (product: IProduct, i: number) => (
                     <ProductCard
                       key={i}
@@ -159,126 +162,134 @@ export default async function Home() {
                     />
                   )
                 )}
-                {/* Conditionally render the 5th product only on medium screens and up */}
-                {categoryOne?.data?.rows[4] && (
-                  <div className="hidden md:block">
-                    <ProductCard
-                      key={4}
-                      url={categoryOne?.data?.rows[4].slug}
-                      image={categoryOne?.data?.rows[4].image}
-                      title={categoryOne?.data?.rows[4].title}
-                      regular_price={categoryOne?.data?.rows[4].regular_price}
-                      discount_price={categoryOne?.data?.rows[4].discount_price}
-                      product_id={Number(categoryOne?.data?.rows[4].id)}
-                      sort_description={categoryOne?.data?.rows[4].sort_description}
-                      availability={categoryOne?.data?.rows[4].availability}
-                      quantity={categoryOne?.data?.rows[4].default_quantity}
-                      productAttribute={categoryOne?.data?.rows[4].ProductAttribute}
-                      camping_end_date={categoryOne?.data?.rows[4].camping_end_date as string}
-                      camping_start_date={categoryOne?.data?.rows[4].camping_start_date as string}
-                      camping_id={categoryOne?.data?.rows[4].camping_id as number}
-                      camping_name={categoryOne?.data?.rows[4].camping_name as string}
-                    />
-                  </div>
+                {/* 5th product only for desktop */}
+                {categoryOne?.data?.rows.slice(4, 5).map(
+                  (product: IProduct, i: number) => (
+                    <div key={i + 4} className="hidden lg:block">
+                      <ProductCard
+                        url={product.slug}
+                        image={product.image}
+                        title={product.title}
+                        regular_price={product.regular_price}
+                        discount_price={product.discount_price}
+                        product_id={Number(product.id)}
+                        sort_description={product.sort_description}
+                        availability={product.availability}
+                        quantity={product.default_quantity}
+                        productAttribute={product.ProductAttribute}
+                        camping_end_date={product.camping_end_date as string}
+                        camping_start_date={product.camping_start_date as string}
+                        camping_id={product.camping_id as number}
+                        camping_name={product.camping_name as string}
+                      />
+                    </div>
+                  )
                 )}
               </div>
             </div>
+
+            {/* Repeat the same structure for Category Two and Category Three */}
+
             <div className="mb-12">
               <Title
                 title={homeData?.homePage?.category_two_title}
                 href={`/category/filter?category=${homeData?.homePage?.category_two}`}
               />
-              <div className="grid md:grid-cols-5 grid-cols-2 gap-1">
-                {categoryTwo?.data?.rows.map((product, i) => (
-                  <ProductCard
-                    key={i}
-                    url={product.slug}
-                    image={product.image}
-                    title={product.title}
-                    regular_price={product.regular_price}
-                    discount_price={product.discount_price}
-                    product_id={Number(product.id)}
-                    sort_description={product.sort_description}
-                    availability={product.availability}
-                    quantity={product.default_quantity}
-                    productAttribute={product.ProductAttribute}
-                    camping_end_date={product.camping_end_date as string}
-                    camping_start_date={product.camping_start_date as string}
-                    camping_id={product.camping_id as number}
-                    camping_name={product.camping_name as string}
-                  />
-                ))}
-                {/* Conditionally render the 5th product only on medium screens and up */}
-                {categoryTwo?.data?.rows[4] && (
-                  <div className="hidden md:block">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-1">
+                {categoryTwo?.data?.rows.slice(0, 4).map(
+                  (product: IProduct, i: number) => (
                     <ProductCard
-                      key={4}
-                      url={categoryOne?.data?.rows[4].slug}
-                      image={categoryOne?.data?.rows[4].image}
-                      title={categoryOne?.data?.rows[4].title}
-                      regular_price={categoryOne?.data?.rows[4].regular_price}
-                      discount_price={categoryOne?.data?.rows[4].discount_price}
-                      product_id={Number(categoryOne?.data?.rows[4].id)}
-                      sort_description={categoryOne?.data?.rows[4].sort_description}
-                      availability={categoryOne?.data?.rows[4].availability}
-                      quantity={categoryOne?.data?.rows[4].default_quantity}
-                      productAttribute={categoryOne?.data?.rows[4].ProductAttribute}
-                      camping_end_date={categoryOne?.data?.rows[4].camping_end_date as string}
-                      camping_start_date={categoryOne?.data?.rows[4].camping_start_date as string}
-                      camping_id={categoryOne?.data?.rows[4].camping_id as number}
-                      camping_name={categoryOne?.data?.rows[4].camping_name as string}
+                      key={i}
+                      url={product.slug}
+                      image={product.image}
+                      title={product.title}
+                      regular_price={product.regular_price}
+                      discount_price={product.discount_price}
+                      product_id={Number(product.id)}
+                      sort_description={product.sort_description}
+                      availability={product.availability}
+                      quantity={product.default_quantity}
+                      productAttribute={product.ProductAttribute}
+                      camping_end_date={product.camping_end_date as string}
+                      camping_start_date={product.camping_start_date as string}
+                      camping_id={product.camping_id as number}
+                      camping_name={product.camping_name as string}
                     />
-                  </div>
+                  )
+                )}
+                {categoryTwo?.data?.rows.slice(4, 5).map(
+                  (product: IProduct, i: number) => (
+                    <div key={i + 4} className="hidden lg:block">
+                      <ProductCard
+                        url={product.slug}
+                        image={product.image}
+                        title={product.title}
+                        regular_price={product.regular_price}
+                        discount_price={product.discount_price}
+                        product_id={Number(product.id)}
+                        sort_description={product.sort_description}
+                        availability={product.availability}
+                        quantity={product.default_quantity}
+                        productAttribute={product.ProductAttribute}
+                        camping_end_date={product.camping_end_date as string}
+                        camping_start_date={product.camping_start_date as string}
+                        camping_id={product.camping_id as number}
+                        camping_name={product.camping_name as string}
+                      />
+                    </div>
+                  )
                 )}
               </div>
             </div>
+
             <div>
               <Title
                 title={homeData?.homePage?.category_three_title}
                 href={`/category/filter?category=${homeData?.homePage?.category_three}`}
               />
-              <div className="grid md:grid-cols-5 grid-cols-2 gap-1">
-                {categoryThree?.data?.rows.map((product, i) => (
-                  <ProductCard
-                    key={i}
-                    url={product.slug}
-                    image={product.image}
-                    title={product.title}
-                    regular_price={product.regular_price}
-                    discount_price={product.discount_price}
-                    isNew={product.is_new}
-                    product_id={Number(product.id)}
-                    sort_description={product.sort_description}
-                    availability={product.availability}
-                    quantity={product.default_quantity}
-                    productAttribute={product.ProductAttribute}
-                    camping_end_date={product.camping_end_date as string}
-                    camping_start_date={product.camping_start_date as string}
-                    camping_id={product.camping_id as number}
-                    camping_name={product.camping_name as string}
-                  />
-                ))}
-                {/* Conditionally render the 5th product only on medium screens and up */}
-                {categoryThree?.data?.rows[4] && (
-                  <div className="hidden md:block">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-1">
+                {categoryThree?.data?.rows.slice(0, 4).map(
+                  (product: IProduct, i: number) => (
                     <ProductCard
-                      key={4}
-                      url={categoryOne?.data?.rows[4].slug}
-                      image={categoryOne?.data?.rows[4].image}
-                      title={categoryOne?.data?.rows[4].title}
-                      regular_price={categoryOne?.data?.rows[4].regular_price}
-                      discount_price={categoryOne?.data?.rows[4].discount_price}
-                      product_id={Number(categoryOne?.data?.rows[4].id)}
-                      sort_description={categoryOne?.data?.rows[4].sort_description}
-                      availability={categoryOne?.data?.rows[4].availability}
-                      quantity={categoryOne?.data?.rows[4].default_quantity}
-                      productAttribute={categoryOne?.data?.rows[4].ProductAttribute}
-                      camping_end_date={categoryOne?.data?.rows[4].camping_end_date as string}
-                      camping_start_date={categoryOne?.data?.rows[4].camping_start_date as string}
-                      camping_id={categoryOne?.data?.rows[4].camping_id as number}
-                      camping_name={categoryOne?.data?.rows[4].camping_name as string}
+                      key={i}
+                      url={product.slug}
+                      image={product.image}
+                      title={product.title}
+                      regular_price={product.regular_price}
+                      discount_price={product.discount_price}
+                      product_id={Number(product.id)}
+                      sort_description={product.sort_description}
+                      availability={product.availability}
+                      quantity={product.default_quantity}
+                      productAttribute={product.ProductAttribute}
+                      camping_end_date={product.camping_end_date as string}
+                      camping_start_date={product.camping_start_date as string}
+                      camping_id={product.camping_id as number}
+                      camping_name={product.camping_name as string}
                     />
-                  </div>
+                  )
+                )}
+                {categoryThree?.data?.rows.slice(4, 5).map(
+                  (product: IProduct, i: number) => (
+                    <div key={i + 4} className="hidden lg:block">
+                      <ProductCard
+                        url={product.slug}
+                        image={product.image}
+                        title={product.title}
+                        regular_price={product.regular_price}
+                        discount_price={product.discount_price}
+                        product_id={Number(product.id)}
+                        sort_description={product.sort_description}
+                        availability={product.availability}
+                        quantity={product.default_quantity}
+                        productAttribute={product.ProductAttribute}
+                        camping_end_date={product.camping_end_date as string}
+                        camping_start_date={product.camping_start_date as string}
+                        camping_id={product.camping_id as number}
+                        camping_name={product.camping_name as string}
+                      />
+                    </div>
+                  )
                 )}
               </div>
             </div>
