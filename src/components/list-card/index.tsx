@@ -104,20 +104,27 @@ const ListCard: FC<IProps> = ({ product }) => {
           </div>
         </Link>
         <div className=" absolute left-0 top-0">
-          {((Number(product.regular_price) - Number(product.discount_price)) /
-            Number(product.regular_price)) *
-            100 !==
-            0 && product.discount_price !== 0 ? (
-            <span className=" sudo inline-block discount font-gotham text-[10px] md:text-xs font-bold  px-1 md:px-2 py-1  rounded primary-text">
-              {(
-                ((Number(product.regular_price) -
-                  Number(product.discount_price)) /
+          {Number(product.regular_price) > 0 && Number(product.discount_price) > 0 && (
+            (() => {
+              const discountPercent =
+                ((Number(product.regular_price) - Number(product.discount_price)) /
                   Number(product.regular_price)) *
-                100
-              ).toFixed(2)}
-              %
-            </span>
-          ) : null}
+                100;
+
+              // Only show the discount percentage if it is greater than 0
+              if (discountPercent > 0) {
+                return (
+                  <span className="sudo inline-block discount font-gotham text-xs font-bold px-2 py-1 rounded primary-text">
+                    - {discountPercent % 1 !== 0
+                      ? discountPercent.toFixed(2) // Show 2 decimal points if fractional
+                      : discountPercent.toString()}%
+                  </span>
+                );
+              }
+              return null; // Do not render anything if the discount is 0%
+            })()
+          )}
+
           {product.is_new ? (
             <span className=" sudo inline-block new font-gotham text-[10px] md:text-xs font-medium px-1 md:px-2 py-1  rounded primary-text">
               New
@@ -167,7 +174,7 @@ const ListCard: FC<IProps> = ({ product }) => {
                   Number(product.discount_price) > 0
                     ? Number(product.discount_price)
                     : Number(product.regular_price),
-                    default_quantity: product.default_quantity,
+                default_quantity: product.default_quantity,
                 rating: Math.round(product?.reviews[0]?.average_rating),
                 availability: product.availability,
                 productAttribute: product.productAttribute,
@@ -257,17 +264,19 @@ const ListCard: FC<IProps> = ({ product }) => {
         <div className="flex justify-between flex-wrap items-center">
           {Number(product.regular_price) && (
             <h3 className=" font-gotham font-medium text-base primary-text">
-              ৳ {FormatPrice(product.regular_price)}
+              ৳ {FormatPrice(product.discount_price)}
             </h3>
           )}
-          {product.discount_price > 0 && (
-            <span className=" font-gotham font-normal md:text-xs text-[10px]  px-1 py-[2px] save-text save-money">
-              Save ৳{" "}
-              {FormatPrice(
-                Number(product.regular_price) - Number(product.discount_price)
-              )}
-            </span>
-          )}
+          {product?.discount_price > 0 &&
+            product?.discount_price !==
+            product.regular_price && (
+              <span className=" font-gotham font-normal md:text-xs text-[10px]  px-1 py-[2px] save-text save-money">
+                Save ৳{" "}
+                {FormatPrice(
+                  Number(product.regular_price) - Number(product.discount_price)
+                )}
+              </span>
+            )}
         </div>
         {product.availability === 1 ? (
           <>

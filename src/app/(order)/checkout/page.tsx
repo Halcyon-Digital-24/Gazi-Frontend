@@ -50,6 +50,9 @@ function Checkout() {
   const [totalCostBeforeCoupon, setTotalCostBeforeCoupon] = useState<number>(0);
   const [totalCostAfterCoupon, setTotalCostAfterCoupon] = useState<number>(0);
 
+  const [selectedLocation, setSelectedLocation] = useState<string>('');
+  const [formError, setFormError] = useState<string>('');
+
   const [cashOnDeliveryMessage, setCashOnDeliveryMessage] = useState<
     string | null
   >("");
@@ -109,6 +112,11 @@ function Checkout() {
 
   const handleOrder = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!selectedLocation) {
+      setFormError('Location is required.');
+      return;
+    }
+    setFormError('');
     if (!selectedPayment) {
       return toast.error("Please Select payment method");
     }
@@ -173,10 +181,10 @@ function Checkout() {
         const response = await axios.post(`${API_URL}/coupons/validation`, {
           coupon_code: approvePromoCode,
         });
-  
+
         if (response.status === 200) {
           const couponData = response?.data?.coupon;
-  
+
           // Check if coupon applies to the entire order or specific products
           if (couponData.product_id === null) {
             // Coupon applies to the entire order
@@ -184,13 +192,13 @@ function Checkout() {
             setCouponId(couponData?.id);
             setApprovePromStatus("The promo code is applied to this order.");
           } else {
-            const applicableProductIds = couponData.product_id.split(",").map((id:any) => id.trim());
-  
+            const applicableProductIds = couponData.product_id.split(",").map((id: any) => id.trim());
+
             // Check if there are applicable products in the cart
             const cartContainsApplicableProduct = orderItem.some((item: any) =>
               applicableProductIds.includes(item.product_id.toString())
             );
-  
+
             if (cartContainsApplicableProduct) {
               setApprovePromoData(couponData);
               setCouponId(couponData?.id);
@@ -221,7 +229,7 @@ function Checkout() {
       }
     }
   };
-  
+
 
   useEffect(() => {
     if (approvePromoData) {
@@ -383,9 +391,8 @@ function Checkout() {
       setMobile(login?.user?.mobile);
     }
   }, []);
-
-  const handleChangeLocation = (e: any) => {
-    setLocation(e.target.value);
+  const handleChangeLocation = (value: string) => {
+    setSelectedLocation(value);
   };
 
   return (
@@ -464,6 +471,7 @@ function Checkout() {
                     <FormGroup
                       className="mb-1"
                       title="Thana*"
+                      required
                       onChange={(e) => setCity(e.target.value)}
                       placeholder="Type your thana*"
                     />
@@ -474,30 +482,14 @@ function Checkout() {
                       >
                         Location
                       </label>
-                      {/* <select
-                        id="location"
-                        className="bg-gray-50 border secondary-border mt-1 black-text text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:white-text dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none"
-                        onChange={handleChangeLocation}
-                      >
-                        <option value="">Select Location</option>
-                        {locations?.length > 0 ? (
-                          locations?.map((location, i) => (
-                            <option key={i} value={`${location?.location}`}>
-                              {location?.location}
-                            </option>
-                          ))
-                        ) : (
-                          <></>
-                        )}
-                      </select> */}
-                      <CustomDropdown locations={locations} handleChangeLocation={handleChangeLocation} />
+                      <CustomDropdown
+                        locations={locations}
+                        handleChangeLocation={handleChangeLocation}
+                        required={true}
+                      />
+                      {formError && <div className="form-error">{formError}</div>}
                     </div>
-                    {/* <FormGroup
-                      className="mb-1"
-                      title="Thana"
-                      onChange={(e) => setThana(e.target.value)}
-                      placeholder="Select your area"
-                    /> */}
+
                   </div>
                 </Box>
               </div>
@@ -549,7 +541,7 @@ function Checkout() {
                       We Accept
                     </p>
                     <Image
-            
+
                       src={"/assets/images/service/payment_2.png"}
                       className="w-9/12 mt-2"
                       width={300}

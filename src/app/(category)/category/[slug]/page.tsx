@@ -381,7 +381,7 @@ function Category() {
                             trackClassName="example-track"
                             value={priceRange}
                             min={0}
-                            max={200000}
+                            max={60000}
                             step={10} // Adjust step size as needed
                             minDistance={500}
                             onChange={(value) => setPriceRange(value as [number, number])}

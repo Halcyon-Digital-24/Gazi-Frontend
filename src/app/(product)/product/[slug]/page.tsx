@@ -849,14 +849,14 @@ const PageDetails = ({ params: { slug } }: Props) => {
                       </div>
                     )}
 
-                    {product?.product?.availability === 2 &&(
-                      
-                        <div className="pt-5">
-                          <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px] stock-out">
-                            Out of Stock
-                          </Button>
-                        </div>
-                      )}
+                    {product?.product?.availability === 2 && (
+
+                      <div className="pt-5">
+                        <Button className="font-gotham font-medium py-2 px-2 text-xs w-[102px] stock-out">
+                          Out of Stock
+                        </Button>
+                      </div>
+                    )}
 
                     {product?.product?.availability === 3 && (
                       <div className="pt-5">
