@@ -769,7 +769,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                             </div>
                           ) : (
                             // All attributes are out of stock
-                            <Button className="px-5 py-1 font-gotham font-medium text-sm stock-out">
+                            <Button className="mt-5 px-5 py-1 font-gotham font-medium text-sm stock-out">
                               Out of Stock
                             </Button>
                           )
@@ -840,7 +840,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                               </div>
                             ) : (
                               // Default product is out of stock
-                              <Button className="px-5 py-1 font-gotham font-medium text-sm stock-out">
+                              <Button className="mt-5 px-5 py-1 font-gotham font-medium text-sm stock-out">
                                 Out of Stock
                               </Button>
                             )}
@@ -1289,26 +1289,49 @@ const PageDetails = ({ params: { slug } }: Props) => {
               <div className="related-products mt-5 md:mt-12 pb-3 md:pb-7 ml-2 md:ml-0">
                 <Title title="Related Products" />
                 <div className="grid md:grid-cols-5 grid-cols-2">
-                  {product.relatedProduct.map((product, i) => (
-                    <ProductCard
-                      key={i}
-                      url={product.slug}
-                      image={product.image}
-                      title={product.title}
-                      regular_price={product.regular_price}
-                      discount_price={product.discount_price}
-                      isNew={product.is_new}
-                      product_id={Number(product.id)}
-                      sort_description={product.sort_description}
-                      availability={product.availability}
-                      quantity={product.default_quantity}
-                      productAttribute={product.ProductAttribute}
-                      camping_end_date={product.camping_end_date as string}
-                      camping_start_date={product.camping_start_date as string}
-                      camping_id={product.camping_id as number}
-                      camping_name={product.camping_name as string}
-                    />
-                  ))}
+                {product.relatedProduct.map((product, i) => (
+                        <ProductCard
+                          key={i}
+                          url={product.slug}
+                          image={product.image}
+                          title={product.title}
+                          regular_price={product.regular_price}
+                          discount_price={product.discount_price}
+                          isNew={product.is_new}
+                          product_id={Number(product.id)}
+                          sort_description={product.sort_description}
+                          availability={product.availability}
+                          quantity={product.default_quantity}
+                          productAttribute={product.ProductAttribute}
+                          camping_end_date={product.camping_end_date as string}
+                          camping_start_date={product.camping_start_date as string}
+                          camping_id={product.camping_id as number}
+                          camping_name={product.camping_name as string}
+                        />
+                      ))}
+
+                      {/* Conditionally render the 3rd and 4th products only on medium screens and up */}
+                      {product.relatedProduct?.slice(4, 5).map((product, i) => (
+                        <div key={i + 2} className="hidden md:block">
+                          <ProductCard
+                            url={product.slug}
+                            image={product.image}
+                            title={product.title}
+                            regular_price={product.regular_price}
+                            discount_price={product.discount_price}
+                            isNew={product.is_new}
+                            product_id={Number(product.id)}
+                            sort_description={product.sort_description}
+                            availability={product.availability}
+                            quantity={product.default_quantity}
+                            productAttribute={product.ProductAttribute}
+                            camping_end_date={product.camping_end_date as string}
+                            camping_start_date={product.camping_start_date as string}
+                            camping_id={product.camping_id as number}
+                            camping_name={product.camping_name as string}
+                          />
+                        </div>
+                      ))}
                 </div>
               </div>
 
