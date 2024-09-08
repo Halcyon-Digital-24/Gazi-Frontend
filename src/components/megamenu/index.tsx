@@ -19,6 +19,7 @@ const MegaMenu = ({ menus }: IProps) => {
   const route = useRouter();
   const [stickyClass, setStickyClass] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState<{ [key: string]: boolean }>({});
   const [expandedSubCategories, setExpandedSubCategories] = useState<{ [key: string]: boolean }>({});
 
@@ -48,6 +49,23 @@ const MegaMenu = ({ menus }: IProps) => {
     }));
   };
 
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      setIsAnimating(true);
+    } else if (!mobileMenuOpen && isAnimating) {
+      setTimeout(() => setIsAnimating(false), 300);
+    }
+  }, [mobileMenuOpen, isAnimating]);
+
+  const handleMenuClick = () => {
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(false);
+    } else {
+      setIsAnimating(true);
+      setMobileMenuOpen(true);
+    }
+  };
   return (
     <section className={stickyClass}>
       {/* Desktop Menu */}
@@ -183,16 +201,22 @@ const MegaMenu = ({ menus }: IProps) => {
         <div className="container px-2">
           <div className="flex justify-between items-center">
             <div className="relative main-button">
-              <FaBars className="w-5 h-5" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} />
-              {mobileMenuOpen && (
-                <div className="absolute white-bg mt-[11px] z-10 w-[180px] shadow -ml-[6px] pl-[6px]">
+              {/* Menu Icon */}
+              <FaBars className="w-5 h-5" onClick={handleMenuClick} />
+              {/* Conditionally show menu with sliding animation */}
+              {(mobileMenuOpen || isAnimating) && (
+                <div
+                  className={`absolute white-bg mt-[11px] z-10 w-[180px] shadow -ml-[6px] pl-[6px] transition-transform duration-300 ease-in-out 
+                ${mobileMenuOpen ? "slide-in" : "slide-out"}`} // Apply slide-in/out animation
+                >
                   {menus
                     ?.filter(
                       (parent) =>
                         parent.parent_category === "0" ||
                         parent.parent_category === null ||
                         parent.parent_category === ""
-                    ).sort((a, b) => {
+                    )
+                    .sort((a, b) => {
                       if (a.slug === "campaign") return 1;
                       if (b.slug === "campaign") return -1;
                       return (a.order_id || 0) - (b.order_id || 0);
@@ -202,14 +226,17 @@ const MegaMenu = ({ menus }: IProps) => {
                         <div
                           className="py-2 cursor-pointer px-1 font-gotham font-medium text-sm flex justify-between items-center group primary-text hover-text-color transition-all parent-category"
                         >
-                          <p onClick={() => {
-                            if (menu.slug === "campaign") {
-                              route.push(`/campaign`);
-                            } else {
-                              route.push(`/category/filter?category=${menu.slug}`);
-                              dispatch(addCategory({ title: menu.title, slug: menu.slug }));
-                            }
-                          }}>
+                          <p
+                            onClick={() => {
+                              if (menu.slug === "campaign") {
+                                route.push(`/campaign`);
+                              } else {
+                                route.push(`/category/filter?category=${menu.slug}`);
+                                dispatch(addCategory({ title: menu.title, slug: menu.slug }));
+                              }
+                              handleMenuClick(); // Close menu on item click
+                            }}
+                          >
                             {menu.title}
                           </p>
                           <span className="text-xl">
@@ -231,7 +258,10 @@ const MegaMenu = ({ menus }: IProps) => {
                                     <Link
                                       className="font-gotham font-sm my-2 text-sm primary-text hover-text-color sub-element"
                                       href={`/category/filter?category=${subCategory.slug}`}
-                                      onClick={() => dispatch(addCategory({ title: subCategory.title, slug: subCategory.slug }))}
+                                      onClick={() => {
+                                        dispatch(addCategory({ title: subCategory.title, slug: subCategory.slug }));
+                                        handleMenuClick(); // Close menu when sub-category is clicked
+                                      }}
                                     >
                                       {subCategory.title}
                                     </Link>
@@ -250,7 +280,10 @@ const MegaMenu = ({ menus }: IProps) => {
                                           <div
                                             key={index}
                                             className="sub-item cursor-pointer px-1 font-gotham font-medium text-sm flex justify-between items-center group primary-text hover-text-color transition-all"
-                                            onClick={() => dispatch(addCategory({ title: childrenCategory.title, slug: childrenCategory.slug }))}
+                                            onClick={() => {
+                                              dispatch(addCategory({ title: childrenCategory.title, slug: childrenCategory.slug }));
+                                              handleMenuClick(); // Close menu when child category is clicked
+                                            }}
                                           >
                                             <Link
                                               className="font-gotham font-sm my-2 text-sm primary-text hover-text-color sub-element"
@@ -279,12 +312,14 @@ const MegaMenu = ({ menus }: IProps) => {
               <Link
                 className="font-gotham font-medium text-sm primary-text hover-text-color"
                 href={"/videos"}
+                onClick={handleMenuClick} // Close menu when Videos is clicked
               >
                 Videos
               </Link>
               <Link
                 className="font-gotham font-medium text-sm primary-text hover-text-color ml-4 mr-2 md:mr-0 md:ml-14"
                 href={"/blogs"}
+                onClick={handleMenuClick} // Close menu when Blogs is clicked
               >
                 Blogs
               </Link>
@@ -292,6 +327,7 @@ const MegaMenu = ({ menus }: IProps) => {
           </div>
         </div>
       </div>
+
     </section>
   );
 };
