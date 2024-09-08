@@ -202,7 +202,7 @@ const Footer = async ({ globalData }: IProps) => {
       </div>
       <div className=" mt-10 py-2 primary-bg">
         <div className="container px-2 md:px-0">
-          <div className="flex justify-between items-center gap-1 md:gap-2">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-1 md:gap-2">
             <div className=" ">
               <h4 className=" font-gotham font-light text-[10px] md:text-xs white-text">
                {globalData?.setting?.footer_copywrite||'© 2022-2023 | Gazi Home Appliance - A Concern of Gazi Group'} 
@@ -211,7 +211,7 @@ const Footer = async ({ globalData }: IProps) => {
             <div className=" ">
               <Image
                 className=" h-5 md:h-12 w-full "
-                src={"/assets/images/footer/payment-01.png"}
+                src={"/assets/images/footer/payment.webp"}
                 width={400}
                 height={50}
                 alt="payment"
