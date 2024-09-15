@@ -211,7 +211,7 @@ const Footer = async ({ globalData }: IProps) => {
             <div className=" ">
               <Image
                 className=" h-5 md:h-12 w-full "
-                src={"/assets/images/footer/payment.webp"}
+                src={"/assets/images/footer/Pay.png"}
                 width={400}
                 height={50}
                 alt="payment"
