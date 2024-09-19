@@ -181,12 +181,11 @@ const Featured: FC<IProps> = ({ homeData, adsbanner, bannerUrl }) => {
                   <div className=" hidden md:block">
                     <Link href={bannerUrl ?? "/"}>
                       <Image
-                        className=" w-full max-h-[752px] transition-all duration-100 hover:scale-[1.01] delay-75"
+                        className="h-full w-full transition-all duration-100 hover:scale-[1.01] delay-75"
                         src={`${API_ROOT}/images/banner/${adsbanner}`}
-                        width={100}
-                        height={100}
+                        width={190}
+                        height={750}
                         quality={100}
-                        loading="lazy"
                         alt="ads"
                       />
                     </Link>
