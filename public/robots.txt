@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Disallow: /private/
+
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://gcart.com.bd/
+
+# Sitemaps
+Sitemap: https://gcart.com.bd/sitemap.xml
