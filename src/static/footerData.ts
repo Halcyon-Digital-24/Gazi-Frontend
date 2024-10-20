@@ -25,7 +25,7 @@ export const customerServiceData = {
 };
 
 export const applianceData = {
-  title: 'Gazi Home Appliancee',
+  title: 'GCart',
   items: [
     {
       name: 'About Us',

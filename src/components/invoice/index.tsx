@@ -282,7 +282,7 @@ const Invoice = ({
       <div className="invoice-footer" >
         <div className="title">
           {
-            order?.order_form == "web" || order.order_prefix === "GC" ?
+            order?.order_form == "web" || order.order_prefix === "GCW" ?
               <>
                 <img src="/assets/invoice/web-footer.jpg" alt="invoice" />
               </> : <>

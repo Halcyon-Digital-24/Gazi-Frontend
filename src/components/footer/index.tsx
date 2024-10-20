@@ -92,7 +92,7 @@ const Footer = async ({ globalData }: IProps) => {
           <div>
             <div className="w-[60%] md:mx-auto">
               <h3 className="font-gotham font-[600] text-base primary-text mb-4">
-                Gazi Home Appliancee
+                GCart
               </h3>
               <ul className="mx-auto">
                 {footerTwoData?.length > 0 ? (
