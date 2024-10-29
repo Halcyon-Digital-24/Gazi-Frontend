@@ -11,7 +11,7 @@ const SearchEmi = () => {
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
+      const params = new URLSearchParams(searchParams?.toString() || "");
       if (value.trim() === "") {
         params.delete(name);
       } else {

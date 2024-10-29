@@ -19,13 +19,14 @@ const ServerPagination: FC<IProps> = ({ totalPage = 2, page, showTitle }) => {
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
+      const params = new URLSearchParams(searchParams?.toString() || "");
       params.set(name, value);
-
+  
       return params.toString();
     },
     [searchParams]
   );
+  
   return (
     <div className="flex justify-between items-center mt-5 bottom-filter pagination px-1 md:px-0">
       <div>

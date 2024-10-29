@@ -26,7 +26,7 @@ import { useDebounce } from "use-debounce";
 const ProductCard = dynamic(() => import("@/components/card"));
 
 function Category() {
-  const searchParams: ReadonlyURLSearchParams = useSearchParams();
+  const searchParams: ReadonlyURLSearchParams = (useSearchParams() || new URLSearchParams()) as ReadonlyURLSearchParams;
   const { title, slug } = useAppSelector((state) => state.category);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 200000]);
   const [page, setPage] = useState(1);
