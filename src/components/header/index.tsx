@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { clearLoginInfo } from "@/redux/features/login/loginSlice";
 import { clearWishList } from "@/redux/features/wish-list/wishListSlice";
 import Button from "../button";
+import Image from "next/image";
 
 type IProps = {
   homeData: IHomePage;
@@ -59,9 +60,10 @@ const TopHeader = ({ homeData, menus }: IProps) => {
       {showBanner && (
         <div className=" bg-gray-100 flex items-center justify-between py-2 pr-4 pl-3 z-50 shadow-lg md:hidden">
           <div className="flex items-center">
-          <button
+            <button
               className="text-gray-500 hover:text-gray-800 mr-2"
               onClick={closeBanner}
+              aria-label="Close banner"
             >
               <svg
                 className="w-5 h-5"
@@ -78,10 +80,12 @@ const TopHeader = ({ homeData, menus }: IProps) => {
                 ></path>
               </svg>
             </button>
-            <img
+            <Image
               src="/assets/images/logo/GCart App Icon.png"
               alt="App Logo"
               className="w-10 h-10 mr-2"
+              height={40}
+              width={40}
             />
             <div>
               <p className="text-base font-bold font-gotham"><span className="secondary-text"><strong>G</strong></span>Cart</p>
@@ -92,7 +96,7 @@ const TopHeader = ({ homeData, menus }: IProps) => {
             <Link
               href="/hello"
             >
-             <Button className="px-4 py-1 rounded-sm">Install</Button>
+              <Button className="px-4 py-1 rounded-sm">Install</Button>
             </Link>
           </div>
         </div>

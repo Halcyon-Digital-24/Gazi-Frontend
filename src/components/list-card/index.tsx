@@ -273,7 +273,7 @@ const ListCard: FC<IProps> = ({ product }) => {
               <span className=" font-gotham font-normal md:text-xs text-[10px]  px-1 py-[2px] save-text save-money">
                 Save ৳{" "}
                 {FormatPrice(
-                  Number(product.regular_price) - Number(product.discount_price)
+                  Number((Number(product.regular_price) - Number(product.discount_price)).toFixed(2))
                 )}
               </span>
             )}

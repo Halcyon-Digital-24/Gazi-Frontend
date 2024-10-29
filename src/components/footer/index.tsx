@@ -67,9 +67,9 @@ const Footer = async ({ globalData }: IProps) => {
           </div>
           <div>
             <div className="w-[60%] md:mx-auto">
-              <h3 className="font-gotham font-[600] text-base primary-text mb-4">
+              <h1 className="font-gotham font-[600] text-base primary-text mb-4">
                 Customer Service
-              </h3>
+              </h1>
               <ul className=" mx-auto">
                 {footerOneData?.length > 0 ? (
                   footerOneData?.map((item, index) => (
@@ -91,9 +91,9 @@ const Footer = async ({ globalData }: IProps) => {
 
           <div>
             <div className="w-[60%] md:mx-auto">
-              <h3 className="font-gotham font-[600] text-base primary-text mb-4">
+              <h1 className="font-gotham font-[600] text-base primary-text mb-4">
                 GCart
-              </h3>
+              </h1>
               <ul className="mx-auto">
                 {footerTwoData?.length > 0 ? (
                   footerTwoData?.map((item, index) => (

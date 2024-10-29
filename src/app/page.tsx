@@ -119,9 +119,9 @@ export default async function Home() {
 
         <section className="explore py-16 md:py-20">
           <div className="container">
-            <h2 className="mb-6 uppercase text-center primary-text font-gotham text-[18px] md:text-xl font-bold ">
+            <h1 className="mb-6 uppercase text-center primary-text font-gotham text-[18px] md:text-xl font-bold ">
               EXPLORE HOME APPLIANCES
-            </h2>
+            </h1>
             <div className="flex flex-wrap justify-center  ">
               {homeData?.category
                 ?.sort((a, b) => (a.order_id || 0) - (b.order_id || 0))

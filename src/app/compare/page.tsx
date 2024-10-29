@@ -35,7 +35,7 @@ function Compare() {
       <div className="container">
         <div className="mb-4 flex justify-between mx-1 md:mx-0">
           <div className="flex">
-            <h3 className=" font-gotham font-medium text-base mr-4">Compare</h3>
+            <h1 className=" font-gotham font-medium text-base mr-4">Compare</h1>
             <div className="flex items-center">
               {/* <ToggleButton isChecked={isTrue} onClick={handleToggle} /> */}
               {/* <p
