@@ -751,25 +751,44 @@ function Checkout() {
                 <div className="accepted">
                   <div className="py-6">
                     <div className="flex items-start">
-                      <input
-                        className="mr-2 accent-[#E30513]"
-                        type="checkbox"
-                        name="accept"
-                        id="accept"
-                        required
-                      />
-                      <label
-                        htmlFor="accept"
-                        className=" font-gotham font-normal text-xs"
-                      >
-                        I agree to the{" "}
-                        <span className="sudo">
+                      <div>
+                        <input
+                          className="mr-2 mt-[6px] accent-[#524096]"
+                          type="checkbox"
+                          name="accept"
+                          id="accept"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="accept"
+                          className=" font-gotham font-normal text-xs"
+                        >
+                          I agree to the {" "}
+                        </label>
+                        <Link href="/Terms-Conditions" className="sudo font-gotham font-normal text-xs">
+                          Terms and Conditions,
+                        </Link>
+                        <label
+                          htmlFor="accept"
+                          className=" font-gotham font-normal text-xs"
+                        >
                           {" "}
-                          Terms and Conditions, Privacy Policy
-                        </span>{" "}
-                        and{" "}
-                        <span className="sudo">Refund and Return Policy</span>
-                      </label>
+                        </label>
+                        <Link href="/Privacy-Policy" className="sudo font-gotham font-normal text-xs">
+                          Privacy Policy
+                        </Link>
+                        <label
+                          htmlFor="accept"
+                          className=" font-gotham font-normal text-xs"
+                        >
+                          {" "}  and
+                        </label>
+                        <Link href="/Return-Refund" className="sudo font-gotham font-normal text-xs">
+                          {" "} Refund and Return Policy
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -36,9 +36,9 @@ const ExploreCard: React.FC<IProps> = ({
           alt="explore"
           quality={100}
         />
-        <p className=" mt-5 text-sm font-gotham font-medium font-sm uppercase">
+        <h1 className=" mt-5 text-sm font-gotham font-medium font-sm uppercase">
           {item.title}
-        </p>
+        </h1>
       </Link>
     </div>
   );

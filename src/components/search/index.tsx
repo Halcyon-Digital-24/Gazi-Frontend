@@ -10,26 +10,25 @@ import { GoSearch } from "react-icons/go";
 import { Router } from "next/router";
 
 const SearchArea = () => {
-  const searchParams: ReadonlyURLSearchParams = useSearchParams();
-  const  router  = useRouter();
+  const router = useRouter();
 
   const [searchValue, setSearchValue] = useState<string>("");
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value); 
+    setSearchValue(e.target.value);
   };
 
   const handleClick = (event: React.MouseEvent) => {
     event.preventDefault();
-  
-    const params = new URLSearchParams(); 
-  
+
+    const params = new URLSearchParams();
+
     if (searchValue.trim()) {
-      params.set("search", searchValue); 
+      params.set("search", searchValue);
     }
-  
+
     router.push(`/category/filter?${params.toString()}`);
-  };  
+  };
 
 
   return (
@@ -58,10 +57,11 @@ const SearchArea = () => {
           value={searchValue} // Bind the input value to state
         />
         <button
+          aria-label="search button"
           className="block md:hidden border button h-6 md:h-9 px-2 md:px-6 font-gotham font-normal text-sm white-text"
           onClick={handleClick}
         >
-          <GoSearch className="w-4 h-4"/>
+          <GoSearch className="w-4 h-4" />
         </button>
       </form>
     </div>

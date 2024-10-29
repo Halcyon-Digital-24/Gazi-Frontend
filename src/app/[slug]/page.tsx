@@ -52,7 +52,7 @@ const CustomPage = ({ params: { slug } }: Props) => {
     return (
       <>
         <section className="white-bg dark:bg-gray-900 ">
-          <div className="container flex items-center min-h-screen px-6 py-12 mx-auto">
+          <div className="container flex items-center md:min-h-screen px-6 py-6 mx-auto">
             <div className="flex flex-col items-center max-w-sm mx-auto text-center">
               <Image
                 className="w-[400px] h-[200px]"

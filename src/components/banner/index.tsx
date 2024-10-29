@@ -34,11 +34,11 @@ const Banner = ({ banners }: IProps) => {
     <>
       {
         data?.length ?
-          <div className="banner">
+          <div className="banner" aria-hidden="true">
             <Slider {...settings}>
               {data?.map((banner, index) => (
                 <div className="outline-none" key={index}>
-                  <Link href={banner.url}>
+                  <Link href={banner.url} tabIndex={-1} aria-hidden="true">
                     <Image
                       src={`${API_ROOT}/images/banner/${banner.image}`}
                       width={2400}
@@ -53,6 +53,7 @@ const Banner = ({ banners }: IProps) => {
               ))}
             </Slider>
           </div>
+
           : ''
       }
 
