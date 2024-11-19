@@ -175,14 +175,14 @@ const ProductCard: React.FC<IProps> = ({
                 : "font-bold primary-text"
                 } text-sm md:text-base`}
             >
-              ৳ {FormatPrice(regular_price)}
+              ৳ {FormatPrice(Math.round(regular_price as number))}
             </span>
           )}
 
           {Number(discount_price) > 0 &&
             Number(discount_price) != Number(regular_price) && (
               <span className="font-gotham primary-text font-bold text-sm md:text-base">
-                ৳ {FormatPrice(discount_price)}
+                ৳ {FormatPrice(Math.round(discount_price as number))}
               </span>
             )}
         </p>

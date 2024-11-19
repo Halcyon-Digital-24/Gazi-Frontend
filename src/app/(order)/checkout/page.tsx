@@ -677,13 +677,13 @@ function Checkout() {
                           </div>
 
                           <div className="p-1.5 md:p-3 col-span-1 md:col-span-1 font-gotham font-normal text-xs black-text">
-                            ৳{FormatPrice(item.regular_price)}
+                            ৳{FormatPrice(Math.round(item.regular_price))}
                           </div>
                           <div className="p-1.5 md:p-3 col-span-1 md:col-span-1 font-gotham font-normal text-[11px] black-text">
-                            ৳{FormatPrice(item.price)} x {item.quantity}
+                            ৳{FormatPrice(Math.round(item.price))} x {item.quantity}
                           </div>
                           <div className="p-1.5 md:p-3 col-span-1 font-gotham font-normal text-xs black-text">
-                            ৳{FormatPrice(item.price * item.quantity)}
+                            ৳{FormatPrice(Math.round(item.price * item.quantity))}
                           </div>
                         </div>
                       ))
@@ -693,13 +693,13 @@ function Checkout() {
                             {item.title}
                           </div>
                           <div className="p-1.5 md:p-3 col-span-1 md:col-span-1 font-gotham font-normal text-xs black-text">
-                            ৳{FormatPrice(item.regular_price)}
+                            ৳{FormatPrice(Math.round(item.regular_price))}
                           </div>
                           <div className="p-1.5 md:p-3 col-span-1 md:col-span-1 font-gotham font-normal text-[11px] black-text">
-                            ৳{FormatPrice(item.price)} x {item.quantity}
+                            ৳{FormatPrice(Math.round(item.price))} x {item.quantity}
                           </div>
                           <div className="p-1.5 md:p-3 col-span-1 font-gotham font-normal text-xs black-text">
-                            ৳{FormatPrice(item.price * item.quantity)}
+                            ৳{FormatPrice(Math.round(item.price * item.quantity))}
                           </div>
                         </div>
                       ))}
@@ -710,7 +710,7 @@ function Checkout() {
                         Sub-Total:
                       </div>
                       <div className="p-1.5 md:p-3 font-gotham  text-xs primary-text font-medium">
-                        ৳ {FormatPrice(totalCostBeforeCoupon)}
+                        ৳ {FormatPrice(Math.round(totalCostBeforeCoupon))}
                       </div>
                     </div>
                     {selectedPaymentDeliveryStatus && (
@@ -720,7 +720,7 @@ function Checkout() {
                           Delivery Charges :
                         </div>
                         <div className="col-span-1 p-1.5 md:p-3 font-gotham text-xs primary-text font-medium">
-                          ৳ {FormatPrice(deliveryFee)}
+                          ৳ {FormatPrice(Math.round(deliveryFee))}
                         </div>
                       </div>
                     )}
@@ -732,9 +732,9 @@ function Checkout() {
                       </div>
                       <div className="col-span-1 p-1.5 md:p-3 font-gotham text-xs primary-text font-medium">
                         ৳{" "}
-                        {FormatPrice(
+                        {FormatPrice(Math.round(
                           totalCostBeforeCoupon - totalCostAfterCoupon
-                        )}
+                        ))}
                       </div>
                     </div>
                     <div className="grid grid-cols-5 sub-border">
@@ -743,7 +743,7 @@ function Checkout() {
                         Total :
                       </div>
                       <div className="p-1.5 md:p-3  font-gotham text-xs primary-text font-medium">
-                        ৳ {FormatPrice(finalPrice + deliveryFee)}
+                        ৳ {FormatPrice(Math.round(finalPrice + deliveryFee))}
                       </div>
                     </div>
                   </div>

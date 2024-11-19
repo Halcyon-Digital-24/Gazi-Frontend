@@ -197,7 +197,7 @@ const MegaMenu = ({ menus }: IProps) => {
       </div>
 
       {/* Mobile Menu */}
-      <div className="shadow py-2 md:hidden mobile-menu">
+      <div className="shadow py-[10px] md:hidden mobile-menu">
         <div className="container px-2">
           <div className="flex justify-between items-center">
             <div className="relative main-button">
@@ -237,7 +237,7 @@ const MegaMenu = ({ menus }: IProps) => {
                               handleMenuClick(); // Close menu on item click
                             }}
                           >
-                            {menu.title}
+                            {(menu.title).toUpperCase()}
                           </p>
                           <span className="text-xl">
                             {menus.filter((category) => category.parent_category === menu.slug).length > 0 && (
