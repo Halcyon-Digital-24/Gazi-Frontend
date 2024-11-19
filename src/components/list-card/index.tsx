@@ -257,14 +257,14 @@ const ListCard: FC<IProps> = ({ product }) => {
             <h4
               className={` font-gotham text-xs line-through font-normal primary-text`}
             >
-              ৳ {FormatPrice(product.regular_price)}
+              ৳ {FormatPrice(Math.round(product.regular_price))}
             </h4> : null
         }
 
         <div className="flex justify-between flex-wrap items-center">
           {Number(product.regular_price) && (
             <h3 className=" font-gotham font-medium text-base primary-text">
-              ৳ {FormatPrice(product.discount_price)}
+              ৳ {FormatPrice(Math.round(product.discount_price))}
             </h3>
           )}
           {product?.discount_price > 0 &&
@@ -273,7 +273,7 @@ const ListCard: FC<IProps> = ({ product }) => {
               <span className=" font-gotham font-normal md:text-xs text-[10px]  px-1 py-[2px] save-text save-money">
                 Save ৳{" "}
                 {FormatPrice(
-                  Number((Number(product.regular_price) - Number(product.discount_price)).toFixed(2))
+                  Number(Math.round(Number(product.regular_price) - Number(product.discount_price)).toFixed(2))
                 )}
               </span>
             )}

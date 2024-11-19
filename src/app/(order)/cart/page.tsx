@@ -137,7 +137,7 @@ function Checkout() {
                       </div>
                       <div className="col-span-1 md:col-span-1">
                         <p className="font-gotham font-medium primary-text text-xs md:text-sm">
-                          ৳ {FormatPrice(item.price)}
+                          ৳ {FormatPrice(Math.round(item.price))}
                         </p>
                       </div>
                       <div className="hidden md:block md:col-span-2">
@@ -161,7 +161,7 @@ function Checkout() {
                       </div>
                       <div className=" col-span-1 md:col-span-1">
                         <p className=" font-gotham font-medium primary-text text-sm">
-                          ৳ {FormatPrice(item.price * item.quantity)}
+                          ৳ {FormatPrice(Math.round(item.price * item.quantity))}
                         </p>
                       </div>
                       <div className="flex justify-center col-span-6 md:hidden">
@@ -200,7 +200,7 @@ function Checkout() {
                       Sub Total
                     </p>
                     <p className=" font-gotham font-medium text-sm primary-text">
-                      ৳ {FormatPrice(sumWithInitial)}
+                      ৳ {FormatPrice(Math.round(sumWithInitial))}
                     </p>
                   </div>
                   <Link className="mt-5 md:mt-14 block" href={"/checkout"}>

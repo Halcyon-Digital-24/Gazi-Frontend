@@ -574,7 +574,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                             : "primary-text"
                             }  `}
                         >
-                          ৳{FormatPrice(product?.product?.regular_price)}
+                          ৳{FormatPrice(Math.round(product?.product?.regular_price))}
                         </h2>
                       </div>
                       {product?.product?.discount_price > 0 &&
@@ -586,13 +586,13 @@ const PageDetails = ({ params: { slug } }: Props) => {
                             </h3>
                             <div className="flex">
                               <h2 className="font-gotham  text-2xl primary-text font-medium d-price">
-                                ৳{FormatPrice(product?.product?.discount_price)}
+                                ৳{FormatPrice(Math.round(product?.product?.discount_price))}
                               </h2>
                               <div>
                                 <span className="discount font-medium">
                                   Save ৳
                                   {FormatPrice(
-                                    Number((Number(product.product.regular_price) - Number(product.product.discount_price)).toFixed(2))
+                                    Number(Math.round(Number(product.product.regular_price) - Number(product.product.discount_price)).toFixed(2))
                                   )}
                                 </span>
                               </div>

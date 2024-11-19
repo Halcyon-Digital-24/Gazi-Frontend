@@ -10,6 +10,8 @@ import { toast } from "react-toastify";
 import axiosInstance from "../../../../../utils/axiosInstance";
 import "../../page.scss";
 import { CiMenuFries } from 'react-icons/ci';
+import Image from "next/image";
+import { API_ROOT } from "@/constant";
 
 const ViewTicket = () => {
   const route = useRouter();
@@ -97,7 +99,7 @@ const ViewTicket = () => {
             <div className="grid grid-cols-12 gap-6">
               <div className="sidebar  md:col-span-3  px-1">
                 <span className="md:hidden">
-                  <CiMenuFries  className="font-bold w-5 h-5"/>
+                  <CiMenuFries className="font-bold w-5 h-5" />
                 </span>
                 <div className=" items">
                   <ProfileSidebar />
@@ -108,14 +110,23 @@ const ViewTicket = () => {
                   {messages?.length > 0 ? (
                     messages?.map((message, index) =>
                       message.parent_text_id == 0 ||
-                      message.user_id === login?.user?.id ? (
+                        message.user_id === login?.user?.id ? (
                         <div className="text-right py-2" key={index}>
-                        <p className=" font-gotham text-sm primary-bg white-text inline-block px-2 py-1 rounded-md">
-                          {message?.details}
-                        </p>
-                      </div>
+                          <p className=" font-gotham text-sm primary-bg white-text inline-block px-2 py-1 rounded-md">
+                            {message?.details}
+                          </p>
+                          <div className="flex justify-end my-[2px]">
+                            {message?.image ? <Image
+                              src={`${API_ROOT}/images/support/${message?.image}`}
+                              alt="support image"
+                              width={300}
+                              height={300}
+                            // style={{ width: '500px', height: '500px' }}
+                            /> : null}
+                          </div>
+                        </div>
                       ) : (
-                         <div className="py-2" key={index}>
+                        <div className="py-2" key={index}>
                           <p className=" font-gotham text-sm bg-hoverColor white-text inline-block px-2 py-1 rounded-md">
                             {message?.details}
                           </p>
