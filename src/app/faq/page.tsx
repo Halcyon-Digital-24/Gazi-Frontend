@@ -59,7 +59,7 @@ const Faq = () => {
   }
 
   return (
-    <section className="faq">
+    <section className="faq py-5 md:py-10 px-2 md:px-0">
       <div className="container">
         <h2 className=" font-gotham font-medium text-base black-text">
           Questions
@@ -68,7 +68,7 @@ const Faq = () => {
           <p className=" font-gotham text-sm mt-2">Faq is Empty</p>
         )}
 
-        <div className="grid grid-cols-1 gap-4 mt-9">
+        <div className="grid grid-cols-1 gap-2 md:gap-4 mt-3 md:mt-9">
           {faqs.map((faq, index) => (
             <QuestionAndAnswer
               key={index}
