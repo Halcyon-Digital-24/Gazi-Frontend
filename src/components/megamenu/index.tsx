@@ -256,7 +256,7 @@ const MegaMenu = ({ menus }: IProps) => {
                                     className="relative sub-item cursor-pointer px-1 font-gotham font-medium text-sm flex justify-between items-center group primary-text hover-text-color transition-all"
                                   >
                                     <Link
-                                      className="font-gotham font-sm my-2 text-sm primary-text hover-text-color sub-element"
+                                      className="font-gotham font-sm my-1 text-sm primary-text hover-text-color sub-element pl-2"
                                       href={`/category/filter?category=${subCategory.slug}`}
                                       onClick={() => {
                                         dispatch(addCategory({ title: subCategory.title, slug: subCategory.slug }));
@@ -286,7 +286,7 @@ const MegaMenu = ({ menus }: IProps) => {
                                             }}
                                           >
                                             <Link
-                                              className="font-gotham font-sm my-2 text-sm primary-text hover-text-color sub-element"
+                                              className="font-gotham font-sm my-1 text-sm primary-text hover-text-color sub-element pl-4"
                                               href={`/category/filter?category=${childrenCategory.slug}`}
                                             >
                                               {childrenCategory.title}

@@ -663,7 +663,7 @@ function Checkout() {
                         Regular Price
                       </div>
                       <div className="heading-table col-span-1 md:col-span-1 p-1.5 md:p-3 font-gotham font-normal text-xs black-text">
-                        Price
+                        Discount Price
                       </div>
                       <div className="heading-table col-span-1 p-1.5 md:p-3 font-gotham font-normal text-xs black-text">
                         Total
