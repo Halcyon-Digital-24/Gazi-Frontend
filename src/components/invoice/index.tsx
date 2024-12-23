@@ -6,75 +6,140 @@ import { formatDate } from "../dateformate";
 
 const Invoice = ({
   order,
-  amountBeforeCoupon,
-  shipingCost,
-  finalPrice,
 }: any) => {
-  const [totalPrice, setTotalPrice] = useState(0);
-  // const [hasData,setHasData] = useState<boolean>
-  const [orderItems, setOrderItems] = useState<any[]>(
-    order?.orderItems?.length > 0 ? order?.orderItems : []
-  );
-  const advancePayment = order.advance_payment ?? 0;
-  // const [amountBeforeCoupon, setAmountBeforeCoupon] = useState<number>(0);
+
+    const [orderDetails, setOrderDetails] = useState<any>({});
+    const [totalPrice, setTotalPrice] = useState<number>(0);
+    const [amountBeforeCoupon, setAmountBeforeCoupon] = useState<number>(0);
+    const advancePayment = orderDetails.advance_payment ?? 0;
 
   useEffect(() => {
-    if (orderItems?.length > 0) {
-      let totalRegularPrice = 0;
-      let totalDiscountPrice = 0;
+    if (order?.coupon) {
+      if (order?.coupon?.discount_type === "flat") {
+        let tempDisCart = order?.orderItems;
+        if (order?.coupon?.product_id) {
+          let tempIdsArr: any[] = [];
+          if (order?.coupon?.product_id?.split(",")?.length > 0) {
+            tempIdsArr = order?.coupon?.product_id?.split(",");
+          } else {
+            tempIdsArr = [order?.coupon?.product_id];
+          }
+          tempDisCart = tempDisCart?.map((item: any) => {
+            if (tempIdsArr.find((element) => element == item.product_id)) {
+              return {
+                ...item,
+                discount_price:
+                  item.regular_price - order?.coupon?.discount_amount,
+              };
+            }
+            return item;
+          });
+        } else {
+          tempDisCart = tempDisCart?.map((item: any) => {
+            return {
+              ...item,
+              discount_price:
+                item.regular_price - order?.coupon?.discount_amount,
+            };
+          });
+        }
+        setOrderDetails(tempDisCart);
 
-      // Calculate total regular price and total discount price
-      orderItems.forEach((item: any) => {
+      
+        if (order?.coupon) {
+          let finalPrice = 0;
+          tempDisCart?.map((item: any) => {
+            if (order?.coupon?.product_id){
+              finalPrice += item?.discount_price * item?.quantity;
+            }else{
+              finalPrice += item?.regular_price * item?.quantity;
+            }
+          });
+          if(!order?.coupon?.product_id){
+            finalPrice = finalPrice - order?.coupon?.discount_amount
+          }
+          console.log("final - ",finalPrice);
+          setTotalPrice(finalPrice);
+        } 
+        console.log(tempDisCart);
+        
+      } else {
+        let tempDisCart = order?.orderItems;
+        if (order?.coupon?.product_id) {
+          let tempIdsArr: any[] = [];
+          if (order?.coupon?.product_id?.split(",")?.length > 0) {
+            tempIdsArr = order?.coupon?.product_id?.split(",");
+          } else {
+            tempIdsArr = [order?.coupon?.product_id];
+          }
+          tempDisCart = tempDisCart?.map((item: any) => {
+            if (tempIdsArr.find((element) => element == item.product_id)) {
+              return {
+                ...item,
+                discount_price:
+                  item.regular_price -
+                  item.regular_price * (order?.coupon.discount_amount / 100),
+              };
+            }
+            return item;
+          });
+        } else {
+          tempDisCart = tempDisCart?.map((item: any) => {
+            return {
+              ...item,
+              discount_price:
+                item.regular_price -
+                item.regular_price * (order?.coupon.discount_amount / 100),
+            };
+          });
+        }
+        setOrderDetails(tempDisCart);
+
+        if (order?.coupon) {
+          let finalPrice = 0;
+          tempDisCart?.map((item: any) => {
+            if (order?.coupon?.product_id) {
+              finalPrice += item?.discount_price * item?.quantity;
+            } else {
+              finalPrice += item?.regular_price * item?.quantity;
+            }
+          });
+        
+          if (!order?.coupon?.product_id) {
+            finalPrice = finalPrice - (finalPrice * (order?.coupon?.discount_amount / 100));
+          }
+          console.log("final - ", finalPrice);
+          setTotalPrice(finalPrice);
+        }
+        console.log(tempDisCart);
+        
+      }
+    }
+  }, [order]);
+
+  useEffect(() => {
+    if (order?.orderItems?.length > 0) {
+      let totalRegularPrice = 0;
+
+      order?.orderItems?.forEach((item: any) => {
         totalRegularPrice += item?.regular_price * item?.quantity;
-        totalDiscountPrice += (item?.discount_price
+      });
+      console.log(totalRegularPrice);
+      
+      setAmountBeforeCoupon(totalRegularPrice);
+    }
+    if(!order.coupon){
+      let finalPrice = 0;
+      orderDetails?.orderItems?.map((item: any) => {
+        finalPrice += (item?.discount_price
           ? item?.discount_price
           : item?.regular_price) * item?.quantity;
       });
-
-      // Calculate total price after applying coupon
-      let calculatedTotalPrice = 0;
-
-      if (order?.coupon) {
-        if (order?.coupon.discount_type === "flat") {
-          // Flat discount calculation
-          const totalFlatDiscount = orderItems.reduce((sum: number, item: any) => {
-            if (order?.coupon?.product_id) {
-              const applicableProductIds = order?.coupon?.product_id.split(",");
-              if (applicableProductIds.includes(item.product_id.toString())) {
-                return sum + (item.regular_price - order?.coupon?.discount_amount) * item.quantity;
-              }
-            } else {
-              return sum + (item.regular_price - order?.coupon?.discount_amount) * item.quantity;
-            }
-            return sum;
-          }, 0);
-          calculatedTotalPrice = totalFlatDiscount;
-        } else {
-          // Percentage discount calculation
-          const totalPercentageDiscount = orderItems.reduce((sum: number, item: any) => {
-            if (order?.coupon?.product_id) {
-              const applicableProductIds = order?.coupon?.product_id.split(",");
-              if (applicableProductIds.includes(item.product_id.toString())) {
-                return sum + (item.regular_price - (item.regular_price * (order?.coupon.discount_amount / 100))) * item.quantity;
-              }
-            } else {
-              return sum + (item.regular_price - (item.regular_price * (order?.coupon.discount_amount / 100))) * item.quantity;
-            }
-            return sum;
-          }, 0);
-          calculatedTotalPrice = totalPercentageDiscount;
-        }
-      } else {
-        // No coupon applied
-        calculatedTotalPrice = totalDiscountPrice;
-      }
-
-      setTotalPrice(calculatedTotalPrice);
+      setTotalPrice(finalPrice);
     }
-  }, [order, orderItems]);
+  }, [[orderDetails?.coupon, orderDetails?.orderItems, order, order?.coupon]]);
 
-
-
+  console.log(amountBeforeCoupon);
   return (
     <div className="invoice white-bg hidden">
       <div className="invoice-body">
@@ -160,8 +225,8 @@ const Invoice = ({
             <th>Unit price (BDT)</th>
             <th>Total</th>
           </tr>
-          {orderItems?.length > 0 &&
-            orderItems?.map((product, index) => (
+          {order?.orderItems?.length > 0 &&
+            order?.orderItems?.map((product: any, index: any) => (
               <tr key={index} className="order-item">
                 <td>{index + 1}</td>
                 <td>{product.product_name}</td>
@@ -192,7 +257,7 @@ const Invoice = ({
           <tr>
             <td className="span-item" colSpan={4}></td>
             <td className="heading-title">Sub Total</td>
-            <td>{FormatPrice(amountBeforeCoupon)}</td>
+            <td> {FormatPrice(amountBeforeCoupon)}</td>
           </tr>
           <tr>
             <td className="span-item" colSpan={4}></td>

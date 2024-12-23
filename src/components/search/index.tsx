@@ -1,10 +1,7 @@
 "use client";
 import React, { useState, ChangeEvent } from "react";
 import {
-  ReadonlyURLSearchParams,
-  usePathname,
   useRouter,
-  useSearchParams,
 } from "next/navigation";
 import { GoSearch } from "react-icons/go";
 import { Router } from "next/router";
@@ -36,10 +33,10 @@ const SearchArea = () => {
       <form className="flex items-center justify-center mx-3">
         <input
           type="text"
-          className="hidden md:block px-1 md:px-3 h-6 md:h-9 focus:outline-none border-l border-y  lg:w-[450px] md:w-[300px] font-gotham font-normal text-sm placeholder:font-gotham md:placeholder:text-sm placeholder:text-xs border-[0.5px] border-r-0"
+          className="hidden md:block px-1 md:px-3 h-6 md:h-9 focus:outline-none border-l border-y lg:w-[450px] md:w-[300px] font-gotham font-normal text-sm placeholder:font-gotham md:placeholder:text-sm placeholder:text-xs border-[0.5px] border-r-0 rounded-none"
           placeholder="Search for Products..."
-          onChange={handleInputChange} // Handle input change
-          value={searchValue} // Bind the input value to state
+          onChange={handleInputChange}
+          value={searchValue}
         />
         <button
           className="hidden md:block button primary-bg hover:bg-[#252022] h-6 md:h-9 px-2 md:px-6 font-gotham font-normal text-sm white-text"
@@ -51,11 +48,12 @@ const SearchArea = () => {
         {/* mobile search */}
         <input
           type="text"
-          className="block md:hidden px-1 w-full h-6 focus:outline-none border-[0.5px] border-r-0 border-[rgb(2,6,23)] font-gotham font-normal text-xs placeholder:font-gotham placeholder:text-xs"
+          className="block md:hidden px-1 w-full h-6 focus:outline-none border-[0.5px] border-r-0 border-[rgb(2,6,23)] font-gotham font-normal text-xs placeholder:font-gotham placeholder:text-xs rounded-none"
           placeholder="Search for Products..."
-          onChange={handleInputChange} // Handle input change
-          value={searchValue} // Bind the input value to state
+          onChange={handleInputChange}
+          value={searchValue}
         />
+
         <button
           aria-label="search button"
           className="block md:hidden border button h-6 md:h-9 px-2 md:px-6 font-gotham font-normal text-sm white-text"

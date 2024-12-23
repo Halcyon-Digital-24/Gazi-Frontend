@@ -350,7 +350,7 @@ function Checkout() {
       location !== "" &&
       locations?.length > 0
     ) {
-      if (selectedPaymentDeliveryStatus == "pickup") {
+      if (selectedPaymentDeliveryStatus == "homeDelivery") {
         let totalProductsCount = 0;
         let perCountFree = 0;
         cart?.length > 0 &&
@@ -363,6 +363,8 @@ function Checkout() {
           }
         });
         setDeliveryFee(totalProductsCount * perCountFree);
+        // console.log(perCountFree);
+        
       } else {
         setDeliveryFee(0);
       }
@@ -391,9 +393,12 @@ function Checkout() {
       setMobile(login?.user?.mobile);
     }
   }, []);
-  const handleChangeLocation = (value: string) => {
-    setSelectedLocation(value);
+  const handleChangeLocation = (value: any) => {
+    setSelectedLocation(value.location);
+    setLocation(value.location);
+    
   };
+  // console.log(location);
 
   return (
     <main>
