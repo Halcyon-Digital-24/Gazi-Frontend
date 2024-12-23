@@ -17,7 +17,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IBanner } from "@/types/banner";
 import { ICartItem } from "@/types/cart";
 import { ICompareItem } from "@/types/compare";
-import { ISingleProduct } from "@/types/product";
+import { ISingleProduct, IProduct } from "@/types/product";
 import { IService } from "@/types/service";
 import axios from "axios";
 import dynamic from "next/dynamic";
@@ -155,10 +155,16 @@ const PageDetails = ({ params: { slug } }: Props) => {
   }, [attributes]);
 
   const increment = () => {
-    if (quantity < 5) {
+    let maxQuantity = product?.product?.default_quantity || 0;
+
+    if (quantity < maxQuantity) {
       setQuantity(quantity + 1);
+    } else {
+      // Show toast notification if the maximum is reached
+      toast.warning(`Maximum quantity reached! You can only add up to ${maxQuantity} items.`);
     }
   };
+
 
   const decrement = () => {
     if (quantity !== 1) {

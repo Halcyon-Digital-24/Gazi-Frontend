@@ -14,14 +14,15 @@ interface CustomDropdownProps {
 const CustomDropdown: React.FC<CustomDropdownProps> = ({ locations, handleChangeLocation, required }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState<string>('');
+
   const [isTouched, setIsTouched] = useState(false);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleOptionClick = (location: string) => {
-    setSelectedLocation(location);
+  const handleOptionClick = (location: any) => {
+    setSelectedLocation(location.location);
     setIsOpen(false);
     setIsTouched(true);
     handleChangeLocation(location);
@@ -45,7 +46,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ locations, handleChange
               <div
                 key={i}
                 className="dropdown-option"
-                onClick={() => handleOptionClick(location.location)}
+                onClick={() => handleOptionClick(location)}
               >
                 {location.location}
               </div>

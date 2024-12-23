@@ -22,7 +22,7 @@ const SingleOrder: FC<IProps> = ({ order }) => {
   const { login } = useAppSelector((state) => state.login);
   const [isOpen, setIsOpen] = useState(false);
   const [orderDetails, setOrderDetails] = useState<any>({});
-  const [finalPrice, setFinalPrice] = useState<number>(0);
+  const [finalPrice, setTotalPrice] = useState<number>(0);
   const [amountBeforeCoupon, setAmountBeforeCoupon] = useState<number>(0);
   const advancePayment = orderDetails.advance_payment ?? 0;
   
@@ -42,7 +42,7 @@ const SingleOrder: FC<IProps> = ({ order }) => {
             setOrderDetails(response?.data);
           }
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
       };
       getOrderDetails();
@@ -50,22 +50,22 @@ const SingleOrder: FC<IProps> = ({ order }) => {
   }, [order?.id]);
 
   useEffect(() => {
-    if (orderDetails?.coupon) {
-      if (orderDetails?.coupon?.discount_type === "flat") {
-        let tempDisCart = orderDetails?.orderItems;
-        if (orderDetails?.coupon?.product_id) {
+    if (order?.coupon) {
+      if (order?.coupon?.discount_type === "flat") {
+        let tempDisCart = order?.orderItems;
+        if (order?.coupon?.product_id) {
           let tempIdsArr: any[] = [];
-          if (orderDetails?.coupon?.product_id?.split(",")?.length > 0) {
-            tempIdsArr = orderDetails?.coupon?.product_id?.split(",");
+          if (order?.coupon?.product_id?.split(",")?.length > 0) {
+            tempIdsArr = order?.coupon?.product_id?.split(",");
           } else {
-            tempIdsArr = [orderDetails?.coupon?.product_id];
+            tempIdsArr = [order?.coupon?.product_id];
           }
           tempDisCart = tempDisCart?.map((item: any) => {
             if (tempIdsArr.find((element) => element == item.product_id)) {
               return {
                 ...item,
                 discount_price:
-                  item.regular_price - orderDetails?.coupon?.discount_amount,
+                  item.regular_price - order?.coupon?.discount_amount,
               };
             }
             return item;
@@ -75,24 +75,38 @@ const SingleOrder: FC<IProps> = ({ order }) => {
             return {
               ...item,
               discount_price:
-                item.regular_price - orderDetails?.coupon?.discount_amount,
+                item.regular_price - order?.coupon?.discount_amount,
             };
           });
         }
-        setOrderDetails((prevState: any) => {
-          return {
-            ...prevState,
-            orderItems: tempDisCart,
-          };
-        });
+        setOrderDetails(tempDisCart);
+
+      
+        if (order?.coupon) {
+          let finalPrice = 0;
+          tempDisCart?.map((item: any) => {
+            if (order?.coupon?.product_id){
+              finalPrice += item?.discount_price * item?.quantity;
+            }else{
+              finalPrice += item?.regular_price * item?.quantity;
+            }
+          });
+          if(!order?.coupon?.product_id){
+            finalPrice = finalPrice - order?.coupon?.discount_amount
+          }
+          // console.log("final - ",finalPrice);
+          setTotalPrice(finalPrice);
+        } 
+        // console.log(tempDisCart);
+        
       } else {
-        let tempDisCart = orderDetails?.orderItems;
-        if (orderDetails?.coupon?.product_id) {
+        let tempDisCart = order?.orderItems;
+        if (order?.coupon?.product_id) {
           let tempIdsArr: any[] = [];
-          if (orderDetails?.coupon?.product_id?.split(",")?.length > 0) {
-            tempIdsArr = orderDetails?.coupon?.product_id?.split(",");
+          if (order?.coupon?.product_id?.split(",")?.length > 0) {
+            tempIdsArr = order?.coupon?.product_id?.split(",");
           } else {
-            tempIdsArr = [orderDetails?.coupon?.product_id];
+            tempIdsArr = [order?.coupon?.product_id];
           }
           tempDisCart = tempDisCart?.map((item: any) => {
             if (tempIdsArr.find((element) => element == item.product_id)) {
@@ -100,8 +114,7 @@ const SingleOrder: FC<IProps> = ({ order }) => {
                 ...item,
                 discount_price:
                   item.regular_price -
-                  item.regular_price *
-                  (orderDetails?.coupon.discount_amount / 100),
+                  item.regular_price * (order?.coupon.discount_amount / 100),
               };
             }
             return item;
@@ -112,48 +125,57 @@ const SingleOrder: FC<IProps> = ({ order }) => {
               ...item,
               discount_price:
                 item.regular_price -
-                item.regular_price *
-                (orderDetails?.coupon.discount_amount / 100),
+                item.regular_price * (order?.coupon.discount_amount / 100),
             };
           });
         }
-        setOrderDetails((prevState: any) => {
-          return {
-            ...prevState,
-            orderItems: tempDisCart,
-          };
-        });
+        setOrderDetails(tempDisCart);
+
+        if (order?.coupon) {
+          let finalPrice = 0;
+          tempDisCart?.map((item: any) => {
+            if (order?.coupon?.product_id) {
+              finalPrice += item?.discount_price * item?.quantity;
+            } else {
+              finalPrice += item?.regular_price * item?.quantity;
+            }
+          });
+        
+          if (!order?.coupon?.product_id) {
+            finalPrice = finalPrice - (finalPrice * (order?.coupon?.discount_amount / 100));
+          }
+          // console.log("final - ", finalPrice);
+          setTotalPrice(finalPrice);
+        }
+        // console.log(tempDisCart);
+        
       }
     }
-  }, [orderDetails?.coupon]);
+  }, [order]);
 
   useEffect(() => {
-    if (orderDetails?.orderItems?.length > 0) {
-      if (orderDetails?.coupon) {
-        let finalPrice = 0;
-        orderDetails?.orderItems?.map((item: any) => {
-          finalPrice += item?.discount_price * item?.quantity;
-        });
-        setFinalPrice(finalPrice);
-      } else {
-        let finalPrice = 0;
-        orderDetails?.orderItems?.map((item: any) => {
-          finalPrice += (item?.discount_price
-            ? item?.discount_price
-            : item?.regular_price) * item?.quantity;
-        });
-        setFinalPrice(finalPrice);
-      }
-    }
+    if (orderDetails?.length > 0) {
+      let totalRegularPrice = 0;
 
-    if (orderDetails?.orderItems?.length > 0) {
-      let amountBeforeCoupon = 0;
       orderDetails?.orderItems?.forEach((item: any) => {
-        amountBeforeCoupon += item?.regular_price * item?.quantity;
+        totalRegularPrice += item?.regular_price * item?.quantity;
       });
-      setAmountBeforeCoupon(amountBeforeCoupon);
+
+      setAmountBeforeCoupon(totalRegularPrice);
     }
-  }, [orderDetails?.coupon, orderDetails?.orderItems]);
+    if(!order.coupon){
+      let finalPrice = 0;
+      orderDetails?.orderItems?.map((item: any) => {
+        finalPrice += (item?.discount_price
+          ? item?.discount_price
+          : item?.regular_price) * item?.quantity;
+      });
+      setTotalPrice(finalPrice);
+    }
+  }, [[orderDetails?.coupon, orderDetails?.orderItems]]);
+
+  // console.log(amountBeforeCoupon);
+  
   return (
     <tr className=" font-normal font-gotham text-sm table-border">
       <td scope="row" className="px-2 md:px-6 py-1 md:py-4 whitespace-nowrap overflow-hidden text-ellipsis">
@@ -185,9 +207,6 @@ const SingleOrder: FC<IProps> = ({ order }) => {
             {
               <Invoice
                 order={order}
-                amountBeforeCoupon={amountBeforeCoupon}
-                shipingCost={order.delivery_fee}
-                finalPrice={finalPrice}
               />
             }
           </div>
@@ -205,9 +224,6 @@ const SingleOrder: FC<IProps> = ({ order }) => {
               </div>
               <ProfileViewInvoice
                 order={order}
-                amountBeforeCoupon={amountBeforeCoupon}
-                shipingCost={order.delivery_fee}
-                finalPrice={finalPrice}
               />
             </div>
           )}

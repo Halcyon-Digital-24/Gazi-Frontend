@@ -54,52 +54,73 @@ const TopHeader = ({ homeData, menus }: IProps) => {
     sessionStorage.setItem("bannerClosed", "true");
   };
 
+  const [isAndroid, setIsAndroid] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const userAgent = navigator.userAgent || navigator.vendor;
+  
+    if (/android/i.test(userAgent)) {
+      setIsAndroid(true);
+    } else if (/iPad|iPhone|iPod/.test(userAgent)) {
+      setIsAndroid(false);
+    } else {
+      setIsAndroid(null);
+    }
+  }, []);
+  
+
+  if (!showBanner || isAndroid === null) return null; // Show nothing until detection completes
+
+
   return (
     <>
       {/* Ad Banner */}
       {showBanner && (
-        <div className=" bg-gray-100 flex items-center justify-between py-2 pr-4 pl-3 z-50 shadow-lg md:hidden">
-          <div className="flex items-center">
-            <button
-              className="text-gray-500 hover:text-gray-800 mr-2"
-              onClick={closeBanner}
-              aria-label="Close banner"
+        <div className="bg-gray-100 flex items-center justify-between py-2 pr-4 pl-3 z-50 shadow-lg md:hidden">
+        <div className="flex items-center">
+          <button
+            className="text-gray-500 hover:text-gray-800 mr-2"
+            onClick={closeBanner}
+            aria-label="Close banner"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
-              </svg>
-            </button>
-            <Image
-              src="/assets/images/logo/GCart App Icon.png"
-              alt="App Logo"
-              className="w-10 h-10 mr-2"
-              height={40}
-              width={40}
-            />
-            <div>
-              <p className="text-base font-bold font-gotham"><span className="secondary-text"><strong>G</strong></span>Cart</p>
-              <p className="text-xs text-gray-500">FREE - In Google Play</p>
-            </div>
-          </div>
-          <div className="flex items-center space-x-2 shadow">
-            <Link
-              href="/hello"
-            >
-              <Button className="px-4 py-1 rounded-sm">Install</Button>
-            </Link>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+          <Image
+            src="/assets/images/logo/GCart App Icon.png"
+            alt="App Logo"
+            className="w-10 h-10 mr-2"
+            height={40}
+            width={40}
+          />
+          <div>
+            <p className="text-base font-bold font-gotham">
+              <span className="secondary-text">
+                <strong>G</strong>
+              </span>
+              Cart
+            </p>
+            <p className="text-xs text-gray-500">FREE - {isAndroid ? "In Play store" : "In App Store"}</p>
           </div>
         </div>
+        <div className="flex items-center space-x-2 shadow">
+          <Link href={isAndroid ? "https://play.google.com/store" : "https://www.apple.com/app-store/"}>
+            <Button className="px-4 py-1 rounded-sm">Install</Button>
+          </Link>
+        </div>
+      </div>
       )}
 
       {/* Top Header */}
