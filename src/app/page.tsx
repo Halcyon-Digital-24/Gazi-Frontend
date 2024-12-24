@@ -76,30 +76,30 @@ export default async function Home() {
   const addBanner = await categoryAdBanner("home");
   const verticalBanner = await categoryAdBanner("home-v");
 
-//   const name = async () => {
-//     // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/frontend/products?limit=500`);
-//     // const productsApi = await response.json();
-//     // const products = productsApi.data.rows;
-//     // console.log(products.length);
+  //   const name = async () => {
+  //     // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/frontend/products?limit=500`);
+  //     // const productsApi = await response.json();
+  //     // const products = productsApi.data.rows;
+  //     // console.log(products.length);
 
-//  // const product = products.map((prod: any) => ({
-//     //   url: `${process.env.NEXT_PUBLIC_API_URL}/frontend/products${prod.slug}`,
-//     // }))
-//     // console.log(product);
-//     const categoriesResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories?limit=100`);
-//     const categoriesApi = await categoriesResponse.json();
-//     const categories = categoriesApi.data.rows;
+  //  // const product = products.map((prod: any) => ({
+  //     //   url: `${process.env.NEXT_PUBLIC_API_URL}/frontend/products${prod.slug}`,
+  //     // }))
+  //     // console.log(product);
+  //     const categoriesResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories?limit=100`);
+  //     const categoriesApi = await categoriesResponse.json();
+  //     const categories = categoriesApi.data.rows;
 
-//     console.log(categories.length);
-    
+  //     console.log(categories.length);
 
-//     const category = categories.map((prod: any) => ({
-//       url: `https://gcart.com.bd/category/filter?category=${prod.slug}`,
-//     }))
-//     console.log(category);
 
-//   }
-//   name();
+  //     const category = categories.map((prod: any) => ({
+  //       url: `https://gcart.com.bd/category/filter?category=${prod.slug}`,
+  //     }))
+  //     console.log(category);
+
+  //   }
+  //   name();
   return (
     <>
       <main>
@@ -120,7 +120,7 @@ export default async function Home() {
         <section className="explore py-16 md:py-20">
           <div className="container">
             <h1 className="mb-6 uppercase text-center primary-text font-gotham text-[18px] md:text-xl font-bold ">
-              EXPLORE HOME APPLIANCES
+              EXPLORE CATEGORIES
             </h1>
             <div className="flex flex-wrap justify-center  ">
               {homeData?.category
@@ -317,7 +317,7 @@ export default async function Home() {
                   )
                 )}
               </div>
-            </div> 
+            </div>
           </div>
         </section>
         <section className="review-video">

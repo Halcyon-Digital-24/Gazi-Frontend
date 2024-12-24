@@ -237,6 +237,13 @@ function Category() {
       setCount(
         response.data?.data ? response.data?.data?.count : response?.data?.count
       );
+      const totalItems = response.data?.data?.count || 0;
+      const totalPages = Math.ceil(totalItems / Number(limit));
+
+      if (page > totalPages) {
+        setPage(1); 
+      }
+      
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -413,7 +420,7 @@ function Category() {
                       <div className="">
                         <Link href={adsBanner.url}>
                           <Image
-                  
+
                             className="w-full  transition-all duration-100 hover:scale-[1.01] h-auto "
                             src={`${API_ROOT}/images/banner/${adsBanner?.image}`}
                             width={1000}
