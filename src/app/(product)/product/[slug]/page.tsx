@@ -1166,7 +1166,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                                   </p>
                                 )}
                                 <Button
-                                  type="submit"
+                                  type="submit"                                  
                                   className="my-4 px-10 py-1 font-gotham font-medium text-sm hover:bg-[#2456b5]"
                                 >
                                   Submit

@@ -758,7 +758,7 @@ function Checkout() {
                     <div className="flex items-start">
                       <div>
                         <input
-                          className="mr-2 mt-[6px] accent-[#524096]"
+                          className="mr-2 mt-[6px] accent-[#E30513]"
                           type="checkbox"
                           name="accept"
                           id="accept"
@@ -803,6 +803,7 @@ function Checkout() {
                     disable={loading}
                     className="font-gotham font-medium py-2 text-xs w-[142px] button"
                     type="submit"
+                    aria-label="Submit your order"
                   >
                     Confirm Order
                   </Button>
