@@ -9,7 +9,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "api.gcart.com.bd",
+        hostname: "apilocal.gcart.com.bd",
         port: "",
         pathname: "/**",
       },
