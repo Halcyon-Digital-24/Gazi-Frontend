@@ -1,4 +1,13 @@
 @import "../../styles/index.scss";
+@import "../../styles/index.scss";
+
+.profile-link {
+  li {
+    &:hover {
+      background: $secondary-background-color;
+    }
+  }
+}
 
 .profile {
   padding-top: 20px;

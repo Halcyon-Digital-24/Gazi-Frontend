@@ -17,20 +17,20 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="text-center">
-      <div className="flex flex-col items-center max-w-sm mx-auto text-center">
+    <div className="text-center mb-20">
+      <div className="flex flex-col items-center max-w-sm mx-auto text-center md:mt-20 mt-10">
         <Image
 
           className="w-[400px] h-[200px]"
           width={400}
           height={200}
           style={{ width: '400px', height: '200px' }}
-          alt="404"
-          src={"/assets/images/404/error.png"}
+          alt="404 - something went wrong "
+          src="/assets/images/error/error.png"
           property="true"
         />
       </div>
-      <h2 className="text-center py-52 font-gotham text-3xl">
+      <h2 className="text-center py-10 font-gotham text-3xl">
         Something went wrong!
       </h2>
       <Button

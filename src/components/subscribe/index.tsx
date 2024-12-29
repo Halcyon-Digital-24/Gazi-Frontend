@@ -38,7 +38,7 @@ const Subscriber = () => {
       >
         <input
           type="email"
-          className="px-3 py-2 border-b-2  focus:ring-0 focus:border-blue-500 outline-none placeholder:font-gotham  placeholder:font-light placeholder:text-sm"
+          className="text-xs px-3 py-2 border-b-2  focus:ring-0 focus:border-blue-500 outline-none placeholder:font-gotham  placeholder:font-light placeholder:text-sm"
           {...register("email", {
             required: "Email Address is required",
             pattern: {

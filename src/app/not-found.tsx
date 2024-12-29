@@ -15,7 +15,7 @@ export default function Custom404() {
               height={200}
               style={{ width: '400px', height: '200px' }}
               alt="not found"
-              src={"/assets/images/404/error.png"}
+              src="/assets/images/error/error.png"
               property="true"
             />
             <Link className="px-2 py-1 primary-bg text-[#fff]" href={"/"}>

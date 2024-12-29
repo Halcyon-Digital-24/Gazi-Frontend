@@ -62,11 +62,11 @@ async function Blogs({
       <section className="mt-8 mb-5">
         <div className="container">
           {adsBanner && (
-            <Link href={adsBanner.url}>
+            <Link href={adsBanner?.url}>
               <Image
       
                 className="w-full"
-                src={`${API_ROOT}/images/banner/${adsBanner.image}`}
+                src={`${API_ROOT}/images/banner/${adsBanner?.image}`}
                 width={1200}
                 height={340}
                 quality={100}
@@ -81,16 +81,16 @@ async function Blogs({
       <section className="blog">
         <div className="container  px-2 md:px-0">
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {blogs.data?.rows.map((blog, index) => (
+            {blogs?.data?.rows.map((blog, index) => (
               <BlogCard key={index} blog={blog} />
             ))}
           </div>
           {
-            blogs.data?.rows?.length ?
+            blogs?.data?.rows?.length ?
               <ServerPagination
                 showTitle={`Show ${limit}`}
                 page={page}
-                totalPage={Math.ceil((blogs.data?.count || 1) / limit)}
+                totalPage={Math.ceil((blogs?.data?.count || 1) / limit)}
               /> : ''
           }
         </div>
