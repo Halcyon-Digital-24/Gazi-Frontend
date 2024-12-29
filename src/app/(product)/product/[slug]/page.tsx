@@ -17,7 +17,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IBanner } from "@/types/banner";
 import { ICartItem } from "@/types/cart";
 import { ICompareItem } from "@/types/compare";
-import { ISingleProduct, IProduct } from "@/types/product";
+import { ISingleProduct, IProduct, } from "@/types/product";
 import { IService } from "@/types/service";
 import axios from "axios";
 import dynamic from "next/dynamic";
@@ -435,11 +435,8 @@ const PageDetails = ({ params: { slug } }: Props) => {
           product_id: product?.product?.id,
           product_name: product?.product?.title,
           user_id: login?.user?.id,
+          is_visible: true,
           ...data,
-          /* name: firstName,
-          comment: review,
-          rating: rating, */
-          is_visible: "0",
         });
         if (response?.status === 201) {
           toast.success("Review post success!");
@@ -1166,7 +1163,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                                   </p>
                                 )}
                                 <Button
-                                  type="submit"                                  
+                                  type="submit"
                                   className="my-4 px-10 py-1 font-gotham font-medium text-sm hover:bg-[#2456b5]"
                                 >
                                   Submit
@@ -1177,7 +1174,7 @@ const PageDetails = ({ params: { slug } }: Props) => {
                         </div>
                       </TabPanel>
                       <TabPanel>
-                        {product?.product?.video_url && (
+                        {product?.product?.video_url ? (
                           <div className="video-wrapper">
                             {!isPlaying ? (
                               <div
@@ -1194,7 +1191,6 @@ const PageDetails = ({ params: { slug } }: Props) => {
                                   />
                                 ) : (
                                   <div className="no-thumbnail-placeholder w-full h-full flex items-center justify-center bg-gray-200">
-                                    {/* Show a simple placeholder if no thumbnail */}
                                     <span>Loading thumbnail...</span>
                                   </div>
                                 )}
@@ -1214,7 +1210,12 @@ const PageDetails = ({ params: { slug } }: Props) => {
                               ></iframe>
                             )}
                           </div>
+                        ) : (
+                          <div className=" text-center text-gray-500">
+                            No videos for this product.
+                          </div>
                         )}
+
 
                       </TabPanel>
                       <TabPanel>

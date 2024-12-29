@@ -69,7 +69,6 @@ const TopHeader = ({ homeData, menus }: IProps) => {
   }, []);
   
 
-  if (!showBanner || isAndroid === null) return null; // Show nothing until detection completes
 
 
   return (

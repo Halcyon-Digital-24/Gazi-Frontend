@@ -19,8 +19,8 @@ type IResponse = {
   data: IBlog;
 };
 
-async function getBlog(slug: string) {
-  const res = await fetch(`${API_URL}/frontend/blogs/${slug} `, {
+async function getBlog(id: string) {
+  const res = await fetch(`${API_URL}/blogs/${id} `, {
     cache: "no-store",
   });
   const data = await res.json();
@@ -36,6 +36,8 @@ async function popularBlogs() {
 const BlogDetails = async ({ params: { slug } }: Props) => {
   const blogData: IResponse = await getBlog(slug);
   const popular: IResponseBlog = await popularBlogs();
+  console.log("blog: ", blogData);
+  
 
   return (
     <section className="blog-details mt-5">
@@ -47,7 +49,7 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
                 <Image
         
                   className="w-full"
-                  src={`${API_ROOT}/images/blog/${blogData.data?.image}`}
+                  src={`${API_ROOT}/images/blog/${blogData?.data?.image}`}
                   width={600}
                   height={600}
                   style={{ width: '100%', height: 'auto' }}
@@ -56,7 +58,7 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
                 <div className=" p-4">
                   <div className="border-area">
                     <h2 className="font-gotham font-bold text-base primary-text">
-                      {blogData.data.title}
+                      {blogData?.data?.title}
                     </h2>
                     <div className="flex justify-between py-2 social">
                       <div className="flex">
@@ -76,7 +78,7 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
                         <div className="social-item flex justify-center items-center mr-1">
                           <Link
                             href={`https://linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-                              `${process.env.NEXT_PUBLIC_DOMAIN}/blogs/${blogData.data.slug}`
+                              `${process.env.NEXT_PUBLIC_DOMAIN}/blogs/${blogData?.data?.slug}`
                             )}`}
                             target="_blank"
                           >
@@ -86,7 +88,7 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
                         <div className="social-item flex justify-center items-center mr-1">
                           <Link
                             href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-                              `${process.env.NEXT_PUBLIC_DOMAIN}/blogs/${blogData.data.slug}`
+                              `${process.env.NEXT_PUBLIC_DOMAIN}/blogs/${blogData?.data?.slug}`
                             )}`}
                             target="_blank"
                           >
@@ -95,7 +97,7 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
                         </div>
                       </div>
                       <div className="font-gotham font-normal text-xs primary-text">
-                        {formatDate(blogData.data.created_at)}
+                        {formatDate(blogData?.data?.created_at)}
                       </div>
                     </div>
                   </div>
@@ -104,7 +106,7 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
                   <div
                     className="font-gotham font-normal text-xs px-4 pb-4"
                     dangerouslySetInnerHTML={{
-                      __html: blogData.data.description ?? "",
+                      __html: blogData?.data?.description ?? "",
                     }}
                   />
                 </div>
@@ -147,7 +149,7 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
                       Summit
                     </Button>
                   </form> */}
-                  <BlogComment blogId={blogData.data.id as number} />
+                  <BlogComment blogId={blogData?.data?.id as number} />
                 </div>
               </div>
             </div>
@@ -171,7 +173,7 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
                     />
                   </div>
                   <div className="text w-3/4">
-                    <Link href={`/blogs/${blog.slug}`}>
+                    <Link href={`/blogs/${blog.id}`}>
                       <h4 className=" font-gotham  font-normal text-base primary-text">
                         {blog.title}
                       </h4>
@@ -182,12 +184,12 @@ const BlogDetails = async ({ params: { slug } }: Props) => {
                         Publish in
                       </p>
                       <p className="font-gotham font-normal text-xs mt-2 primary-text">
-                        {formatDate(blog.created_at)}
+                        {formatDate(blog?.created_at)}
                       </p>
                     </div>
                     <Link
                       className="font-gotham font-normal text-xs mt-2 primary-text"
-                      href={`/blogs/${blog.slug}`}
+                      href={`/blogs/${blog?.id}`}
                     >
                       Read More
                     </Link>

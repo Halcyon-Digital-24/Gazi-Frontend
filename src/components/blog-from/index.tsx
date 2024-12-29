@@ -12,7 +12,7 @@ const BlogComment = ({ blogId }: { blogId: number }) => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  const data = { name: name, email, comment: message, blog_id: blogId };
+  const data = { name: name, email, comment: message, blog_id: blogId, is_visible: true };
 
   const handleComment = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

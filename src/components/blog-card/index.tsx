@@ -32,7 +32,7 @@ const BlogCard: FC<IProps> = ({ className, blog }) => {
           {blog.title}
         </h3>
         <div className="flex justify-between mt-8">
-          <Link href={`/blogs/${blog.slug}`}>
+          <Link href={`/blogs/${blog.id}`}>
             <Button className="px-2 py-1 font-gotham font-normal text-xs">
               Read more...
             </Button>
