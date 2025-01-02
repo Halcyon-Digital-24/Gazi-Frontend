@@ -14,133 +14,133 @@ const ProfileViewInvoice = ({
   const [amountBeforeCoupon, setAmountBeforeCoupon] = useState<number>(0);
   const advancePayment = orderDetails.advance_payment ?? 0;
 
-useEffect(() => {
-  if (order?.coupon) {
-    if (order?.coupon?.discount_type === "flat") {
-      let tempDisCart = order?.orderItems;
-      if (order?.coupon?.product_id) {
-        let tempIdsArr: any[] = [];
-        if (order?.coupon?.product_id?.split(",")?.length > 0) {
-          tempIdsArr = order?.coupon?.product_id?.split(",");
+  useEffect(() => {
+    if (order?.coupon) {
+      if (order?.coupon?.discount_type === "flat") {
+        let tempDisCart = order?.orderItems;
+        if (order?.coupon?.product_id) {
+          let tempIdsArr: any[] = [];
+          if (order?.coupon?.product_id?.split(",")?.length > 0) {
+            tempIdsArr = order?.coupon?.product_id?.split(",");
+          } else {
+            tempIdsArr = [order?.coupon?.product_id];
+          }
+          tempDisCart = tempDisCart?.map((item: any) => {
+            if (tempIdsArr.find((element) => element == item.product_id)) {
+              return {
+                ...item,
+                discount_price:
+                  item.regular_price - order?.coupon?.discount_amount,
+              };
+            }
+            return item;
+          });
         } else {
-          tempIdsArr = [order?.coupon?.product_id];
-        }
-        tempDisCart = tempDisCart?.map((item: any) => {
-          if (tempIdsArr.find((element) => element == item.product_id)) {
+          tempDisCart = tempDisCart?.map((item: any) => {
             return {
               ...item,
               discount_price:
                 item.regular_price - order?.coupon?.discount_amount,
             };
-          }
-          return item;
-        });
-      } else {
-        tempDisCart = tempDisCart?.map((item: any) => {
-          return {
-            ...item,
-            discount_price:
-              item.regular_price - order?.coupon?.discount_amount,
-          };
-        });
-      }
-      setOrderDetails(tempDisCart);
+          });
+        }
+        setOrderDetails(tempDisCart);
 
-    
-      if (order?.coupon) {
-        let finalPrice = 0;
-        tempDisCart?.map((item: any) => {
-          if (order?.coupon?.product_id){
-            finalPrice += item?.discount_price * item?.quantity;
-          }else{
-            finalPrice += item?.regular_price * item?.quantity;
+
+        if (order?.coupon) {
+          let finalPrice = 0;
+          tempDisCart?.map((item: any) => {
+            if (order?.coupon?.product_id) {
+              finalPrice += item?.discount_price * item?.quantity;
+            } else {
+              finalPrice += item?.regular_price * item?.quantity;
+            }
+          });
+          if (!order?.coupon?.product_id) {
+            finalPrice = finalPrice - order?.coupon?.discount_amount
           }
-        });
-        if(!order?.coupon?.product_id){
-          finalPrice = finalPrice - order?.coupon?.discount_amount
+          console.log("final - ", finalPrice);
+          setTotalPrice(finalPrice);
         }
-        console.log("final - ",finalPrice);
-        setTotalPrice(finalPrice);
-      } 
-      console.log(tempDisCart);
-      
-    } else {
-      let tempDisCart = order?.orderItems;
-      if (order?.coupon?.product_id) {
-        let tempIdsArr: any[] = [];
-        if (order?.coupon?.product_id?.split(",")?.length > 0) {
-          tempIdsArr = order?.coupon?.product_id?.split(",");
+        console.log(tempDisCart);
+
+      } else {
+        let tempDisCart = order?.orderItems;
+        if (order?.coupon?.product_id) {
+          let tempIdsArr: any[] = [];
+          if (order?.coupon?.product_id?.split(",")?.length > 0) {
+            tempIdsArr = order?.coupon?.product_id?.split(",");
+          } else {
+            tempIdsArr = [order?.coupon?.product_id];
+          }
+          tempDisCart = tempDisCart?.map((item: any) => {
+            if (tempIdsArr.find((element) => element == item.product_id)) {
+              return {
+                ...item,
+                discount_price:
+                  item.regular_price -
+                  item.regular_price * (order?.coupon.discount_amount / 100),
+              };
+            }
+            return item;
+          });
         } else {
-          tempIdsArr = [order?.coupon?.product_id];
-        }
-        tempDisCart = tempDisCart?.map((item: any) => {
-          if (tempIdsArr.find((element) => element == item.product_id)) {
+          tempDisCart = tempDisCart?.map((item: any) => {
             return {
               ...item,
               discount_price:
                 item.regular_price -
                 item.regular_price * (order?.coupon.discount_amount / 100),
             };
-          }
-          return item;
-        });
-      } else {
-        tempDisCart = tempDisCart?.map((item: any) => {
-          return {
-            ...item,
-            discount_price:
-              item.regular_price -
-              item.regular_price * (order?.coupon.discount_amount / 100),
-          };
-        });
-      }
-      setOrderDetails(tempDisCart);
-
-      if (order?.coupon) {
-        let finalPrice = 0;
-        tempDisCart?.map((item: any) => {
-          if (order?.coupon?.product_id) {
-            finalPrice += item?.discount_price * item?.quantity;
-          } else {
-            finalPrice += item?.regular_price * item?.quantity;
-          }
-        });
-      
-        if (!order?.coupon?.product_id) {
-          finalPrice = finalPrice - (finalPrice * (order?.coupon?.discount_amount / 100));
+          });
         }
-        console.log("final - ", finalPrice);
-        setTotalPrice(finalPrice);
+        setOrderDetails(tempDisCart);
+
+        if (order?.coupon) {
+          let finalPrice = 0;
+          tempDisCart?.map((item: any) => {
+            if (order?.coupon?.product_id) {
+              finalPrice += item?.discount_price * item?.quantity;
+            } else {
+              finalPrice += item?.regular_price * item?.quantity;
+            }
+          });
+
+          if (!order?.coupon?.product_id) {
+            finalPrice = finalPrice - (finalPrice * (order?.coupon?.discount_amount / 100));
+          }
+          console.log("final - ", finalPrice);
+          setTotalPrice(finalPrice);
+        }
+        console.log(tempDisCart);
+
       }
-      console.log(tempDisCart);
-      
     }
-  }
-}, [order]);
+  }, [order]);
 
-useEffect(() => {
-  if (order?.orderItems?.length > 0) {
-    let totalRegularPrice = 0;
+  useEffect(() => {
+    if (order?.orderItems?.length > 0) {
+      let totalRegularPrice = 0;
 
-    order?.orderItems?.forEach((item: any) => {
-      totalRegularPrice += item?.regular_price * item?.quantity;
-    });
-    console.log(totalRegularPrice);
-    
-    setAmountBeforeCoupon(totalRegularPrice);
-  }
-  if(!order.coupon){
-    let finalPrice = 0;
-    orderDetails?.orderItems?.map((item: any) => {
-      finalPrice += (item?.discount_price
-        ? item?.discount_price
-        : item?.regular_price) * item?.quantity;
-    });
-    setTotalPrice(finalPrice);
-  }
-}, [[orderDetails?.coupon, orderDetails?.orderItems, order, order?.coupon]]);
+      order?.orderItems?.forEach((item: any) => {
+        totalRegularPrice += item?.regular_price * item?.quantity;
+      });
+      console.log(totalRegularPrice);
 
-console.log(amountBeforeCoupon);
+      setAmountBeforeCoupon(totalRegularPrice);
+    }
+    if (!order.coupon) {
+      let finalPrice = 0;
+      orderDetails?.orderItems?.map((item: any) => {
+        finalPrice += (item?.discount_price
+          ? item?.discount_price
+          : item?.regular_price) * item?.quantity;
+      });
+      setTotalPrice(finalPrice);
+    }
+  }, [[orderDetails?.coupon, orderDetails?.orderItems, order, order?.coupon]]);
+
+  console.log(amountBeforeCoupon);
 
   return (
     <div className="profile-invoice white-bg md:p-[40px] md:pt-0 p-1">
@@ -179,10 +179,13 @@ console.log(amountBeforeCoupon);
               <span className="invoice-title">Phone: </span>{" "}
               {`+88${order.mobile}`}{" "}
             </p>
-            <p>
-              <span className="invoice-title"> Address: </span> {order.address}{" "}
+            <p dir="auto" className="bangla-font">
+               Address:
+              {order.address}{" "}
               {order.city ? `, ${order.city}` : ""}{" "}
+              {order.thana ? `, ${order.thana}` : ""}
             </p>
+
           </div>
           <div className="order-details right">
             <p>

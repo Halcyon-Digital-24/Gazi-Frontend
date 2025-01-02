@@ -277,23 +277,24 @@ const ProductCard: React.FC<IProps> = ({
         {Number(regular_price) > 0 && Number(discount_price) > 0 && (
           (() => {
             const discountPercent =
-              ((Number(regular_price) - Number(discount_price)) /
-                Number(regular_price)) *
+              ((Number(regular_price) - Number(discount_price)) / Number(regular_price)) *
               100;
 
             // Only show the discount percentage if it is greater than 0
             if (discountPercent > 0) {
+              // Round to the nearest whole number
+              const roundedDiscount = Math.round(discountPercent);
+
               return (
                 <span className="sudo inline-block discount font-gotham text-xs font-bold px-2 py-1 rounded primary-text">
-                  - {discountPercent % 1 !== 0
-                    ? discountPercent.toFixed(2) // Show 2 decimal points if fractional
-                    : discountPercent.toString()}%
+                  - {roundedDiscount}%
                 </span>
               );
             }
             return null; // Do not render anything if the discount is 0%
           })()
         )}
+
 
 
 
