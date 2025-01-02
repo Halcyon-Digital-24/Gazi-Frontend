@@ -41,7 +41,7 @@ function Checkout() {
   const [mobile, setMobile] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [thana, setThana] = useState("");
+  // const [thana, setThana] = useState("");
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [mobileError, setMobileError] = useState("");
@@ -97,7 +97,7 @@ function Checkout() {
     mobile: login?.user?.mobile ? login?.user?.mobile : mobile,
     address,
     city,
-    thana,
+    thana: location,
     order_form: "web",
     delivery_fee: deliveryFee,
     coupon_id: couponId,
@@ -130,15 +130,16 @@ function Checkout() {
     setAddressError("");
     setMobileError("");
 
-    if (!/^[a-zA-Z\s.']+$/.test(name)) {
-      setNameError("Please enter a valid Name");
+    if (!/^[\u0980-\u09FFa-zA-Z\s.,'-]+$/.test(name)) {
+      setNameError("Please enter a valid Name (Bangla or English characters allowed)");
     } else if (email && !/^\S+@\S+\.\S+$/.test(email)) {
       setEmailError("Please enter a valid email address");
     } else if (!/^\d+$/.test(mobile)) {
-      setMobileError("Please enter a valid mobile number");
-    } else if (!/^[a-zA-Z0-9\s.,'-]+$/.test(address)) {
-      setAddressError("Please enter a valid address");
-    } else {
+      setMobileError("Please enter a valid mobile number (only digits allowed)");
+    } else if (!/^[\u0980-\u09FFa-zA-Z0-9\s.,'()\-\/]+$/.test(address)) {
+      setAddressError("Please enter a valid address (Bangla or English characters allowed)");
+    }
+     else {
       setIsLoading(true);
       await axios
         .post(`${API_URL}/orders`, orderData)
@@ -436,12 +437,11 @@ function Checkout() {
                   <FormGroup
                     className="mb-1"
                     type="email"
-                    title="Email*"
-                    placeholder="Type your e-mail*"
+                    title="Email"
+                    placeholder="Type your e-mail"
                     onChange={(e) => setEmail(e.target.value)}
                     value={login?.user?.email ? login?.user?.email : email}
                     disabled={login?.accessToken ? true : false}
-                    required
                   />
                   {emailError && (
                     <p className=" font-gotham text-xs warning">{emailError}</p>
@@ -463,7 +463,7 @@ function Checkout() {
                   <FormGroup
                     className="mb-1"
                     title="Address*"
-                    placeholder="Type your address*"
+                    placeholder="Type your address in details*"
                     onChange={(e) => setAddress(e.target.value)}
                     required
                   />
@@ -475,17 +475,17 @@ function Checkout() {
                   <div className="grid grid-cols-2 gap-4">
                     <FormGroup
                       className="mb-1"
-                      title="Thana*"
+                      title="City/Thana*"
                       required
                       onChange={(e) => setCity(e.target.value)}
-                      placeholder="Type your thana*"
+                      placeholder="Type your City/Thana or Upozila*"
                     />
                     <div>
                       <label
-                        htmlFor="location"
+                        htmlFor="select-district"
                         className=" font-gotham font-normal text-xs  black-text mb-2"
                       >
-                        Location
+                        Select District
                       </label>
                       <CustomDropdown
                         locations={locations}
